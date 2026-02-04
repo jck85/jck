@@ -1,22 +1,6 @@
-// Set Game Class
-// Contains all variables and functions for a game of Set.
-
-// Testing
-window.addEventListener("load", function () {
-    // Code to execute after the page is fully loaded
-    console.log("Page fully loaded!");
-});
-
-// let props = {
-//     xPos: 0,
-//     yPos: 0,
-//     width: 0,
-//     height: 0,
-//     color: 0,
-//     shading: 0,
-//     shape: 0,
-//     count: 0,
-// };
+// window.addEventListener("load", function () {
+//     console.log("Page fully loaded!");
+// });
 
 class Card {
     constructor(x, y, w, h, props) {
@@ -32,18 +16,18 @@ class Card {
         this.count = props[3] + 1;
         this.colors = ["red", "green", "blue"];
         this.dealt = false;
+        this.selected = false;
     }
 
     create() {
-        // console.log(this.x, this.y, this.w, this.h);
-        // console.log(this.color, this.shading, this.shape, this.count);
-
         // draw card border
         console.log("creating card:", this.id);
         stroke(0);
         strokeWeight(4);
         fill("white");
         rect(this.x, this.y, this.w, this.h, 10);
+
+        // rect.addClass("rectangle");
 
         // draw card symbols
         // generate points to place symbols.
@@ -189,7 +173,76 @@ class Card {
         strokeWeight(2);
         ellipse(x, y, d, d);
     }
+
+    update() {
+        switch (this.hover()) {
+            case true:
+                stroke("green");
+                strokeWeight(4);
+                rect(this.x, this.y, this.w, this.h, 10);
+                break;
+
+            case false:
+                stroke("black");
+                strokeWeight(4);
+                rect(this.x, this.y, this.w, this.h, 10);
+                break;
+
+            default:
+                break;
+        }
+
+        switch (this.pressed()) {
+            case true:
+                stroke("green");
+                strokeWeight(4);
+                rect(this.x, this.y, this.w, this.h, 10);
+                break;
+
+            case false:
+                stroke("black");
+                strokeWeight(4);
+                rect(this.x, this.y, this.w, this.h, 10);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    hover() {
+        if (
+            mouseX > this.x &&
+            mouseX < this.x + this.w &&
+            mouseY > this.y &&
+            mouseY < this.y + this.h
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    pressed() {
+        if (this.hover()) {
+        }
+    }
+
+    released() {
+        this.color = color(0, 0, 200);
+        this.active = false;
+        this.dragging = false;
+    }
 }
+
+let props1 = [0, 2, 0, 0];
+let card1 = null;
+
+let props2 = [1, 1, 0, 1];
+let card2 = null;
+
+let props3 = [2, 0, 1, 2];
+let card3 = null;
 
 function setup() {
     let c = document.getElementById("set");
@@ -201,22 +254,23 @@ function setup() {
     frameRate(60);
     clear();
 
-    // createCard();
+    card1 = new Card(50, 50, 140, 200, props1);
+    card1.create();
 
-    let props = [0, 2, 0, 0];
-    let card = new Card(50, 50, 140, 200, props);
-    card.create();
-
-    let props2 = [1, 1, 0, 1];
-    let card2 = new Card(200, 50, 140, 200, props2);
+    card2 = new Card(200, 50, 140, 200, props2);
     card2.create();
 
-    let props3 = [2, 0, 1, 2];
-    let card3 = new Card(350, 50, 140, 200, props3);
+    card3 = new Card(350, 50, 140, 200, props3);
     card3.create();
 }
 
-function draw() {}
+function draw() {
+    // card3.hover();
+    // card3.update();
+}
+
+/**
+ Junkyard
 
 function createCard() {
     // card position and dimensions
@@ -366,9 +420,6 @@ function createSquare(x, y, w, h, color, shading) {
     strokeWeight(2);
     rect(x, y, w, h);
 }
-
-/**
- Junkyard
 
 function drawSquiggle() {
 
