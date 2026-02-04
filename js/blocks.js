@@ -64,6 +64,22 @@ class Block {
         }
     }
 
+    isOnTopOf(otherBlock) {
+        // Check if this block is horizontally aligned with the other block
+        let horizontalOverlap =
+            this.x < otherBlock.x + otherBlock.size &&
+            this.x + this.size > otherBlock.x;
+
+        // Check if this block is approaching or touching the top of the other block
+        let bottomOfThis = this.y + this.size;
+        let topOfOther = otherBlock.y;
+        let isTouching =
+            bottomOfThis >= topOfOther - this.velocity &&
+            bottomOfThis <= topOfOther + 5;
+
+        return horizontalOverlap && isTouching && this.y < otherBlock.y;
+    }
+
     checkCollision(block) {
         // if (this.y + this.h > block.y) {
         //     this.currentColor = "purple";
@@ -82,9 +98,9 @@ class Block {
         return false;
     }
 
-    resolveCollision(blocks) {
+    resolveCollisions(blocks) {
         for (let block of blocks) {
-            if (this !== block && this.isCollidingWith(block)) {
+            if (this !== block && this.checkCollision(block)) {
                 let overlapX = Math.min(
                     this.x + this.size - block.x,
                     block.x + block.size - this.x
@@ -153,6 +169,23 @@ class Block {
         this.active = false;
         this.dragging = false;
     }
+
+    isMouseOver() {
+        return (
+            mouseX > this.x &&
+            mouseX < this.x + this.w &&
+            mouseY > this.y &&
+            mouseY < this.y + this.h
+        );
+    }
+
+    moveWithMouse() {
+        if (this.isMouseOver() && mouseIsPressed) {
+            this.x = mouseX - this.w / 2;
+            this.y = mouseY - this.h / 2;
+            this.velocity = 0;
+        }
+    }
 }
 
 let block = null;
@@ -175,8 +208,8 @@ function setup() {
     // block2 = new Block(150, 65, 50, 50, "green");
     // block2.show();
 
-    blocks.push(new Block(175, 175, 50));
-    blocks.push(new Block(100, 50, 50));
+    blocks.push(new Block(175, 175, 50, 50, "red"));
+    blocks.push(new Block(100, 50, 50, 50, "blue"));
 }
 
 function draw() {
@@ -193,6 +226,7 @@ function draw() {
 
     for (let block of blocks) {
         block.moveWithMouse();
+        // block.update();
         block.fall(blocks);
     }
 
@@ -202,16 +236,22 @@ function draw() {
     }
 
     for (let block of blocks) {
-        block.display();
+        block.show();
     }
 }
 
-function mousePressed() {
-    block.pressed();
-    block2.pressed();
-}
+// function mousePressed() {
+//     // block.pressed();
+//     // block2.pressed();
+//     for (let block of blocks) {
+//         block.pressed();
+//     }
+// }
 
-function mouseReleased() {
-    block.released();
-    block2.released();
-}
+// function mouseReleased() {
+//     // block.released();
+//     // block2.released();
+//     for (let block of blocks) {
+//         block.released();
+//     }
+// }
