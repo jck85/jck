@@ -47,7 +47,7 @@ class Block {
         // Check if this block should land on any other block
         for (let block of blocks) {
             if (this !== block && this.isOnTopOf(block)) {
-                this.y = block.y - this.size;
+                this.y = block.y - this.h;
                 this.velocity = 0;
                 isStacked = true;
                 break;
@@ -67,11 +67,11 @@ class Block {
     isOnTopOf(otherBlock) {
         // Check if this block is horizontally aligned with the other block
         let horizontalOverlap =
-            this.x < otherBlock.x + otherBlock.size &&
-            this.x + this.size > otherBlock.x;
+            this.x < otherBlock.x + otherBlock.w &&
+            this.x + this.w > otherBlock.x;
 
         // Check if this block is approaching or touching the top of the other block
-        let bottomOfThis = this.y + this.size;
+        let bottomOfThis = this.y + this.h;
         let topOfOther = otherBlock.y;
         let isTouching =
             bottomOfThis >= topOfOther - this.velocity &&
@@ -102,13 +102,13 @@ class Block {
         for (let block of blocks) {
             if (this !== block && this.checkCollision(block)) {
                 let overlapX = Math.min(
-                    this.x + this.size - block.x,
-                    block.x + block.size - this.x
+                    this.x + this.w - block.x,
+                    block.x + block.w - this.x
                 );
 
                 let overlapY = Math.min(
-                    this.y + this.size - block.y,
-                    block.y + block.size - this.y
+                    this.y + this.h - block.y,
+                    block.y + block.h - this.y
                 );
 
                 // Resolve by smallest overlap
@@ -208,8 +208,9 @@ function setup() {
     // block2 = new Block(150, 65, 50, 50, "green");
     // block2.show();
 
-    blocks.push(new Block(175, 175, 50, 50, "red"));
-    blocks.push(new Block(100, 50, 50, 50, "blue"));
+    blocks.push(new Block(100, 200, 50, 50, "red"));
+    blocks.push(new Block(200, 100, 50, 50, "green"));
+    blocks.push(new Block(300, 50, 50, 50, "blue"));
 }
 
 function draw() {
