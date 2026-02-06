@@ -12,6 +12,8 @@ window.addEventListener("load", function () {
     canvas.appendChild(rect);
 });
 
+const svgNS = "http://www.w3.org/2000/svg";
+
 function svgLine(x1, y1, x2, y2) {
     let myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
 

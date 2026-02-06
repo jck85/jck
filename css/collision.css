@@ -3,7 +3,7 @@ h1 {
     text-align: center;
 }
 
-.blocks-content {
+.collision-content {
     margin: 1rem;
     padding: 1rem;
     display: flex;
@@ -11,20 +11,20 @@ h1 {
     gap: 1rem;
 }
 
-.blocks-canvas {
+.collision-canvas {
     border: var(--border-4px);
     height: 500px;
     width: 500px;
 }
 
-.blocks-controls {
+.collision-controls {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 }
 
-.blocks-controls button {
+.collision-controls button {
     border: 2px solid black;
     /* font-size: 1.2rem; */
     width: 2rem;
