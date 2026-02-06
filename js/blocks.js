@@ -12,17 +12,21 @@ class Block {
 
         this.velocity = 0;
         this.gravity = 0.1;
+        this.acceleration;
         this.offsetX = 0;
         this.offsetY = 0;
         this.dragging = false;
+        this.collided = false;
+
         this.over = false;
         this.active = false;
         this.currentColor = this.c;
+        this.strokeColor = "black";
     }
 
     show() {
         fill(this.currentColor);
-        stroke(0);
+        stroke(this.strokeColor);
         strokeWeight(2);
         rect(this.x, this.y, this.w, this.h);
     }
@@ -33,12 +37,13 @@ class Block {
             this.y = mouseY + this.offsetY;
         }
 
-        // this.y = this.y + this.speed;
-        // this.speed = this.speed + this.gravity;
-
-        // if (this.atEdge()) {
-        //     this.speed = this.speed * 0;
-        // }
+        if (this.y + this.h < height) {
+            this.velocity += this.acceleration;
+            this.y += this.velocity;
+        } else {
+            this.y = height - this.h;
+            this.velocity = 0;
+        }
     }
 
     fall(blocks = []) {
@@ -64,38 +69,59 @@ class Block {
         }
     }
 
-    isOnTopOf(otherBlock) {
-        // Check if this block is horizontally aligned with the other block
-        let horizontalOverlap =
-            this.x < otherBlock.x + otherBlock.w &&
-            this.x + this.w > otherBlock.x;
+    // checkStacked(block) {
+    //     // Check if this block is horizontally aligned with the other block
+    //     let overlapX = this.x < block.x + block.w && this.x + this.w > block.x;
+    //     let overlapY = this.y + this.h > block.y;
+    //     if (overlapX && overlapY) {
+    //         this.y = block.y - this.h;
+    //     }
 
-        // Check if this block is approaching or touching the top of the other block
-        let bottomOfThis = this.y + this.h;
-        let topOfOther = otherBlock.y;
-        let isTouching =
-            bottomOfThis >= topOfOther - this.velocity &&
-            bottomOfThis <= topOfOther + 5;
+    //     // Check if this block is approaching or touching the top of the other block
+    //     // let bottomOfThis = this.y + this.h;
+    //     // let topOfOther = block.y;
 
-        return horizontalOverlap && isTouching && this.y < otherBlock.y;
-    }
+    //     // let isTouching =
+    //     //     this.y + this.h >= block.y - this.velocity &&
+    //     //     this.y + this.h <= block.y + 5;
+
+    //     // return overlapX && isTouching && this.y < block.y;
+    // }
 
     checkCollision(block) {
+        let overlapX = this.x < block.x + block.w && this.x + this.w > block.x;
+        let overlapY = this.y + this.h > block.y && this.y < block.y + block.h;
+
+        // if (overlapX) {
+        //     console.log("overlapX");
+        // }
+        // if (overlapY) {
+        //     console.log("overlapY");
+        // }
+        if (overlapX && overlapY) {
+            console.log("collision!");
+            this.y = block.y - this.h;
+            this.acceleration = 0;
+        } else {
+            this.acceleration = this.gravity;
+        }
         // if (this.y + this.h > block.y) {
         //     this.currentColor = "purple";
         // } else {
         //     this.currentColor = this.c;
         // }
-        if (
-            this.x < block.x + block.w &&
-            this.x + this.w > block.x &&
-            this.y < block.y + block.h &&
-            this.y + this.h > block.h
-        ) {
-            return true;
-        }
 
-        return false;
+        // if (
+        //     this.x < block.x + block.w &&
+        //     this.x + this.w > block.x &&
+        //     this.y < block.y + block.h &&
+        //     this.y + this.h > block.h
+        // ) {
+        //     console.log("collision!");
+        //     return true;
+        // }
+
+        // return false;
     }
 
     resolveCollisions(blocks) {
@@ -141,22 +167,26 @@ class Block {
         return false;
     }
 
-    hover() {
+    mouseOver() {
         if (
             mouseX > this.x &&
             mouseX < this.x + this.w &&
             mouseY > this.y &&
             mouseY < this.y + this.h
         ) {
-            this.over = true;
-        } else {
-            this.over = false;
+            // this.over = true;
+            return true;
         }
+        // else {
+        //     this.over = false;
+        // }
+
+        return false;
     }
 
     pressed() {
-        if (this.over) {
-            this.color = color(0, 200, 0);
+        if (this.mouseOver()) {
+            this.strokeColor = color(0, 200, 0);
             this.active = true;
             this.dragging = true;
             this.offsetX = this.x - mouseX;
@@ -165,27 +195,27 @@ class Block {
     }
 
     released() {
-        this.color = color(0, 0, 200);
+        this.strokeColor = color(0, 0, 200);
         this.active = false;
         this.dragging = false;
     }
 
-    isMouseOver() {
-        return (
-            mouseX > this.x &&
-            mouseX < this.x + this.w &&
-            mouseY > this.y &&
-            mouseY < this.y + this.h
-        );
-    }
+    // isMouseOver() {
+    //     return (
+    //         mouseX > this.x &&
+    //         mouseX < this.x + this.w &&
+    //         mouseY > this.y &&
+    //         mouseY < this.y + this.h
+    //     );
+    // }
 
-    moveWithMouse() {
-        if (this.isMouseOver() && mouseIsPressed) {
-            this.x = mouseX - this.w / 2;
-            this.y = mouseY - this.h / 2;
-            this.velocity = 0;
-        }
-    }
+    // moveWithMouse() {
+    //     if (this.isMouseOver() && mouseIsPressed) {
+    //         this.x = mouseX - this.w / 2;
+    //         this.y = mouseY - this.h / 2;
+    //         this.velocity = 0;
+    //     }
+    // }
 }
 
 let block = null;
@@ -225,34 +255,42 @@ function draw() {
     // block2.hover();
     // block2.checkCollision(block);
 
-    for (let block of blocks) {
-        block.moveWithMouse();
-        // block.update();
-        block.fall(blocks);
+    for (let i = 0; i < blocks.length; i++) {
+        // block.moveWithMouse();
+        let block = blocks[i];
+        block.update();
+        block.show();
+        for (let j = 0; j < blocks.length; j++) {
+            if (j === i) {
+                break;
+            }
+            block.checkCollision(blocks[j]);
+        }
+        // block.fall(blocks);
     }
 
     // Resolve collisions after all blocks have moved
-    for (let block of blocks) {
-        block.resolveCollisions(blocks);
-    }
+    // for (let block of blocks) {
+    //     block.resolveCollisions(blocks);
+    // }
 
+    // for (let block of blocks) {
+    //     block.show();
+    // }
+}
+
+function mousePressed() {
+    // block.pressed();
+    // block2.pressed();
     for (let block of blocks) {
-        block.show();
+        block.pressed();
     }
 }
 
-// function mousePressed() {
-//     // block.pressed();
-//     // block2.pressed();
-//     for (let block of blocks) {
-//         block.pressed();
-//     }
-// }
-
-// function mouseReleased() {
-//     // block.released();
-//     // block2.released();
-//     for (let block of blocks) {
-//         block.released();
-//     }
-// }
+function mouseReleased() {
+    // block.released();
+    // block2.released();
+    for (let block of blocks) {
+        block.released();
+    }
+}
