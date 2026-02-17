@@ -1,60 +1,125 @@
 window.addEventListener("load", function () {
-    console.log("Page fully loaded!");
-
     const svgCanvas = document.getElementById("svg-canvas");
-    // const svgCtx = svgCanvas.getContext("2d");
 
-    width = svgCanvas.clientWidth;
-    height = svgCanvas.clientHeight;
-    console.log(width, height);
-
-    // let circle = svgCircle(100, 25);
-    // canvas.appendChild(circle);
-    // let rect = svgRect(200, 100, 50, 50);
-    // canvas.appendChild(rect);
-
-    const circle = new Circle(100, 100, 50, svgCanvas);
+    // const circle = new Circle(100, 100, 50, svgCanvas);
+    const circle = new Circle(100, 100, 50);
     circle.draw();
-    circle.addEvents();
-    circle.move(150, 150);
+
+    // circle.draw();
+    // circle.addEvents();
+    // circle.move(150, 150);
+
+    const canvas = new Canvas(svgCanvas, 0, 0);
+    canvas.init();
+    canvas.addShape(circle);
+    canvas.drawShapes();
 });
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
-class Shape {
-    constructor(x, y) {}
+class Canvas {
+    constructor(c, w, h) {
+        this.canvas = c;
+        this.width = w;
+        this.height = h;
+        this.shapes = [];
+        this.groups = [];
+        this.offset = { x: 0, y: 0 };
+        this.activeShape = null;
 
-    mouseOver(event) {
-        const svg = event.target;
-        const CTM = svg.getScreenCTM();
+        this.offset = null;
+    }
 
-        if (event.touches) {
-            event = event.touches[0];
+    init() {
+        console.log(this.canvas);
+        // this.getMouse();
+        // this.canvas.addEventListener("mousedown", this.startDrag);
+
+        this.canvas.addEventListener("mousedown", (event) => {
+            this.offset = this.getMouse(event);
+            this.activeShape = event.target;
+        });
+
+        this.canvas.addEventListener("mousemove", (event) => {
+            const element = event.target;
+
+            if (element && this.activeShape) {
+                event.preventDefault();
+                console.log(element);
+
+                // let offset;
+                var coord = this.getMouse(event);
+                var dx = coord.x - this.offset.x;
+                var dy = coord.y - this.offset.y;
+
+                console.log(dx, dy, this.offset);
+
+                // this.circle.setAttribute("cx", parseInt(this.offset.x));
+                // this.circle.setAttribute("cy", parseInt(this.offset.y));
+
+                element.setAttribute(
+                    "transform",
+                    `translate(${this.offset.x} ${this.offset.y})`
+                );
+            }
+        });
+
+        this.canvas.addEventListener("mouseup", () => {
+            this.activeShape = null;
+        });
+    }
+
+    addShape(shape) {
+        this.shapes.push(shape);
+    }
+
+    drawShapes() {
+        for (let shape of this.shapes) {
+            shape.draw();
+            this.canvas.appendChild(shape.svg);
         }
-
-        mousePos = {
-            x: (event.clientX - CTM.e) / CTM.a,
-            y: (event.clientY - CTM.f) / CTM.d,
-        };
-
-        // return {
-        //     x: (event.clientX - CTM.e) / CTM.a,
-        //     y: (event.clientY - CTM.f) / CTM.d,
-        // };
-    }
-}
-
-class Circle {
-    constructor(x, y, r, canvas) {
-        this.posX = x;
-        this.posY = y;
-        this.radius = r;
-        this.canvas = canvas;
-        this.circle = null;
-        this.offset = 0;
     }
 
-    getMousePosition(event) {
+    drag(event) {
+        console.log(event);
+
+        const selectedElement = event.target;
+
+        if (selectedElement) {
+            event.preventDefault();
+
+            // let offset;
+            // // var coord = getMousePosition(event);
+            // var dx = coord.x - this.offset.x;
+            // var dy = coord.y - this.offset.y;
+
+            // console.log(dx, dy, this.offset);
+
+            // // this.circle.setAttribute("cx", parseInt(this.offset.x));
+            // // this.circle.setAttribute("cy", parseInt(this.offset.y));
+
+            // selectedElement.setAttribute(
+            //     "transform",
+            //     `translate(${this.offset.x} ${this.offset.y})`
+            // );
+        }
+    }
+
+    // startDrag(event) {
+    //     console.log("start drag");
+    //     this.getMouse();
+    //     // this.activeShape = event.target;
+    //     // this.getMouse(event);
+    //     // console.log(mousePos);
+    //     // this.test();
+    // }
+
+    // endDrag(event) {
+    //     console.log("end drag");
+    // }
+
+    getMouse(event) {
+        console.log("get mouse");
         const svg = event.target;
         const CTM = svg.getScreenCTM();
 
@@ -67,20 +132,33 @@ class Circle {
             y: (event.clientY - CTM.f) / CTM.d,
         };
     }
+}
+
+class Circle {
+    constructor(x, y, r, canvas) {
+        this.posX = x;
+        this.posY = y;
+        this.radius = r;
+        this.canvas = canvas;
+        // this.circle = null;
+        this.active = false;
+        this.svg = null;
+    }
 
     draw() {
-        this.circle = document.createElementNS(SVG_NAMESPACE, "ellipse");
+        this.svg = document.createElementNS(SVG_NAMESPACE, "ellipse");
 
-        this.circle.setAttribute("cx", parseInt(this.posX));
-        this.circle.setAttribute("cy", parseInt(this.posY));
-        this.circle.setAttribute("rx", parseInt(this.radius));
-        this.circle.setAttribute("ry", parseInt(this.radius));
+        this.svg.setAttribute("cx", parseInt(this.posX));
+        this.svg.setAttribute("cy", parseInt(this.posY));
+        this.svg.setAttribute("rx", parseInt(this.radius));
+        this.svg.setAttribute("ry", parseInt(this.radius));
 
-        this.circle.setAttribute("stroke", "black");
-        this.circle.setAttribute("stroke-width", "2pt");
-        this.circle.setAttribute("fill", "white");
+        this.svg.setAttribute("stroke", "black");
+        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("fill", "white");
 
-        this.canvas.appendChild(this.circle);
+        // console.log(this.svg);
+        // this.canvas.appendChild(this.svg);
     }
 
     move(x, y) {
@@ -89,92 +167,75 @@ class Circle {
         this.circle.setAttribute("cx", parseInt(this.posX));
         this.circle.setAttribute("cy", parseInt(this.posY));
     }
+}
 
-    addEvents() {
-        this.circle.addEventListener("mouseenter", () => {
-            console.log("mouseenter");
-            this.circle.setAttribute("stroke", "green");
-        });
+// ai example
+/**
+const svg = document.getElementById('canvas');
+const draggableRect = document.getElementById('draggableRect');
 
-        this.circle.addEventListener("mouseleave", () => {
-            console.log("mouseleave");
-            this.circle.setAttribute("stroke", "black");
-        });
+let selectedElement = null;
+let offset = { x: 0, y: 0 };
 
-        this.circle.addEventListener("mousedown", (event) => {
-            console.log("mousedown");
-            // this.offset = getMousePosition(event);
-        });
-
-        this.circle.addEventListener("mousemove", (event) => {
-            console.log("mousemove");
-        });
-
-        // this.circle.addEventListener("mousemove", () => {
-        //     console.log("mouse move");
-        // });
-
-        this.circle.addEventListener("mouseup", () => {
-            console.log("mouse up");
-        });
-
-        //     // newRect.addEventListener("mousedown", startDrag);
-        //     // newRect.addEventListener("mousemove", drag);
-        //     // newRect.addEventListener("mouseup", endDrag);
-
-        // this.circle.addEventListener();
+// Function to get mouse position in SVG coordinates
+function getMousePosition(evt) {
+    const CTM = svg.getScreenCTM();
+    if (evt.touches) {
+        evt = evt.touches[0];
     }
+    return {
+        x: (evt.clientX - CTM.e) / CTM.a,
+        y: (evt.clientY - CTM.f) / CTM.d
+    };
+}
 
-    startDrag(event) {
-        const svg = event.target;
-        const offset = getMousePosition(event);
-        console.log(offset);
-
-        if (event.target.classList.contains("draggable")) {
-            console.log(svg);
-        }
-    }
-
-    drag(event) {
-        console.log(event.target);
-        const selectedElement = event.target;
-
-        if (selectedElement) {
-            event.preventDefault();
-
-            let offset;
-            var coord = getMousePosition(event);
-            var dx = coord.x - offset.x;
-            var dy = coord.y - offset.y;
-
-            // const confined = event.target.classList.contains("confine");
-            // if (confined) {
-            //     if (dx < minX) {
-            //         dx = minX;
-            //     } else if (dx > maxX) {
-            //         dx = maxX;
-            //     }
-
-            //     if (dy < minY) {
-            //         dy = minY;
-            //     } else if (dy > maxY) {
-            //         dy = maxY;
-            //     }
-            // }
-
-            transform.setTranslate(dx, dy);
-        }
-    }
-
-    endDrag(event) {
-        selectedElement = false;
+// Mousedown event handler to start dragging
+function startDrag(evt) {
+    if (evt.target.id === 'draggableRect') {
+        selectedElement = evt.target;
+        const mousePosition = getMousePosition(evt);
+        // Calculate the offset between the mouse position and the element's top-left corner
+        offset = {
+            x: mousePosition.x - parseFloat(selectedElement.getAttributeNS(null, "x")),
+            y: mousePosition.y - parseFloat(selectedElement.getAttributeNS(null, "y"))
+        };
+        // Attach mousemove and mouseup listeners to the *SVG canvas*
+        // to prevent issues if the mouse moves too fast off the element
+        svg.addEventListener('mousemove', drag);
+        svg.addEventListener('mouseup', endDrag);
     }
 }
 
-const boundaryX1 = 0;
-const boundaryX2 = 600;
-const boundaryY1 = 0;
-const boundaryY2 = 400;
+// Mousemove event handler to move the element
+function drag(evt) {
+    if (selectedElement) {
+        evt.preventDefault();
+        const mousePosition = getMousePosition(evt);
+        // Update the element's position based on the mouse position and initial offset
+        selectedElement.setAttributeNS(null, "x", mousePosition.x - offset.x);
+        selectedElement.setAttributeNS(null, "y", mousePosition.y - offset.y);
+    }
+}
+
+// Mouseup event handler to end dragging
+function endDrag(evt) {
+    if (selectedElement) {
+        selectedElement = null;
+        // Remove the mousemove and mouseup listeners from the SVG canvas
+        svg.removeEventListener('mousemove', drag);
+        svg.removeEventListener('mouseup', endDrag);
+    }
+}
+
+// Add mousedown listener to the SVG canvas to initiate drags
+svg.addEventListener('mousedown', startDrag);
+
+ */
+
+// const boundaryX1 = 0;
+// const boundaryX2 = 600;
+// const boundaryY1 = 0;
+// const boundaryY2 = 400;
 
 // function makeDraggable(event) {
 //   const svg = event.target;
@@ -218,19 +279,19 @@ const boundaryY2 = 400;
 //     this.circle.setAttribute("cy", parseInt(dy));
 // }
 
-function getMousePosition(event) {
-    const svg = event.target;
-    const CTM = svg.getScreenCTM();
+// function getMousePosition(event) {
+//     const svg = event.target;
+//     const CTM = svg.getScreenCTM();
 
-    if (event.touches) {
-        event = event.touches[0];
-    }
+//     if (event.touches) {
+//         event = event.touches[0];
+//     }
 
-    return {
-        x: (event.clientX - CTM.e) / CTM.a,
-        y: (event.clientY - CTM.f) / CTM.d,
-    };
-}
+//     return {
+//         x: (event.clientX - CTM.e) / CTM.a,
+//         y: (event.clientY - CTM.f) / CTM.d,
+//     };
+// }
 
 // const selectedElement,
 //     offset,
