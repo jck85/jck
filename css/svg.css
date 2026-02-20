@@ -27,9 +27,12 @@ h1 {
 
 .svg-controls button {
     border: 2px solid black;
-    /* font-size: 1.2rem; */
     width: 2rem;
     height: 2rem;
+}
+
+.draggable:hover {
+    cursor: pointer;
 }
 
 button i {
