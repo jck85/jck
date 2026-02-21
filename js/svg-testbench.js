@@ -1,179 +1,59 @@
-window.addEventListener("load", function () {
-    const svgCanvas = document.getElementById("svg-canvas");
+// function draggable(canvas) {
+//     let selected = null;
+//     let svg = canvas;
+//     let offset = { x: 0, y: 0 };
+//     let origin = { x: 0, y: 0 };
 
-    const circle = new Circle(200, 200, 100);
+//     svg.addEventListener("mousedown", startDrag);
+//     svg.addEventListener("mousemove", drag);
+//     svg.addEventListener("mouseup", endDrag);
+//     svg.addEventListener("mouseleave", endDrag);
 
-    const canvas = new Canvas(svgCanvas, 0, 0);
-    canvas.init();
-    canvas.addShape(circle);
-    canvas.drawShapes();
-});
+//     function startDrag(event) {
+//         event.preventDefault();
+//         let target = event.target;
+//         offset = getMouse(event);
 
-const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+//         if (target.classList.contains("draggable")) {
+//             selected = target;
+//             origin = {
+//                 x: selected.cx.baseVal.value,
+//                 y: selected.cy.baseVal.value,
+//             };
+//         }
+//     }
 
-class Canvas {
-    constructor(c, w, h) {
-        this.canvas = c;
-        this.width = w;
-        this.height = h;
-        this.shapes = [];
-        this.groups = [];
-        this.offset = { x: 0, y: 0 };
-        this.activeShape = null;
+//     function drag(event) {
+//         event.preventDefault();
+//         if (selected) {
+//             let mousePos = getMouse(event);
+//             let dx = mousePos.x - offset.x;
+//             let dy = mousePos.y - offset.y;
+//             let newPos = { x: origin.x + dx, y: origin.y + dy };
 
-        this.offset = null;
-        this.mouseDown = false;
-        // this.mouseUp = false;
-        // this.moveMove = false;
-    }
+//             selected.setAttributeNS(null, "cx", newPos.x);
+//             selected.setAttributeNS(null, "cy", newPos.y);
+//         }
+//     }
 
-    init() {
-        this.canvas.addEventListener("mousedown", (event) => {
-            // const target = event.target;
-            this.offset = this.getMouse(event);
-            this.mouseDown = true;
-            // console.log("mouse down");
-            // if (target.classList.contains("draggable-svg")) {
-            //     console.log("drag shape");
-            //     this.offset = this.getMouse(event);
-            //     console.log(this.offset);
-            //     this.activeShape = event.target;
-            // }
-        });
+//     function endDrag(event) {
+//         event.preventDefault();
+//         selected = null;
+//     }
 
-        this.canvas.addEventListener("mousemove", (event) => {
-            event.preventDefault();
-            const target = event.target;
+//     function getMouse(event) {
+//         event.preventDefault();
+//         var CTM = svg.getScreenCTM();
+//         if (event.touches) {
+//             event = event.touches[0];
+//         }
 
-            // console.log("mouse move");
-            // const element = event.target;
-
-            if (target.classList.contains("draggable-svg") && this.mouseDown) {
-                // console.log("shape: ");
-                // let offset;
-                var cords = this.getMouse(event);
-
-                var dx = cords.x - this.offset.x;
-                var dy = cords.y - this.offset.y;
-
-                console.log(dx, dy, this.offset, cords);
-                console.log(target);
-
-                // target.setAttribute("cx", parseInt(dx));
-                // target.setAttribute("cy", parseInt(dy));
-
-                // target.setAttribute(
-                //     "transform",
-                //     `translate(${this.offset.x} ${this.offset.y})`
-                // );
-            }
-        });
-
-        this.canvas.addEventListener("mouseup", () => {
-            // console.log("mouse up");
-            this.activeShape = null;
-            this.mouseDown = false;
-        });
-    }
-
-    addShape(shape) {
-        this.shapes.push(shape);
-    }
-
-    drawShapes() {
-        for (let shape of this.shapes) {
-            shape.draw();
-            this.canvas.appendChild(shape.svg);
-        }
-    }
-
-    // drag(event) {
-    //     console.log(event);
-
-    //     const selectedElement = event.target;
-
-    //     if (selectedElement) {
-    //         event.preventDefault();
-    //         // let offset;
-
-    //         var coord = getMousePosition(event);
-
-    //         var dx = coord.x - this.offset.x;
-    //         var dy = coord.y - this.offset.y;
-    //         console.log(dx, dy, this.offset);
-
-    //         // this.circle.setAttribute("cx", parseInt(this.offset.x));
-    //         // this.circle.setAttribute("cy", parseInt(this.offset.y));
-    //         selectedElement.setAttribute(
-    //             "transform",
-    //             `translate(${this.offset.x} ${this.offset.y})`
-    //         );
-    //     }
-    // }
-
-    // startDrag(event) {
-    //     console.log("start drag");
-    //     this.getMouse();
-    //     // this.activeShape = event.target;
-    //     // this.getMouse(event);
-    //     // console.log(mousePos);
-    //     // this.test();
-    // }
-
-    // endDrag(event) {
-    //     console.log("end drag");
-    // }
-
-    getMouse(event) {
-        // console.log("get mouse");
-        // const svg = event.target;
-
-        const CTM = event.target.getScreenCTM();
-        console.log(CTM, event.clientX, event.clientY);
-
-        // if (event.touches) {
-        //     event = event.touches[0];
-        // }
-
-        return {
-            x: (event.clientX - CTM.e) / CTM.a,
-            y: (event.clientY - CTM.f) / CTM.d,
-        };
-    }
-}
-
-class Circle {
-    constructor(x, y, r, canvas) {
-        this.posX = x;
-        this.posY = y;
-        this.radius = r;
-        this.canvas = canvas;
-        this.active = false;
-        this.svg = null;
-    }
-
-    draw() {
-        this.svg = document.createElementNS(SVG_NAMESPACE, "ellipse");
-
-        this.svg.setAttribute("cx", parseInt(this.posX));
-        this.svg.setAttribute("cy", parseInt(this.posY));
-        this.svg.setAttribute("rx", parseInt(this.radius));
-        this.svg.setAttribute("ry", parseInt(this.radius));
-
-        this.svg.setAttribute("stroke", "black");
-        this.svg.setAttribute("stroke-width", "2pt");
-        this.svg.setAttribute("fill", "white");
-
-        this.svg.setAttribute("class", "draggable-svg");
-    }
-
-    move(x, y) {
-        this.posX = x;
-        this.posY = y;
-        this.circle.setAttribute("cx", parseInt(this.posX));
-        this.circle.setAttribute("cy", parseInt(this.posY));
-    }
-}
+//         return {
+//             x: (event.clientX - CTM.e) / CTM.a,
+//             y: (event.clientY - CTM.f) / CTM.d,
+//         };
+//     }
+// }
 
 // ai example
 /**
@@ -350,11 +230,6 @@ svg.addEventListener('mousedown', startDrag);
 
 //     return newRect;
 // }
-
-/**
- Junkyard
-
-
 function svgLine(x1, y1, x2, y2) {
     let myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
@@ -371,6 +246,27 @@ function svgLine(x1, y1, x2, y2) {
 
     return myLine;
 }
+function intersectRect(r1, r2) {
+    let x1 = parseInt(r1.getAttribute("x"));
+    let x1Max = x1 + parseInt(r1.getAttribute("width"));
+    let y1 = parseInt(r1.getAttribute("y"));
+    let y1Max = y1 + parseInt(r1.getAttribute("height"));
+
+    let x2 = parseInt(r2.getAttribute("x"));
+    let x2Max = x2 + parseInt(r2.getAttribute("width"));
+    let y2 = parseInt(r2.getAttribute("y"));
+    let y2Max = y2 + parseInt(r2.getAttribute("height"));
+
+    //console.log('R1:', x1, y1, x1Max, y1Max, 'R2:', x2, y2, x2Max, y2Max);
+    //console.log(x1Max < x2, x1 > x2Max, y1 > y2Max, y1Max < y2);
+    let areIntersecting = x1Max < x2 || x1 > x2Max || y1 > y2Max || y1Max < y2;
+    console.log(!areIntersecting);
+}
+
+/**
+ Junkyard
+
+
 
 function makeDraggable(event) {
     const svg = event.target;
@@ -407,23 +303,6 @@ function startDrag(event) {
 
 function endDrag(event) {
     selectedElement = false;
-}
-
-function intersectRect(r1, r2) {
-    let x1 = parseInt(r1.getAttribute("x"));
-    let x1Max = x1 + parseInt(r1.getAttribute("width"));
-    let y1 = parseInt(r1.getAttribute("y"));
-    let y1Max = y1 + parseInt(r1.getAttribute("height"));
-
-    let x2 = parseInt(r2.getAttribute("x"));
-    let x2Max = x2 + parseInt(r2.getAttribute("width"));
-    let y2 = parseInt(r2.getAttribute("y"));
-    let y2Max = y2 + parseInt(r2.getAttribute("height"));
-
-    //console.log('R1:', x1, y1, x1Max, y1Max, 'R2:', x2, y2, x2Max, y2Max);
-    //console.log(x1Max < x2, x1 > x2Max, y1 > y2Max, y1Max < y2);
-    let areIntersecting = x1Max < x2 || x1 > x2Max || y1 > y2Max || y1Max < y2;
-    console.log(!areIntersecting);
 }
 
  */

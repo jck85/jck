@@ -1,72 +1,12 @@
-// function draggable(canvas) {
-//     let selected = null;
-//     let svg = canvas;
-//     let offset = { x: 0, y: 0 };
-//     let origin = { x: 0, y: 0 };
-
-//     svg.addEventListener("mousedown", startDrag);
-//     svg.addEventListener("mousemove", drag);
-//     svg.addEventListener("mouseup", endDrag);
-//     svg.addEventListener("mouseleave", endDrag);
-
-//     function startDrag(event) {
-//         event.preventDefault();
-//         let target = event.target;
-//         offset = getMouse(event);
-
-//         if (target.classList.contains("draggable")) {
-//             selected = target;
-//             origin = {
-//                 x: selected.cx.baseVal.value,
-//                 y: selected.cy.baseVal.value,
-//             };
-//         }
-//     }
-
-//     function drag(event) {
-//         event.preventDefault();
-//         if (selected) {
-//             let mousePos = getMouse(event);
-//             let dx = mousePos.x - offset.x;
-//             let dy = mousePos.y - offset.y;
-//             let newPos = { x: origin.x + dx, y: origin.y + dy };
-
-//             selected.setAttributeNS(null, "cx", newPos.x);
-//             selected.setAttributeNS(null, "cy", newPos.y);
-//         }
-//     }
-
-//     function endDrag(event) {
-//         event.preventDefault();
-//         selected = null;
-//     }
-
-//     function getMouse(event) {
-//         event.preventDefault();
-//         var CTM = svg.getScreenCTM();
-//         if (event.touches) {
-//             event = event.touches[0];
-//         }
-
-//         return {
-//             x: (event.clientX - CTM.e) / CTM.a,
-//             y: (event.clientY - CTM.f) / CTM.d,
-//         };
-//     }
-// }
-
 window.addEventListener("load", () => {
-    // const svgCanvas = document.getElementById("svg-canvas");
-
-    const circle = new Circle(200, 200, 100);
-    // const circle2 = new Circle(300, 200, 100);
-    // draggable(svgCanvas);
-    // svgCanvas.appendChild(circle.svg);
-    // svgCanvas.appendChild(circle2.svg);
-
     const canvas = new Canvas("svg-canvas");
     canvas.init();
+
+    const circle = new Circle(200, 200, 100);
+    const rect = new Rectangle(300, 100, 50, 50);
+
     canvas.draw(circle);
+    canvas.draw(rect);
 });
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -139,21 +79,18 @@ class Canvas {
 }
 
 class Circle {
-    constructor(x, y, r, canvas) {
-        this.posX = x;
-        this.posY = y;
+    constructor(x, y, r) {
+        this.x = x;
+        this.y = y;
         this.radius = r;
-        this.canvas = canvas;
-        this.active = false;
         this.svg = null;
-        this.draw();
     }
 
     draw() {
         this.svg = document.createElementNS(SVG_NAMESPACE, "ellipse");
 
-        this.svg.setAttribute("cx", parseInt(this.posX));
-        this.svg.setAttribute("cy", parseInt(this.posY));
+        this.svg.setAttribute("cx", parseInt(this.x));
+        this.svg.setAttribute("cy", parseInt(this.y));
         this.svg.setAttribute("rx", parseInt(this.radius));
         this.svg.setAttribute("ry", parseInt(this.radius));
 
@@ -165,9 +102,102 @@ class Circle {
     }
 
     move(x, y) {
-        this.posX = x;
-        this.posY = y;
-        this.circle.setAttribute("cx", parseInt(this.posX));
-        this.circle.setAttribute("cy", parseInt(this.posY));
+        this.x = x;
+        this.y = y;
+        this.svg.setAttribute("cx", parseInt(this.posX));
+        this.svg.setAttribute("cy", parseInt(this.posY));
     }
 }
+
+class Rectangle {
+    constructor(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+        this.svg = null;
+    }
+
+    draw() {
+        this.svg = document.createElementNS(SVG_NAMESPACE, "rect");
+
+        this.svg.setAttribute("x", parseInt(this.x));
+        this.svg.setAttribute("y", parseInt(this.y));
+        this.svg.setAttribute("width", parseInt(this.width));
+        this.svg.setAttribute("height", parseInt(this.height));
+
+        this.svg.setAttribute("stroke", "black");
+        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("fill", "white");
+
+        this.svg.setAttribute("class", "draggable");
+    }
+
+    move(x, y) {
+        this.x = x;
+        this.y = y;
+        this.svg.setAttribute("x", parseInt(this.x));
+        this.svg.setAttribute("y", parseInt(this.y));
+    }
+}
+
+// function svgRect(xPos, yPos, width, height, fill, stroke, weight) {
+//     let newRect = document.createElementNS(
+//         "http://www.w3.org/2000/svg",
+//         "rect"
+//     );
+
+//     newRect.setAttribute("x", parseInt(xPos));
+//     newRect.setAttribute("y", parseInt(yPos));
+//     newRect.setAttribute("width", parseInt(width));
+//     newRect.setAttribute("height", parseInt(height));
+
+//     newRect.setAttribute("stroke", "black");
+//     newRect.setAttribute("stroke-width", "2pt");
+//     newRect.setAttribute("fill", "white");
+
+//     // newRect.addEventListener('mousedown', startMove);
+//     // // newRect.addEventListener('mouseup', endMove);
+//     // newRect.addEventListener("mousedown", startDrag);
+//     // newRect.addEventListener("mousemove", drag);
+//     // newRect.addEventListener("mouseup", endDrag);
+//     // newRect.addEventListener("mouseleave", endDrag);
+
+//     // newRect.classList.add("draggable");
+
+//     return newRect;
+// }
+
+// function svgLine(x1, y1, x2, y2) {
+//     let myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+//     myLine.setAttribute("x1", parseInt(x1));
+//     myLine.setAttribute("y1", parseInt(y1));
+//     myLine.setAttribute("x2", parseInt(x2));
+//     myLine.setAttribute("y2", parseInt(y2));
+
+//     // myLine.setAttribute('stroke', c);
+
+//     myLine.setAttribute("stroke", "black");
+//     myLine.setAttribute("stroke-width", "2pt");
+//     myLine.setAttribute("fill", "none");
+
+//     return myLine;
+// }
+
+// function intersectRect(r1, r2) {
+//     let x1 = parseInt(r1.getAttribute("x"));
+//     let x1Max = x1 + parseInt(r1.getAttribute("width"));
+//     let y1 = parseInt(r1.getAttribute("y"));
+//     let y1Max = y1 + parseInt(r1.getAttribute("height"));
+
+//     let x2 = parseInt(r2.getAttribute("x"));
+//     let x2Max = x2 + parseInt(r2.getAttribute("width"));
+//     let y2 = parseInt(r2.getAttribute("y"));
+//     let y2Max = y2 + parseInt(r2.getAttribute("height"));
+
+//     //console.log('R1:', x1, y1, x1Max, y1Max, 'R2:', x2, y2, x2Max, y2Max);
+//     //console.log(x1Max < x2, x1 > x2Max, y1 > y2Max, y1Max < y2);
+//     let areIntersecting = x1Max < x2 || x1 > x2Max || y1 > y2Max || y1Max < y2;
+//     console.log(!areIntersecting);
+// }
