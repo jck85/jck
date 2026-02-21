@@ -28,10 +28,18 @@ class Canvas {
 
             if (target.classList.contains("draggable")) {
                 this.selected = target;
-                this.origin = {
-                    x: this.selected.cx.baseVal.value,
-                    y: this.selected.cy.baseVal.value,
-                };
+
+                if (this.selected.tagName === "ellipse") {
+                    this.origin = {
+                        x: this.selected.cx.baseVal.value,
+                        y: this.selected.cy.baseVal.value,
+                    };
+                } else if (this.selected.tagName === "rect") {
+                    this.origin = {
+                        x: this.selected.x.baseVal.value,
+                        y: this.selected.y.baseVal.value,
+                    };
+                }
             }
         });
 
@@ -43,8 +51,13 @@ class Canvas {
                 let dy = mousePos.y - this.offset.y;
                 let newPos = { x: this.origin.x + dx, y: this.origin.y + dy };
 
-                this.selected.setAttributeNS(null, "cx", newPos.x);
-                this.selected.setAttributeNS(null, "cy", newPos.y);
+                if (this.selected.tagName === "ellipse") {
+                    this.selected.setAttributeNS(null, "cx", newPos.x);
+                    this.selected.setAttributeNS(null, "cy", newPos.y);
+                } else if (this.selected.tagName === "rect") {
+                    this.selected.setAttributeNS(null, "x", newPos.x);
+                    this.selected.setAttributeNS(null, "y", newPos.y);
+                }
             }
         });
 
