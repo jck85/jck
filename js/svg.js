@@ -1,6 +1,6 @@
 window.addEventListener("load", () => {
     const canvas = new Canvas("svg-canvas");
-    canvas.init();
+    canvas.setup();
 
     const circle = new Circle(200, 200, 100);
     const rect = new Rectangle(300, 100, 50, 50);
@@ -18,61 +18,77 @@ class Canvas {
         this.selected = null;
         this.origin = { x: 0, y: 0 };
         this.offset = { x: 0, y: 0 };
+
+        this.shapes = [];
+        this.activeShape = null;
     }
 
-    init() {
+    setup() {
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
             const target = event.target;
             this.offset = this.getMouse(event);
+            this.activeShape = this.shapes[target.id - 1];
 
             if (target.classList.contains("draggable")) {
-                this.selected = target;
-
-                if (this.selected.tagName === "ellipse") {
-                    this.origin = {
-                        x: this.selected.cx.baseVal.value,
-                        y: this.selected.cy.baseVal.value,
-                    };
-                } else if (this.selected.tagName === "rect") {
-                    this.origin = {
-                        x: this.selected.x.baseVal.value,
-                        y: this.selected.y.baseVal.value,
-                    };
-                }
+                this.origin = this.activeShape.pos;
+                // console.log("origin:", this.origin);
             }
+
+            // if (target.classList.contains("draggable")) {
+            //     this.selected = target;
+
+            //     if (this.selected.tagName === "ellipse") {
+            //         this.origin = {
+            //             x: this.selected.cx.baseVal.value,
+            //             y: this.selected.cy.baseVal.value,
+            //         };
+            //     } else if (this.selected.tagName === "rect") {
+            //         this.origin = {
+            //             x: this.selected.x.baseVal.value,
+            //             y: this.selected.y.baseVal.value,
+            //         };
+            //     }
+            // }
         });
 
         this.canvas.addEventListener("mousemove", (event) => {
             event.preventDefault();
-            if (this.selected) {
+            if (this.activeShape) {
                 let mousePos = this.getMouse(event);
                 let dx = mousePos.x - this.offset.x;
                 let dy = mousePos.y - this.offset.y;
                 let newPos = { x: this.origin.x + dx, y: this.origin.y + dy };
 
-                if (this.selected.tagName === "ellipse") {
-                    this.selected.setAttributeNS(null, "cx", newPos.x);
-                    this.selected.setAttributeNS(null, "cy", newPos.y);
-                } else if (this.selected.tagName === "rect") {
-                    this.selected.setAttributeNS(null, "x", newPos.x);
-                    this.selected.setAttributeNS(null, "y", newPos.y);
-                }
+                console.log(newPos.x, newPos.y);
+                this.activeShape.move(newPos);
+
+                // if (this.selected.tagName === "ellipse") {
+                //     this.selected.setAttributeNS(null, "cx", newPos.x);
+                //     this.selected.setAttributeNS(null, "cy", newPos.y);
+                // } else if (this.selected.tagName === "rect") {
+                //     this.selected.setAttributeNS(null, "x", newPos.x);
+                //     this.selected.setAttributeNS(null, "y", newPos.y);
+                // }
             }
         });
 
         this.canvas.addEventListener("mouseup", (event) => {
             event.preventDefault();
             this.selected = null;
+            this.activeShape = null;
         });
 
         this.canvas.addEventListener("mouseleave", (event) => {
             event.preventDefault();
             this.selected = null;
+            this.activeShape = null;
         });
     }
 
     draw(shape) {
+        shape.id = this.shapes.length + 1;
+        this.shapes.push(shape);
         shape.draw();
         this.canvas.appendChild(shape.svg);
     }
@@ -97,13 +113,15 @@ class Circle {
         this.y = y;
         this.radius = r;
         this.svg = null;
+        this.id = null;
+        this.pos = { x: x, y: y };
     }
 
     draw() {
         this.svg = document.createElementNS(SVG_NAMESPACE, "ellipse");
 
-        this.svg.setAttribute("cx", parseInt(this.x));
-        this.svg.setAttribute("cy", parseInt(this.y));
+        this.svg.setAttribute("cx", parseInt(this.pos.x));
+        this.svg.setAttribute("cy", parseInt(this.pos.y));
         this.svg.setAttribute("rx", parseInt(this.radius));
         this.svg.setAttribute("ry", parseInt(this.radius));
 
@@ -112,13 +130,15 @@ class Circle {
         this.svg.setAttribute("fill", "white");
 
         this.svg.setAttribute("class", "draggable");
+        this.svg.setAttribute("id", this.id);
     }
 
-    move(x, y) {
-        this.x = x;
-        this.y = y;
-        this.svg.setAttribute("cx", parseInt(this.posX));
-        this.svg.setAttribute("cy", parseInt(this.posY));
+    move(pos) {
+        // this.pos.x = x;
+        // this.pos.y = y;
+        // console.log("move:", pos);
+        this.svg.setAttributeNS(null, "cx", parseInt(pos.x));
+        this.svg.setAttributeNS(null, "cy", parseInt(pos.y));
     }
 }
 
@@ -129,13 +149,15 @@ class Rectangle {
         this.width = w;
         this.height = h;
         this.svg = null;
+        this.id = null;
+        this.pos = { x: x, y: y };
     }
 
     draw() {
         this.svg = document.createElementNS(SVG_NAMESPACE, "rect");
 
-        this.svg.setAttribute("x", parseInt(this.x));
-        this.svg.setAttribute("y", parseInt(this.y));
+        this.svg.setAttribute("x", parseInt(this.pos.x));
+        this.svg.setAttribute("y", parseInt(this.pos.y));
         this.svg.setAttribute("width", parseInt(this.width));
         this.svg.setAttribute("height", parseInt(this.height));
 
@@ -144,13 +166,14 @@ class Rectangle {
         this.svg.setAttribute("fill", "white");
 
         this.svg.setAttribute("class", "draggable");
+        this.svg.setAttribute("id", this.id);
     }
 
-    move(x, y) {
-        this.x = x;
-        this.y = y;
-        this.svg.setAttribute("x", parseInt(this.x));
-        this.svg.setAttribute("y", parseInt(this.y));
+    move(pos) {
+        // this.pos.x = x;
+        // this.pos.y = y;
+        this.svg.setAttributeNS(null, "x", parseInt(pos.x));
+        this.svg.setAttributeNS(null, "y", parseInt(pos.y));
     }
 }
 
