@@ -98,6 +98,7 @@ class Block {
         // if (overlapY) {
         //     console.log("overlapY");
         // }
+
         if (overlapX && overlapY) {
             console.log("collision!");
             this.y = block.y - this.h;
@@ -105,6 +106,7 @@ class Block {
         } else {
             this.acceleration = this.gravity;
         }
+
         // if (this.y + this.h > block.y) {
         //     this.currentColor = "purple";
         // } else {
