@@ -32,24 +32,7 @@ class Canvas {
 
             if (target.classList.contains("draggable")) {
                 this.origin = this.activeShape.pos;
-                // console.log("origin:", this.origin);
             }
-
-            // if (target.classList.contains("draggable")) {
-            //     this.selected = target;
-
-            //     if (this.selected.tagName === "ellipse") {
-            //         this.origin = {
-            //             x: this.selected.cx.baseVal.value,
-            //             y: this.selected.cy.baseVal.value,
-            //         };
-            //     } else if (this.selected.tagName === "rect") {
-            //         this.origin = {
-            //             x: this.selected.x.baseVal.value,
-            //             y: this.selected.y.baseVal.value,
-            //         };
-            //     }
-            // }
         });
 
         this.canvas.addEventListener("mousemove", (event) => {
@@ -62,14 +45,6 @@ class Canvas {
 
                 console.log(newPos.x, newPos.y);
                 this.activeShape.move(newPos);
-
-                // if (this.selected.tagName === "ellipse") {
-                //     this.selected.setAttributeNS(null, "cx", newPos.x);
-                //     this.selected.setAttributeNS(null, "cy", newPos.y);
-                // } else if (this.selected.tagName === "rect") {
-                //     this.selected.setAttributeNS(null, "x", newPos.x);
-                //     this.selected.setAttributeNS(null, "y", newPos.y);
-                // }
             }
         });
 
@@ -134,9 +109,6 @@ class Circle {
     }
 
     move(pos) {
-        // this.pos.x = x;
-        // this.pos.y = y;
-        // console.log("move:", pos);
         this.svg.setAttributeNS(null, "cx", parseInt(pos.x));
         this.svg.setAttributeNS(null, "cy", parseInt(pos.y));
     }
@@ -170,39 +142,10 @@ class Rectangle {
     }
 
     move(pos) {
-        // this.pos.x = x;
-        // this.pos.y = y;
         this.svg.setAttributeNS(null, "x", parseInt(pos.x));
         this.svg.setAttributeNS(null, "y", parseInt(pos.y));
     }
 }
-
-// function svgRect(xPos, yPos, width, height, fill, stroke, weight) {
-//     let newRect = document.createElementNS(
-//         "http://www.w3.org/2000/svg",
-//         "rect"
-//     );
-
-//     newRect.setAttribute("x", parseInt(xPos));
-//     newRect.setAttribute("y", parseInt(yPos));
-//     newRect.setAttribute("width", parseInt(width));
-//     newRect.setAttribute("height", parseInt(height));
-
-//     newRect.setAttribute("stroke", "black");
-//     newRect.setAttribute("stroke-width", "2pt");
-//     newRect.setAttribute("fill", "white");
-
-//     // newRect.addEventListener('mousedown', startMove);
-//     // // newRect.addEventListener('mouseup', endMove);
-//     // newRect.addEventListener("mousedown", startDrag);
-//     // newRect.addEventListener("mousemove", drag);
-//     // newRect.addEventListener("mouseup", endDrag);
-//     // newRect.addEventListener("mouseleave", endDrag);
-
-//     // newRect.classList.add("draggable");
-
-//     return newRect;
-// }
 
 // function svgLine(x1, y1, x2, y2) {
 //     let myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
