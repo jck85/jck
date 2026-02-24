@@ -26,6 +26,13 @@ function draw() {
     for (let i = 0; i < blockCount; i++) {
         blocks[i].update();
         blocks[i].show();
+        for (let j = 1; j < blockCount; j++) {
+            if (i === j) {
+                continue
+            }
+            blocks[i].checkCollision(blocks[j]);
+        }
+
     }
 }
 
@@ -63,9 +70,9 @@ class Block {
         this.active = false;
 
         // style
-        this.fillColor = "blue";
+        this.fillColor = "lightblue";
         this.strokeColor = "black";
-        this.strokeWeight = 2;
+        this.strokeWeight = 4;
     }
 
     show() {
@@ -91,16 +98,28 @@ class Block {
     }
 
     checkCollision(block) {
-        let overlapX = this.x < block.x + block.w && this.x + this.w > block.x;
-        let overlapY = this.y + this.h > block.y && this.y < block.y + block.h;
+
+        let overlapX1 = this.x + this.w < block.x;
+        let overlapY1 = this.y + this.h < block.y;
+
+        let overlapX2 = block.x + block.w < this.x;
+        let overlapY2 = block.y + block.h < this.y;
+
+        // console.log(overlapX1, overlapX2, overlapY1, overlapY2)
+
+        let overlapX = this.x + this.w > block.x && block.x + block.w > this.x;
+        let overlapY = this.y + this.h > block.y && block.y + block.h > this.y;
+
+        console.log(overlapX, overlapY)
 
         if (overlapX && overlapY) {
             console.log("collision!");
             this.y = block.y - this.h;
             this.acceleration = 0;
-        } else {
-            this.acceleration = this.gravity;
         }
+        // else {
+        //     // this.acceleration = this.gravity;
+        // }
     }
 
     mouseOver() {
@@ -122,6 +141,7 @@ class Block {
             this.dragging = true;
             this.offsetX = this.x - mouseX;
             this.offsetY = this.y - mouseY;
+            this.acceleration = 0;
         }
     }
 
@@ -129,5 +149,6 @@ class Block {
         this.strokeColor = color(0, 0, 200);
         this.active = false;
         this.dragging = false;
+        this.acceleration = this.gravity;
     }
 }
