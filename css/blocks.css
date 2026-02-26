@@ -13,8 +13,8 @@ h1 {
 
 .blocks-canvas {
     border: var(--border-4px);
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
 }
 
 .blocks-controls {
