@@ -3,9 +3,10 @@ window.addEventListener("load", () => {
     world.setup();
 
     const block = new Block(100, 100, 50, 50);
-    const block2 = new Block(100, 100, 50, 50);
+    const block2 = new Block(200, 100, 50, 50);
 
     world.draw(block);
+    world.draw(block2);
 });
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -24,7 +25,6 @@ class World {
     setup() {
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
-            console.log("DOWN");
             const target = event.target;
 
             this.offset = this.getMouse(event);
@@ -42,16 +42,6 @@ class World {
                 let dx = mousePos.x - this.offset.x;
                 let dy = mousePos.y - this.offset.y;
                 let newPos = { x: this.origin.x + dx, y: this.origin.y + dy };
-
-                console.log(
-                    "mouse:",
-                    mousePos,
-                    "offset:",
-                    this.offset,
-                    "new:",
-                    newPos
-                );
-
                 this.activeShape.move(newPos);
             }
         });
@@ -119,8 +109,9 @@ class Block {
     }
 
     move(pos) {
-        this.svg.setAttributeNS(null, "x", parseInt(pos.x));
-        this.svg.setAttributeNS(null, "y", parseInt(pos.y));
+        this.pos = pos;
+        this.svg.setAttributeNS(null, "x", parseInt(this.pos.x));
+        this.svg.setAttributeNS(null, "y", parseInt(this.pos.y));
     }
 }
 
