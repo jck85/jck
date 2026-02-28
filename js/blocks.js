@@ -2,11 +2,13 @@ window.addEventListener("load", () => {
     const world = new World("blocks");
     world.setup();
 
-    const block = new Block(100, 100, 50, 50);
+    const block1 = new Block(100, 100, 50, 50);
     const block2 = new Block(200, 100, 50, 50);
+    const block3 = new Block(300, 100, 50, 50);
 
-    world.draw(block);
+    world.draw(block1);
     world.draw(block2);
+    world.draw(block3);
 });
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -14,12 +16,15 @@ const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 class World {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
+
         this.selected = null;
         this.origin = { x: 0, y: 0 };
         this.offset = { x: 0, y: 0 };
 
         this.shapes = [];
         this.activeShape = null;
+
+        this.collisions = []
     }
 
     setup() {
@@ -42,7 +47,10 @@ class World {
                 let dx = mousePos.x - this.offset.x;
                 let dy = mousePos.y - this.offset.y;
                 let newPos = { x: this.origin.x + dx, y: this.origin.y + dy };
+
                 this.activeShape.move(newPos);
+
+                this.getCollisions()
             }
         });
 
@@ -79,14 +87,46 @@ class World {
             y: (event.clientY - CTM.f) / CTM.d,
         };
     }
+
+    getCollisions() {
+        this.collisions = []
+
+        // let a = this.shapes[0]
+        // let b = this.shapes[1]
+
+        // this.checkCollision(a, b)
+
+        for (let i = 0; i < this.shapes.length; i++) {
+            let a = this.shapes[i]
+
+            for (let j = i + 1; j < this.shapes.length; j++) {
+                let b = this.shapes[j];
+
+                this.checkCollision(a, b)
+            }
+        }
+    }
+
+    checkCollision(a, b) {
+
+        let overlapX = a.x + a.w > b.x && b.x + b.w > a.x;
+        let overlapY = a.y + a.h > b.y && b.y + b.h > a.y;
+
+        if (overlapX && overlapY) {
+            this.collided = true;
+            console.log('overlap')
+        } else {
+            this.collided = false;
+        }
+    }
 }
 
 class Block {
     constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
-        this.width = w;
-        this.height = h;
+        this.w = w;
+        this.h = h;
         this.svg = null;
         this.id = null;
         this.pos = { x: x, y: y };
@@ -97,8 +137,8 @@ class Block {
 
         this.svg.setAttribute("x", parseInt(this.pos.x));
         this.svg.setAttribute("y", parseInt(this.pos.y));
-        this.svg.setAttribute("width", parseInt(this.width));
-        this.svg.setAttribute("height", parseInt(this.height));
+        this.svg.setAttribute("width", parseInt(this.w));
+        this.svg.setAttribute("height", parseInt(this.h));
 
         this.svg.setAttribute("stroke", "black");
         this.svg.setAttribute("stroke-width", "2pt");
@@ -110,6 +150,8 @@ class Block {
 
     move(pos) {
         this.pos = pos;
+        this.x = pos.x;
+        this.y = pos.y;
         this.svg.setAttributeNS(null, "x", parseInt(this.pos.x));
         this.svg.setAttributeNS(null, "y", parseInt(this.pos.y));
     }
