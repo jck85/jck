@@ -2,9 +2,9 @@ window.addEventListener("load", () => {
     const world = new World("blocks");
     world.setup();
 
-    const block1 = new Block(100, 100, 50, 50);
-    const block2 = new Block(200, 100, 50, 50);
-    const block3 = new Block(300, 100, 50, 50);
+    const block1 = new Block(100, 100, 50, 50, "red", "white", "4px");
+    const block2 = new Block(200, 100, 50, 50, "blue", "white", "4px");
+    const block3 = new Block(300, 100, 50, 50, "green", "white", "4px");
 
     world.draw(block1);
     world.draw(block2);
@@ -23,7 +23,6 @@ class World {
 
         this.shapes = [];
         this.activeShape = null;
-
         this.collisions = []
     }
 
@@ -36,7 +35,8 @@ class World {
             this.activeShape = this.shapes[target.id - 1];
 
             if (target.classList.contains("draggable")) {
-                this.origin = this.activeShape.pos;
+                this.origin.x = this.activeShape.x;
+                this.origin.y = this.activeShape.y;
             }
         });
 
@@ -46,11 +46,13 @@ class World {
                 let mousePos = this.getMouse(event);
                 let dx = mousePos.x - this.offset.x;
                 let dy = mousePos.y - this.offset.y;
+
                 let newPos = { x: this.origin.x + dx, y: this.origin.y + dy };
 
-                this.activeShape.move(newPos);
+                this.activeShape.move(newPos.x, newPos.y);
 
                 this.getCollisions()
+                this.resolveCollisions()
             }
         });
 
@@ -58,7 +60,7 @@ class World {
             event.preventDefault();
             this.selected = null;
             this.activeShape = null;
-        });
+        });null
 
         this.canvas.addEventListener("mouseleave", (event) => {
             event.preventDefault();
@@ -78,6 +80,7 @@ class World {
     getMouse(event) {
         event.preventDefault();
         var CTM = this.canvas.getScreenCTM();
+
         if (event.touches) {
             event = event.touches[0];
         }
@@ -89,71 +92,95 @@ class World {
     }
 
     getCollisions() {
-        this.collisions = []
-
-        // let a = this.shapes[0]
-        // let b = this.shapes[1]
-
-        // this.checkCollision(a, b)
+        this.collisions = [];
 
         for (let i = 0; i < this.shapes.length; i++) {
             let a = this.shapes[i]
-
+            
             for (let j = i + 1; j < this.shapes.length; j++) {
                 let b = this.shapes[j];
 
-                this.checkCollision(a, b)
+                if (this.checkCollision(a, b)) {
+                    console.log("collision")
+                    this.collisions.push([a, b])
+                }
             }
         }
     }
 
     checkCollision(a, b) {
-
         let overlapX = a.x + a.w > b.x && b.x + b.w > a.x;
         let overlapY = a.y + a.h > b.y && b.y + b.h > a.y;
 
         if (overlapX && overlapY) {
             this.collided = true;
-            console.log('overlap')
+            return true;
         } else {
             this.collided = false;
+            return false;
+        }
+    }
+
+    resolveCollisions() {
+        for (let i = 0; i < this.collisions.length; i++) {
+
+            let a = this.collisions[i][0]
+            let b = this.collisions[i][1]
+
+            console.log(a.x, a.y, b.x, b.y)
+
+            if (a.x > b.x) {
+                a.move(b.x + a.w, a.y)
+            } else if (a.x < b.x) {
+                a.move(b.x - a.w, a.y)
+            }
+
+            // if (a.y > b.y) {
+            //     a.move(b.y + a.h, a.x)
+            // }
+
+            // if (a.y < b.y) {
+            //     a.move(b.y - a.h, a.x)
+            // }
+
         }
     }
 }
 
 class Block {
-    constructor(x, y, w, h) {
+    constructor(x, y, w, h, stroke, fill, weight) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.svg = null;
         this.id = null;
-        this.pos = { x: x, y: y };
+        this.stroke = stroke;
+        this.fill = fill;
+        this.strokeWeight = weight;
     }
 
     draw() {
         this.svg = document.createElementNS(SVG_NAMESPACE, "rect");
 
-        this.svg.setAttribute("x", parseInt(this.pos.x));
-        this.svg.setAttribute("y", parseInt(this.pos.y));
+        this.svg.setAttribute("x", parseInt(this.x));
+        this.svg.setAttribute("y", parseInt(this.y));
         this.svg.setAttribute("width", parseInt(this.w));
         this.svg.setAttribute("height", parseInt(this.h));
 
-        this.svg.setAttribute("stroke", "black");
-        this.svg.setAttribute("stroke-width", "2pt");
-        this.svg.setAttribute("fill", "white");
+        this.svg.setAttribute("stroke", this.stroke);
+        this.svg.setAttribute("stroke-width", this.strokeWeight);
+        this.svg.setAttribute("fill", this.fill);
 
         this.svg.setAttribute("class", "draggable");
         this.svg.setAttribute("id", this.id);
     }
 
-    move(pos) {
-        this.pos = pos;
-        this.x = pos.x;
-        this.y = pos.y;
-        this.svg.setAttributeNS(null, "x", parseInt(this.pos.x));
-        this.svg.setAttributeNS(null, "y", parseInt(this.pos.y));
+    move(x, y) {
+        this.x = x;
+        this.y = y;
+        this.svg.setAttributeNS(null, "x", parseInt(this.x));
+        this.svg.setAttributeNS(null, "y", parseInt(this.y));
     }
 }
 
