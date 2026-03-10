@@ -72,8 +72,6 @@ nav {
     height: 45rem;
 }
 
-
-
 .app-header {
     margin-top: 2rem;
     text-align: center;
@@ -83,7 +81,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .home-canvas {
@@ -92,10 +90,14 @@ nav {
     height: 500px;
 }
 
-.home-canvas canvas {}
+.home-canvas canvas {
+}
 
-@media (max-width: 575px) {}
+@media (max-width: 575px) {
+}
 
-@media (min-width: 576px) and (max-width: 767px) {}
+@media (min-width: 576px) and (max-width: 767px) {
+}
 
-@media (min-width: 768px) and (max-width: 1199px) {}
+@media (min-width: 768px) and (max-width: 1199px) {
+}
