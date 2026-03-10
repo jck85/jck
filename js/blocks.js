@@ -1,4 +1,162 @@
 window.addEventListener("load", () => {
+    let canvas = document.getElementById("canvas");
+    const WIDTH = 600;
+    const HEIGHT = 600;
+
+    const Bodies = Matter.Bodies;
+    const engine = Matter.Engine.create();
+    const world = engine.world;
+    const draw = Matter.Render.create({
+        element: canvas,
+        engine: engine,
+        options: {
+            width: WIDTH,
+            height: HEIGHT,
+            showAxes: false,
+            showCollisions: false,
+            showConvexHulls: false,
+            wireframes: false,
+            background: "#dddddd",
+        },
+    });
+    Matter.Render.run(draw);
+    const runner = Matter.Runner.create();
+    Matter.Runner.run(runner, engine);
+
+    // Blocks
+    const blockA = Bodies.rectangle(200, 400, 50, 50, {
+        render: {
+            fillStyle: "#dd0000",
+            strokeStyle: "#880000",
+            lineWidth: 8,
+        },
+        frictionAir: 0.05,
+        mass: 1,
+        intertia: 1,
+    });
+
+    const blockB = Bodies.rectangle(300, 300, 50, 50, {
+        render: {
+            fillStyle: "#00dd00",
+            strokeStyle: "#008800",
+            lineWidth: 8,
+        },
+        frictionAir: 0.05,
+        mass: 1,
+        intertia: 1,
+    });
+    const blockC = Bodies.rectangle(400, 200, 50, 50, {
+        render: {
+            fillStyle: "#0000dd",
+            strokeStyle: "#000088",
+            lineWidth: 8,
+        },
+        frictionAir: 0.05,
+        mass: 1,
+        intertia: 1,
+    });
+
+    const blocks = [blockA, blockB, blockC];
+
+    Matter.Composite.add(world, [blockA, blockB, blockC]);
+
+    // Walls
+    const topWall = Bodies.rectangle(WIDTH / 2, 0, WIDTH, 40, {
+        isStatic: true,
+        mass: 1000,
+        render: {
+            fillStyle: "#008800",
+            strokeStyle: "black",
+            lineWidth: 4,
+        },
+    });
+    const bottomWall = Bodies.rectangle(WIDTH / 2, HEIGHT, WIDTH, 40, {
+        isStatic: true,
+        render: {
+            fillStyle: "#008800",
+            strokeStyle: "black",
+            lineWidth: 4,
+        },
+    });
+    const leftWall = Bodies.rectangle(WIDTH, HEIGHT / 2, 40, HEIGHT, {
+        isStatic: true,
+        render: {
+            fillStyle: "#008800",
+            strokeStyle: "black",
+            lineWidth: 4,
+        },
+    });
+    const rightWall = Bodies.rectangle(0, HEIGHT / 2, 40, HEIGHT, {
+        isStatic: true,
+        render: {
+            fillStyle: "#008800",
+            strokeStyle: "black",
+            lineWidth: 4,
+        },
+    });
+
+    Matter.Composite.add(world, [topWall, rightWall, bottomWall, leftWall]);
+
+    // Mouse Controls
+    const mouse = Matter.Mouse.create(draw.canvas);
+    const mouseConstraint = Matter.MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.5,
+            render: {
+                visible: false,
+            },
+        },
+    });
+
+    Matter.Composite.add(world, mouseConstraint);
+
+    // Sync mouse with renderer
+    draw.mouse = mouse;
+
+    // Trying to slow down blocks
+    Matter.Events.on(engine, "beforeUpdate", () => {
+        const maxSpeed = 10;
+        blocks.forEach((body) => {
+            if (body.velocity.x > maxSpeed) body.velocity.x = maxSpeed;
+            if (body.velocity.y > maxSpeed) body.velocity.y = maxSpeed;
+        });
+    });
+});
+
+/**
+    Shelf
+ 
+    // const Engine = Matter.Engine;
+    // const Render = Matter.Render;
+    // const Runner = Matter.Runner;
+    // const Body = Matter.Body;
+    // const Events = Matter.Events;
+    // const MouseConstraint = Matter.MouseConstraint;
+    // const Mouse = Matter.Mouse;
+    // const Composite = Matter.Composite;
+    // // add compound body
+    // var partA = Bodies.rectangle(600, 200, 120 * 0.8, 50 * 0.8, {
+    //     render: { fillStyle: "#060a19" },
+    // });
+
+    // let partB = Bodies.rectangle(660, 200, 50 * 0.8, 190 * 0.8, {
+    //     render: { fillStyle: "#060a19" },
+    // });
+
+    // let compound = Body.create({
+    //     parts: [partA, partB],
+    //     isStatic: true,
+    // });
+
+    // Body.setPosition(compound, { x: 600, y: 300 });
+ */
+
+// OLD BLOCKS CODE, NEED TO MOVE
+/**
+ * 
+const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+window.addEventListener("load", () => {
     const world = new World("blocks");
     world.setup();
 
@@ -10,8 +168,6 @@ window.addEventListener("load", () => {
     world.draw(block2);
     world.draw(block3);
 });
-
-const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
 class World {
     constructor(canvasId) {
@@ -345,3 +501,5 @@ class Block {
 //         this.acceleration = this.gravity;
 //     }
 // }
+
+ */
