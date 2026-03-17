@@ -51,8 +51,6 @@ function setup() {
     frameRate(60);
 }
 
-function draw() {}
-
 function mousePressed() {
     for (let p of points) {
         if (dist(mouseX, mouseY, p.x, p.y) < 25) {
@@ -68,7 +66,6 @@ function mouseReleased() {
 }
 
 function mouseDragged() {
-    // background(255);
     createVoronoi();
     for (let i = 0; i < nodes.length; i++) {
         if (mouseX < bounds[0]) {
@@ -136,6 +133,7 @@ function increaseNodes() {
         let y = floor(random(offset * 2, height - offset * 2));
         nodes.push([x, y]);
     }
+
     createVoronoi();
     createPoints();
     updateNodeCount();
