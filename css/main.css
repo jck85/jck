@@ -1,10 +1,16 @@
 /* Defaults */
 :root {
-    --active-color: #00aa22;
-    --font-color: black;
-    --border-2px: 2px solid black;
-    --border-4px: 4px solid black;
-    --border-8px: 8px solid black;
+    --red: #c80a0a;
+    --green: #0ac80a;
+    --blue: #0a0ac8;
+    --grey: #646464;
+    --black: #141414;
+
+    --active-color: var(--green);
+    --font-color: var(--black);
+    --border-2px: 2px solid var(--black);
+    --border-4px: 4px solid var(--black);
+    --border-8px: 8px solid var(--black);
 }
 
 html {
@@ -50,6 +56,39 @@ p {
     margin: 0;
 }
 
+/* Stock Classes */
+.flex-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-row-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    border: var(--border-4px);
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.canvas-20 {
+    border: var(--border-4px);
+    height: 20rem;
+    width: 20rem;
+}
+
+.canvas-50 {
+    border: var(--border-4px);
+    height: 50rem;
+    width: 50rem;
+}
+
 /* Page */
 nav {
     height: 3rem;
@@ -81,16 +120,12 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* flex-wrap: wrap; */
 }
 
 .home-canvas {
     border: var(--border-4px);
     width: 500px;
     height: 500px;
-}
-
-.home-canvas canvas {
 }
 
 @media (max-width: 575px) {

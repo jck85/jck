@@ -270,7 +270,7 @@ function draw() {
 }
 
 /**
- Junkyard
+Junkyard
 
 function createCard() {
     // card position and dimensions
@@ -574,6 +574,7 @@ function drawSquiggle() {
     line(tx6, ty6, bx6, by6)
 
 }
+    
 class Game {
     constructor() {
         this.deckSize = 81;

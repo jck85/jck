@@ -1,14 +1,3 @@
-window.addEventListener("load", () => {
-    const canvas = new Canvas("svg-canvas");
-    canvas.setup();
-
-    const circle = new Circle(200, 200, 100);
-    const rect = new Rectangle(300, 100, 50, 50);
-
-    canvas.draw(circle);
-    canvas.draw(rect);
-});
-
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
 class Canvas {
@@ -86,6 +75,8 @@ class Circle {
     constructor(x, y, r) {
         this.x = x;
         this.y = y;
+        this.centerX = x;
+        this.centerY = y;
         this.radius = r;
         this.svg = null;
         this.id = null;
@@ -102,7 +93,7 @@ class Circle {
 
         this.svg.setAttribute("stroke", "black");
         this.svg.setAttribute("stroke-width", "2pt");
-        this.svg.setAttribute("fill", "white");
+        this.svg.setAttribute("fill", "none");
 
         this.svg.setAttribute("class", "draggable");
         this.svg.setAttribute("id", this.id);
@@ -118,6 +109,8 @@ class Rectangle {
     constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
+        this.centerX = 0;
+        this.centerY = 0;
         this.width = w;
         this.height = h;
         this.svg = null;
@@ -135,7 +128,7 @@ class Rectangle {
 
         this.svg.setAttribute("stroke", "black");
         this.svg.setAttribute("stroke-width", "2pt");
-        this.svg.setAttribute("fill", "white");
+        this.svg.setAttribute("fill", "none");
 
         this.svg.setAttribute("class", "draggable");
         this.svg.setAttribute("id", this.id);
@@ -147,36 +140,124 @@ class Rectangle {
     }
 }
 
-// function svgLine(x1, y1, x2, y2) {
-//     let myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+class Line {
+    constructor(x1, y1, x2, y2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.centerX = 0;
+        this.centerY = 0;
+        this.svg = null;
+        this.id = null;
 
-//     myLine.setAttribute("x1", parseInt(x1));
-//     myLine.setAttribute("y1", parseInt(y1));
-//     myLine.setAttribute("x2", parseInt(x2));
-//     myLine.setAttribute("y2", parseInt(y2));
+        this.stroke = "black";
+        this.strokeWidth = "2pt";
+    }
 
-//     // myLine.setAttribute('stroke', c);
+    draw() {
+        this.svg = document.createElementNS(SVG_NAMESPACE, "line");
+        this.svg.setAttribute("x1", parseInt(this.x1));
+        this.svg.setAttribute("y1", parseInt(this.y1));
+        this.svg.setAttribute("x2", parseInt(this.x2));
+        this.svg.setAttribute("y2", parseInt(this.y2));
+        this.svg.setAttribute("stroke", "black");
+        this.svg.setAttribute("stroke-width", "2pt");
+    }
 
-//     myLine.setAttribute("stroke", "black");
-//     myLine.setAttribute("stroke-width", "2pt");
-//     myLine.setAttribute("fill", "none");
+    move() {}
+}
 
-//     return myLine;
-// }
+class Point {
+    constructor(x, y, w, s = "black") {
+        this.weight = w;
+        this.stroke = s;
+        this.dragging = false;
+        this.x = x;
+        this.y = y;
+        this.centerX = x;
+        this.centerY = y;
+        this.svg = null;
+    }
 
-// function intersectRect(r1, r2) {
-//     let x1 = parseInt(r1.getAttribute("x"));
-//     let x1Max = x1 + parseInt(r1.getAttribute("width"));
-//     let y1 = parseInt(r1.getAttribute("y"));
-//     let y1Max = y1 + parseInt(r1.getAttribute("height"));
+    draw() {
+        this.svg = document.createElementNS(SVG_NAMESPACE, "circle");
 
-//     let x2 = parseInt(r2.getAttribute("x"));
-//     let x2Max = x2 + parseInt(r2.getAttribute("width"));
-//     let y2 = parseInt(r2.getAttribute("y"));
-//     let y2Max = y2 + parseInt(r2.getAttribute("height"));
+        this.svg.setAttribute("cx", this.x);
+        this.svg.setAttribute("cy", this.y);
+        this.svg.setAttribute("r", this.weight);
+        this.svg.setAttribute("fill", "blue");
+    }
 
-//     //console.log('R1:', x1, y1, x1Max, y1Max, 'R2:', x2, y2, x2Max, y2Max);
-//     //console.log(x1Max < x2, x1 > x2Max, y1 > y2Max, y1Max < y2);
-//     let areIntersecting = x1Max < x2 || x1 > x2Max || y1 > y2Max || y1Max < y2;
-//     console.log(!areIntersecting);
-// }
+    move(x, y) {
+        this.x = x;
+        this.y = y;
+        this.svg.setAttributeNS(null, "cx", parseInt(this.x));
+        this.svg.setAttributeNS(null, "cy", parseInt(this.y));
+    }
+}
+
+class Triangle {
+    constructor(x1, y1, x2, y2, x3, y3) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.x3 = x3;
+        this.y3 = y3;
+        this.centerX = 0;
+        this.centerY = 0;
+
+        // this.base = b;
+        // this.height = h;
+
+        this.id = null;
+        // this.width = w;
+        // this.height = h;
+        this.svg = null;
+        this.id = null;
+        // this.pos = { x: x, y: y };
+
+        this.centerX = 0;
+        this.centerY = 0;
+    }
+
+    draw() {
+        this.svg = document.createElementNS(SVG_NAMESPACE, "polygon");
+
+        // Set the points attribute
+        const pointsString = [
+            this.x1,
+            this.y1,
+            this.x2,
+            this.y2,
+            this.x3,
+            this.y3,
+        ].join(",");
+
+        this.svg.setAttribute("points", pointsString);
+
+        this.svg.setAttribute("stroke", "black");
+        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("fill", "none");
+
+        this.svg.setAttribute("id", this.id);
+    }
+
+    move(pos) {}
+}
+
+class Group {
+    constructor() {
+        this.svgs = [];
+        this.fill = "";
+        this.stroke = "";
+        this.strokeWidth = "";
+    }
+
+    create() {}
+
+    add() {
+        console.log("adding to group");
+    }
+}

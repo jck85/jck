@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <link rel="stylesheet" type="text/css" href="../css/stuff.css" />
-        <link rel="stylesheet" type="text/css" href="../css/voronoi.css" />
+        <!-- <link rel="stylesheet" type="text/css" href="../css/stuff.css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="../css/voronoi.css" /> -->
 
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
@@ -29,24 +29,30 @@
         <main>
             <div class="app">
                 <div class="app-content">
-                    <div class="stuff-content">
-                        <div id="voronoi" class="stuff-canvas">
-                            <a href="voronoi.html">
-                                <div id="voronoi-thumb">voronoi</div>
-                            </a>
+                    <div class="content flex-row-wrap">
+                        <div id="voronoi-container" class="flex-row">
+                            <!-- <a href="voronoi.html"> </a> -->
+                            <svg id="voronoi" class="canvas-20"></svg>
                         </div>
-                        <div id="vortex" class="stuff-canvas">
-                            <a href="vortex-graph.html">vortex graph</a>
+                        <div id="vortex-container" class="flex-row">
+                            <!-- <a href="vortex-graph.html">vortex graph</a> -->
+                            <svg id="vortex" class="canvas-20"></svg>
                         </div>
-                        <div id="blocks" class="stuff-canvas">
+                        <div id="blocks" class="canvas-20 flex-row">
                             <a href="blocks.html">blocks</a>
                         </div>
-                        <div id="set" class="stuff-canvas">
+                        <div id="set" class="canvas-20 flex-row">
                             <a href="set.html">set</a>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <!-- <script src="../js/lib/Point.js"></script> -->
+        <script src="../js/lib/SVG.js"></script>
+        <script src="../js/voronoi.js"></script>
+        <script src="../js/vortex-graph-class.js"></script>
     </body>
 </html>
