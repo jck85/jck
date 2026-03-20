@@ -15,6 +15,7 @@ class Canvas {
     setup() {
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
+
             const target = event.target;
             this.offset = this.getMouse(event);
             this.activeShape = this.shapes[target.id - 1];
@@ -26,6 +27,8 @@ class Canvas {
 
         this.canvas.addEventListener("mousemove", (event) => {
             event.preventDefault();
+
+            // move shape with mouse
             if (this.activeShape) {
                 let mousePos = this.getMouse(event);
                 let dx = mousePos.x - this.offset.x;
@@ -33,18 +36,20 @@ class Canvas {
                 let newPos = { x: this.origin.x + dx, y: this.origin.y + dy };
 
                 console.log(newPos.x, newPos.y);
-                this.activeShape.move(newPos);
+                this.activeShape.move(newPos.x, newPos.y);
             }
         });
 
         this.canvas.addEventListener("mouseup", (event) => {
             event.preventDefault();
+
             this.selected = null;
             this.activeShape = null;
         });
 
         this.canvas.addEventListener("mouseleave", (event) => {
             event.preventDefault();
+
             this.selected = null;
             this.activeShape = null;
         });
@@ -75,33 +80,38 @@ class Circle {
     constructor(x, y, r) {
         this.x = x;
         this.y = y;
-        this.centerX = x;
-        this.centerY = y;
         this.radius = r;
         this.svg = null;
-        this.id = null;
-        this.pos = { x: x, y: y };
+        this.draw();
     }
 
     draw() {
-        this.svg = document.createElementNS(SVG_NAMESPACE, "ellipse");
+        this.svg = document.createElementNS(SVG_NAMESPACE, "circle");
 
-        this.svg.setAttribute("cx", parseInt(this.pos.x));
-        this.svg.setAttribute("cy", parseInt(this.pos.y));
-        this.svg.setAttribute("rx", parseInt(this.radius));
-        this.svg.setAttribute("ry", parseInt(this.radius));
+        this.svg.setAttribute("cx", parseInt(this.x));
+        this.svg.setAttribute("cy", parseInt(this.y));
+        this.svg.setAttribute("r", parseInt(this.radius));
 
         this.svg.setAttribute("stroke", "black");
-        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("stroke-width", "1pt");
         this.svg.setAttribute("fill", "none");
-
-        this.svg.setAttribute("class", "draggable");
-        this.svg.setAttribute("id", this.id);
     }
 
-    move(pos) {
-        this.svg.setAttributeNS(null, "cx", parseInt(pos.x));
-        this.svg.setAttributeNS(null, "cy", parseInt(pos.y));
+    move(x, y) {
+        this.svg.setAttributeNS(null, "cx", parseInt(x));
+        this.svg.setAttributeNS(null, "cy", parseInt(y));
+    }
+
+    stroke(color) {
+        this.svg.setAttribute("stroke", color);
+    }
+
+    strokeWidth(width) {
+        this.svg.setAttribute("stroke-width", width + "pt");
+    }
+
+    fill(color) {
+        this.svg.setAttribute("fill", color);
     }
 }
 
@@ -109,34 +119,40 @@ class Rectangle {
     constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
-        this.centerX = 0;
-        this.centerY = 0;
         this.width = w;
         this.height = h;
         this.svg = null;
-        this.id = null;
-        this.pos = { x: x, y: y };
+        this.draw();
     }
 
     draw() {
         this.svg = document.createElementNS(SVG_NAMESPACE, "rect");
 
-        this.svg.setAttribute("x", parseInt(this.pos.x));
-        this.svg.setAttribute("y", parseInt(this.pos.y));
+        this.svg.setAttribute("x", parseInt(this.x));
+        this.svg.setAttribute("y", parseInt(this.y));
         this.svg.setAttribute("width", parseInt(this.width));
         this.svg.setAttribute("height", parseInt(this.height));
 
         this.svg.setAttribute("stroke", "black");
-        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("stroke-width", "1pt");
         this.svg.setAttribute("fill", "none");
-
-        this.svg.setAttribute("class", "draggable");
-        this.svg.setAttribute("id", this.id);
     }
 
-    move(pos) {
-        this.svg.setAttributeNS(null, "x", parseInt(pos.x));
-        this.svg.setAttributeNS(null, "y", parseInt(pos.y));
+    move(x, y) {
+        this.svg.setAttributeNS(null, "x", parseInt(x));
+        this.svg.setAttributeNS(null, "y", parseInt(y));
+    }
+
+    stroke(color) {
+        this.svg.setAttribute("stroke", color);
+    }
+
+    strokeWidth(width) {
+        this.svg.setAttribute("stroke-width", width + "pt");
+    }
+
+    fill(color) {
+        this.svg.setAttribute("fill", color);
     }
 }
 
@@ -146,38 +162,46 @@ class Line {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-        this.centerX = 0;
-        this.centerY = 0;
         this.svg = null;
-        this.id = null;
-
-        this.stroke = "black";
-        this.strokeWidth = "2pt";
+        this.draw();
     }
 
     draw() {
         this.svg = document.createElementNS(SVG_NAMESPACE, "line");
+
         this.svg.setAttribute("x1", parseInt(this.x1));
         this.svg.setAttribute("y1", parseInt(this.y1));
         this.svg.setAttribute("x2", parseInt(this.x2));
         this.svg.setAttribute("y2", parseInt(this.y2));
+
         this.svg.setAttribute("stroke", "black");
-        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("stroke-width", "1pt");
     }
 
     move() {}
+
+    stroke(color) {
+        this.svg.setAttribute("stroke", color);
+    }
+
+    strokeWidth(width) {
+        this.svg.setAttribute("stroke-width", width + "pt");
+    }
+
+    fill(color) {
+        this.svg.setAttribute("fill", color);
+    }
 }
 
 class Point {
     constructor(x, y, w, s = "black") {
+        this.x = x;
+        this.y = y;
         this.weight = w;
         this.stroke = s;
         this.dragging = false;
-        this.x = x;
-        this.y = y;
-        this.centerX = x;
-        this.centerY = y;
         this.svg = null;
+        this.draw();
     }
 
     draw() {
@@ -186,7 +210,8 @@ class Point {
         this.svg.setAttribute("cx", this.x);
         this.svg.setAttribute("cy", this.y);
         this.svg.setAttribute("r", this.weight);
-        this.svg.setAttribute("fill", "blue");
+
+        this.svg.setAttribute("fill", "black");
     }
 
     move(x, y) {
@@ -205,27 +230,11 @@ class Triangle {
         this.y2 = y2;
         this.x3 = x3;
         this.y3 = y3;
-        this.centerX = 0;
-        this.centerY = 0;
-
-        // this.base = b;
-        // this.height = h;
-
-        this.id = null;
-        // this.width = w;
-        // this.height = h;
         this.svg = null;
-        this.id = null;
-        // this.pos = { x: x, y: y };
-
-        this.centerX = 0;
-        this.centerY = 0;
+        this.draw();
     }
 
     draw() {
-        this.svg = document.createElementNS(SVG_NAMESPACE, "polygon");
-
-        // Set the points attribute
         const pointsString = [
             this.x1,
             this.y1,
@@ -235,29 +244,40 @@ class Triangle {
             this.y3,
         ].join(",");
 
+        this.svg = document.createElementNS(SVG_NAMESPACE, "polygon");
         this.svg.setAttribute("points", pointsString);
 
         this.svg.setAttribute("stroke", "black");
-        this.svg.setAttribute("stroke-width", "2pt");
+        this.svg.setAttribute("stroke-width", "1pt");
         this.svg.setAttribute("fill", "none");
-
-        this.svg.setAttribute("id", this.id);
     }
 
-    move(pos) {}
+    move() {}
+
+    stroke(color) {
+        this.svg.setAttribute("stroke", color);
+    }
+
+    strokeWidth(width) {
+        this.svg.setAttribute("stroke-width", width + "pt");
+    }
+
+    fill(color) {
+        this.svg.setAttribute("fill", color);
+    }
 }
 
 class Group {
     constructor() {
-        this.svgs = [];
-        this.fill = "";
-        this.stroke = "";
-        this.strokeWidth = "";
+        this.group = null;
+        this.create();
     }
 
-    create() {}
+    create() {
+        this.group = document.createElementNS(SVG_NAMESPACE, "g");
+    }
 
-    add() {
-        console.log("adding to group");
+    add(svg) {
+        this.group.appendChild(svg);
     }
 }

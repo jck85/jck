@@ -29,14 +29,14 @@
             <h1 class="app-header">Set</h1>
             <div class="app-content">
                 <div class="set-content">
-                    <!-- <div id="set" class="set-canvas"></div> -->
-                    <svg id="set" class="set-canvas"></svg>
+                    <div id="set-canvas-container" class="set-canvas-container">
+                        <svg id="set" class="set-canvas"></svg>
+                    </div>
 
                     <div class="set-controls">
                         <button class="btn game-btn m-1" onclick="newGame()">
                             NEW
                         </button>
-                        <!-- <button class="btn game-btn m-1" onclick="easyMode();" id="easy-btn">EASY</button> -->
                         <button class="btn game-btn m-1" onclick="checkMatch()">
                             CHECK
                         </button>
@@ -56,6 +56,6 @@
 
         <script src="../js/lib/utils.js"></script>
         <script src="../js/lib/SVG.js"></script>
-        <script src="../js/set-class.js"></script>
+        <script src="../js/set.js"></script>
     </body>
 </html>

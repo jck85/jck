@@ -36,6 +36,13 @@ window.addEventListener("load", () => {
             vortex.draw();
         });
     }
+
+    const downloadSvgButton = document.getElementById("download-vortex-svg");
+    if (downloadSvgButton) {
+        downloadSvgButton.addEventListener("click", () => {
+            downloadSVG("vortex-canvas-container");
+        });
+    }
 });
 
 class VortexGraph {
@@ -79,16 +86,17 @@ class VortexGraph {
                 // Ending point.
                 let x2 = c + r * Math.sin((m * i * 2 * Math.PI) / n);
                 let y2 = c - r * Math.cos((m * i * 2 * Math.PI) / n);
+
+                // Set stroke color based on line length.
+                // Needs work.
+                let lineLength = Math.floor(distance(x1, y1, x2, y2));
+                let lineColor = Math.floor(
+                    remap(lineLength / 2, 0, this.radius, 0, colors.length)
+                );
+
                 const line = new Line(x1, y1, x2, y2);
-                line.draw();
+                line.stroke(colors[lineColor]);
                 this.canvas.appendChild(line.svg);
-
-                // let lineLength = Math.floor(dist(x1, y1, x2, y2));
-                // let lineColor = Math.floor(remap(lineLength, 0, width, 0, 360));
-
-                // stroke(lineColor, 100, 50);
-                // strokeWeight(1);
-                // line(x1, y1, x2, y2);
             }
         }
     }

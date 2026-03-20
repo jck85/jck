@@ -1,13 +1,4 @@
-const colors = [
-    "red",
-    "green",
-    "blue",
-    "magenta",
-    "cyan",
-    "yellow",
-    "orange",
-    "purple",
-];
+const colors = ["red", "green", "blue", "orange", "purple"];
 
 function lerp(s, e, t) {
     return s * (1 - t) + e * t;

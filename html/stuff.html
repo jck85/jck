@@ -5,8 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <!-- <link rel="stylesheet" type="text/css" href="../css/stuff.css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="../css/voronoi.css" /> -->
 
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
@@ -31,18 +29,19 @@
                 <div class="app-content">
                     <div class="content flex-row-wrap">
                         <div id="voronoi-container" class="flex-row">
-                            <!-- <a href="voronoi.html"> </a> -->
                             <svg id="voronoi" class="canvas-20"></svg>
                         </div>
+
                         <div id="vortex-container" class="flex-row">
-                            <!-- <a href="vortex-graph.html">vortex graph</a> -->
                             <svg id="vortex" class="canvas-20"></svg>
                         </div>
-                        <div id="blocks" class="canvas-20 flex-row">
-                            <a href="blocks.html">blocks</a>
+
+                        <div id="set-container" class="flex-row">
+                            <svg id="set" class="canvas-20"></svg>
                         </div>
-                        <div id="set" class="canvas-20 flex-row">
-                            <a href="set.html">set</a>
+
+                        <div id="blocks-container" class="flex-row">
+                            <svg id="blocks" class="canvas-20"></svg>
                         </div>
                     </div>
                 </div>
@@ -50,9 +49,10 @@
         </main>
 
         <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-        <!-- <script src="../js/lib/Point.js"></script> -->
         <script src="../js/lib/SVG.js"></script>
+        <script src="../js/lib/utils.js"></script>
         <script src="../js/voronoi.js"></script>
-        <script src="../js/vortex-graph-class.js"></script>
+        <script src="../js/vortex-graph.js"></script>
+        <script src="../js/set.js"></script>
     </body>
 </html>

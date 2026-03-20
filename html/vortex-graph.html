@@ -7,8 +7,6 @@
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" href="../css/vortex-graph.css" />
 
-        <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script> -->
-        <!-- <script src="https://unpkg.com/p5.js-svg@1.6.0"></script> -->
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
             crossorigin="anonymous"
@@ -31,28 +29,12 @@
                 <h1>Vortex Graph</h1>
                 <div class="app-content">
                     <div class="vortex-content">
-                        <!-- <div id="vortex" class="vortex-canvas"></div> -->
-                        <svg id="vortex" class="vortex-canvas"></svg>
+                        <div id="vortex-canvas-container">
+                            <svg id="vortex" class="vortex-canvas"></svg>
+                        </div>
                         <div class="vortex-controls">
                             <div class="control">
                                 <label for="modulus-number">Modulus</label>
-                                <!-- <input
-                                    type="number"
-                                    id="modulus-number"
-                                    value="9"
-                                    min="2"
-                                    max="99"
-                                    onchange="updateModulus(this.value)"
-                                />
-                                <input
-                                    type="range"
-                                    id="modulus-range"
-                                    value="9"
-                                    min="2"
-                                    max="100"
-                                    step="1.0"
-                                    oninput="updateModulus(this.value)"
-                                /> -->
                                 <input
                                     type="number"
                                     id="modulus-number"
@@ -74,23 +56,6 @@
                                 <label for="multiplier-number">
                                     Multiplier
                                 </label>
-                                <!-- <input
-                                    type="number"
-                                    id="multiplier-number"
-                                    value="2"
-                                    min="1"
-                                    max="99"
-                                    onchange="updateMultiplier(this.value)"
-                                />
-                                <input
-                                    type="range"
-                                    id="multiplier-range"
-                                    value="2"
-                                    min="0"
-                                    max="100"
-                                    step="1.0"
-                                    oninput="updateMultiplier(this.value)"
-                                /> -->
                                 <input
                                     type="number"
                                     id="multiplier-number"
@@ -108,7 +73,7 @@
                                 />
                             </div>
 
-                            <button onclick="downloadSvg()">
+                            <button id="download-vortex-svg">
                                 <i class="fa-solid fa-file-arrow-down"></i>
                             </button>
                         </div>
@@ -117,8 +82,8 @@
             </div>
         </main>
 
-        <!-- <script src="../js/vortex-graph.js"></script> -->
+        <script src="../js/lib/utils.js"></script>
         <script src="../js/lib/SVG.js"></script>
-        <script src="../js/vortex-graph-class.js"></script>
+        <script src="../js/vortex-graph.js"></script>
     </body>
 </html>

@@ -17,6 +17,13 @@ window.addEventListener("load", () => {
             voronoi.removeNode();
         });
     }
+
+    const downloadSvgButton = document.getElementById("download-svg");
+    if (downloadSvgButton) {
+        downloadSvgButton.addEventListener("click", () => {
+            downloadSVG("voronoi-canvas-container");
+        });
+    }
 });
 
 class Voronoi {
@@ -48,30 +55,31 @@ class Voronoi {
     }
 
     setup() {
+        // Create offset based on bounds
+        // so points are created within bounds.
+        // Not perfect, sometimes points escape.
+        // Works ok for now.
+        const nodeOffset = this.offset * 5;
         for (let i = 0; i < this.nodeCount; i++) {
             const x = Math.floor(
-                Math.random() * (this.width - this.offset) + this.offset
+                Math.random() * (this.width - nodeOffset) + nodeOffset
             );
             const y = Math.floor(
-                Math.random() * (this.width - this.offset) + this.offset
+                Math.random() * (this.width - nodeOffset) + nodeOffset
             );
 
             this.nodes.push([x, y]);
-            // this.nodes["node-" + i] = [x, y];
         }
 
-        // console.log("nodes:", this.nodes);
-
         this.bounds = [
-            this.offset,
-            this.offset,
-            this.width - this.offset,
-            this.height - this.offset,
+            this.offset * 2,
+            this.offset * 2,
+            this.width - this.offset * 2,
+            this.height - this.offset * 2,
         ];
 
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
-            const target = event.target;
             const mousePos = getMouse(this.canvas, event);
 
             for (let i = 0; i < this.points.length; i++) {
@@ -95,18 +103,12 @@ class Voronoi {
             const y = mousePos.y;
 
             if (this.activePoint) {
-                // console.log(this.activePoint);
                 this.activePoint.move(x, y);
                 const id = this.activePoint.svg.id;
-                // console.log("moving: ", id);
                 this.nodes[id] = [x, y];
             }
 
             this.draw();
-            // for (let i = 0; i < this.nodes.length; i++) {
-            //     this.points[i].move(x, y);
-            //     this.nodes = [this.points[i].x, this.points[i].y];
-            // }
         });
 
         this.canvas.addEventListener("mouseup", (event) => {
@@ -143,22 +145,24 @@ class Voronoi {
             );
 
             const pointsString = vertices.map((p) => p.join(",")).join(" ");
+            const fillColor = colors[i % colors.length];
 
             polygon.setAttribute("points", pointsString);
-            polygon.setAttribute("stroke-width", 4);
+            polygon.setAttribute("stroke-width", 2);
             polygon.setAttribute("stroke", "black");
-            polygon.setAttribute("fill", "white");
+            polygon.setAttribute("fill", fillColor);
+
             this.canvas.appendChild(polygon);
         }
 
         for (let i = 0; i < this.nodes.length; i++) {
             let x = this.nodes[i][0];
             let y = this.nodes[i][1];
-            let p = new Point(x, y, 6);
-            this.points.push(p);
-            p.draw();
+            let p = new Point(x, y, 4);
+            // p.draw();
             p.svg.id = i;
             this.canvas.appendChild(p.svg);
+            this.points.push(p);
         }
     }
 
@@ -185,6 +189,9 @@ class Voronoi {
 
         this.nodes.push([x, y]);
         this.draw();
+
+        let p = document.getElementById("node-count");
+        p.innerText = this.nodeCount;
     }
 
     removeNode() {
@@ -195,5 +202,7 @@ class Voronoi {
 
         this.nodes.pop();
         this.draw();
+        let p = document.getElementById("node-count");
+        p.innerText = this.nodeCount;
     }
 }
