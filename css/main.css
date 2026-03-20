@@ -60,7 +60,7 @@ p {
 .flex-row {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .flex-row-wrap {
@@ -68,7 +68,18 @@ p {
     flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.flex-end {
+    justify-content: end;
 }
 
 .content {
