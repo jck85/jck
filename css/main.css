@@ -58,9 +58,10 @@ p {
 
 /* Stock Classes */
 .flex-row {
+    border: var(--border-4px);
     display: flex;
-    align-items: center;
-    /* justify-content: center; */
+    /* align-items: center; */
+    /* justify-content: end; */
 }
 
 .flex-row-wrap {
@@ -72,14 +73,27 @@ p {
 }
 
 .flex-col {
+    border: var(--border-4px);
     display: flex;
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
 }
 
-.flex-end {
+/* .flex-end {
     justify-content: end;
+} */
+
+.stuff-canvas {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.stuff-canvas i {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
 }
 
 .content {
