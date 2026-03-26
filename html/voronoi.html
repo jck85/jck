@@ -5,10 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <!-- <link rel="stylesheet" type="text/css" href="../css/voronoi.css" /> -->
+        <link rel="stylesheet" type="text/css" href="../css/voronoi.css" />
 
-        <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script> -->
-        <!-- <script src="https://unpkg.com/p5.js-svg@1.6.0"></script> -->
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
             crossorigin="anonymous"
@@ -32,24 +30,28 @@
             </div>
 
             <div class="page-content">
-                <div class="voronoi-content">
-                    <svg id="voronoi-canvas" class="voronoi-canvas"></svg>
+                <div class="svg-content">
+                    <div class="canvas-container">
+                        <svg id="voronoi-canvas" class="svg-canvas"></svg>
+                    </div>
 
-                    <!-- <div id="voronoi-canvas-container"></div> -->
-
-                    <div class="voronoi-controls">
-                        <button id="remove-node" class="control-button">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>
-                        <div class="control-value">
-                            <p id="node-count">4</p>
+                    <div class="svg-controls">
+                        <div class="svg-control-row">
+                            <div class="voronoi-control-buttons">
+                                <button id="remove-node" class="control-button">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <div class="control-value">
+                                    <p id="node-count">4</p>
+                                </div>
+                                <button id="add-node" class="control-button">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <button id="download-svg" class="control-button">
+                                <i class="fa-solid fa-file-arrow-down"></i>
+                            </button>
                         </div>
-                        <button id="add-node" class="control-button">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                        <button id="download-svg" class="control-button">
-                            <i class="fa-solid fa-file-arrow-down"></i>
-                        </button>
                     </div>
 
                     <div class="voronoi-text">

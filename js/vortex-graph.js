@@ -1,5 +1,7 @@
+let vortex = null;
+
 window.addEventListener("load", () => {
-    const vortex = new VortexGraph("vortex-canvas");
+    vortex = new VortexGraph("vortex-canvas");
     vortex.setup();
 
     // add control events
@@ -39,9 +41,19 @@ window.addEventListener("load", () => {
     const downloadSvgButton = document.getElementById("download-vortex-svg");
     if (downloadSvgButton) {
         downloadSvgButton.addEventListener("click", () => {
-            downloadSVG("vortex-canvas-container");
+            downloadSVG("canvas-container");
         });
     }
+});
+
+window.addEventListener("resize", () => {
+    let canvas = document.getElementById("vortex-canvas");
+    canvasWidth = canvas.clientWidth;
+    canvasHeight = canvas.clientHeight;
+
+    vortex.width = canvasWidth;
+    vortex.height = canvasHeight;
+    vortex.draw();
 });
 
 class VortexGraph {
@@ -49,12 +61,12 @@ class VortexGraph {
         this.canvas = document.getElementById(canvasId);
         this.width = this.canvas.clientWidth;
         this.height = this.canvas.clientHeight;
-        this.centerX = this.width / 2;
-        this.centerY = this.height / 2;
-
+        this.centerX = 0;
+        this.centerY = 0;
+        this.radius = 0;
+        this.offset = 25;
         this.modulus = 16;
         this.multiplier = 2;
-        this.radius = this.width / 2 - 10;
     }
 
     setup() {
@@ -63,6 +75,10 @@ class VortexGraph {
 
     draw() {
         this.clearCanvas();
+        this.centerX = this.width / 2;
+        this.centerY = this.height / 2;
+        this.radius = this.width / 2 - this.offset;
+
         const outline = new Circle(this.centerX, this.centerY, this.radius);
         outline.draw();
         this.canvas.appendChild(outline.svg);

@@ -31,12 +31,10 @@ window.addEventListener("load", () => {
 
 window.addEventListener("resize", () => {
     let canvas = document.getElementById("voronoi-canvas");
-
     canvasWidth = canvas.clientWidth;
     canvasHeight = canvas.clientHeight;
     voronoi.width = canvasWidth;
     voronoi.height = canvasHeight;
-
     voronoi.clearCanvas();
     voronoi.create();
     voronoi.draw();
@@ -47,20 +45,17 @@ class Voronoi {
         this.canvas = document.getElementById(canvasId);
         this.width = this.canvas.clientWidth;
         this.height = this.canvas.clientHeight;
-
         this.nodes = [];
         this.nodesMap = {};
         this.nodeCount = 4;
         this.nodeMax = 25;
         this.nodeMin = 2;
         this.offset = 10;
-
         this.points = [];
         this.bounds = [];
         this.delaunay = null;
         this.voronoi = null;
         this.polygons = null;
-
         this.activePoint = null;
     }
 

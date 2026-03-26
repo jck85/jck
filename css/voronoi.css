@@ -1,23 +1,30 @@
-/* Voronoi Page */
 /* .voronoi-content {
+    border: var(--border-4px);
     padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-}
+} */
 
-.voronoi-canvas {
-    border: var(--border-4px);
-    height: 40rem;
-    width: 40rem;
-}
-
-.voronoi-controls {
+/* .voronoi-controls {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+} */
+
+.voronoi-control-buttons {
+    /* border: var(--border-g-4px); */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+    /* margin-right: auto; */
+}
+
+.voronoi-control-buttons button {
+    margin: 0;
 }
 
 .voronoi-text {
@@ -26,23 +33,4 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
-
-/* 
-.voronoi-controls button {
-    border: var(--border-2px);
-    font-size: 1.2rem;
-    width: 2rem;
-    height: 2rem;
 }
-
-.voronoi-controls button > i {
-    color: var(--black);
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.voronoi-controls p {
-    font-size: 1.4rem;
-} 
-*/

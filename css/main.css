@@ -23,6 +23,12 @@
     --border-b-2px: 2px solid var(--blue);
     --border-o-2px: 2px solid var(--orange);
     --border-m-2px: 2px solid var(--magenta);
+
+    --border-r-4px: 4px solid var(--red);
+    --border-g-4px: 4px solid var(--green);
+    --border-b-4px: 4px solid var(--blue);
+    --border-o-4px: 4px solid var(--orange);
+    --border-m-4px: 4px solid var(--magenta);
 }
 
 html {
@@ -75,30 +81,28 @@ nav {
     align-items: center;
 }
 
-/* Stock Classes */
-/* Inputs */
-.control-button {
-    border: var(--border-2px);
-    border-radius: 16%;
-    color: var(--black);
-    font-size: 1.6rem;
+label {
+    /* border: var(--border-2px); */
+    font-size: 1.4rem;
     font-weight: bold;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 16rem;
+    margin-left: 0;
+    margin-right: auto;
 }
 
-.control-button:hover {
-    transform: scale(1.2);
-}
-
-.control-button:active {
-    transform: scale(1);
-}
-
-.control-value {
+input[type="number"] {
+    text-align: right;
     font-size: 1.6rem;
-    font-weight: bold;
+    width: 4rem;
+    margin-right: 1rem;
+    margin-left: auto;
 }
+
+input[type="range"] {
+    width: 100%;
+}
+
+/* Default Classes */
 
 /* Navbar */
 .nav-home {
@@ -118,8 +122,84 @@ nav {
 }
 
 .page-content {
+    /* border: var(--border-2px); */
     margin: auto;
     margin-top: 2rem;
+}
+
+.svg-content {
+    /* border: var(--border-4px); */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.canvas-container {
+    border: var(--border-4px);
+    height: 40rem;
+    width: 40rem;
+}
+
+.svg-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.svg-controls {
+    /* border: var(--border-4px); */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: center; */
+    gap: 0.6rem;
+    width: 40rem;
+}
+
+.svg-control-row {
+    /* border: var(--border-r-4px); */
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* width: 100%; */
+}
+
+.svg-control-row > button:first-of-type {
+    margin-left: auto;
+}
+
+.svg-control-row button {
+    margin-right: 1rem;
+}
+
+/* .svg-control-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+} */
+
+.control-button {
+    border: var(--border-2px);
+    border-radius: 16%;
+    /* color: var(--black); */
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.control-button:hover {
+    transform: scale(1.2);
+}
+
+.control-button:active {
+    transform: scale(1);
+}
+
+.control-value {
+    border: var(--border-2px);
+    font-size: 1.6rem;
+    font-weight: bold;
+    width: 3rem;
+    text-align: center;
 }
 
 /* Home Page */
@@ -140,6 +220,20 @@ nav {
         margin-top: 1rem;
     }
 
+    .svg-content {
+        gap: 0.2rem;
+    }
+
+    .canvas-container {
+        height: 22rem;
+        width: 22rem;
+    }
+
+    .svg-controls {
+        height: 100%;
+    }
+
+    /* Home Page */
     .home-canvas {
         width: 100%;
         height: 30rem;
@@ -151,35 +245,87 @@ nav {
         width: 22rem;
         height: 22rem;
     }
+
+    .svg-controls {
+        /* border: var(--border-2px); */
+        flex-direction: column;
+        width: 22rem;
+        gap: 0.6rem;
+    }
+
+    .svg-control-row {
+        /* border: var(--border-2px); */
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .svg-controls button {
+        font-size: 2rem;
+    }
 }
 
 /* Tablets */
 @media (min-width: 576px) and (max-width: 767px) {
+    .canvas-container {
+        height: 30rem;
+        width: 30rem;
+    }
+
+    .svg-controls {
+        height: 30rem;
+    }
+
+    /* Home Page */
     .home-canvas {
         width: 30rem;
         height: 30rem;
     }
 
+    /* Stuff Page */
     .stuff-canvas {
         width: 22rem;
         height: 22rem;
     }
+    .svg-control-row {
+        /* border: var(--border-2px); */
+        width: 100%;
+        flex-wrap: wrap;
+    }
 
-    .voronoi-canvas {
-        width: 30rem;
-        height: 30rem;
+    .svg-controls button {
+        font-size: 2rem;
     }
 }
 
 /* Monitors */
 @media (min-width: 768px) and (max-width: 1199px) {
+    .canvas-container {
+        height: 40rem;
+        width: 40rem;
+    }
+
+    .svg-controls {
+        height: 40rem;
+    }
+
+    /* Home Page */
     .home-canvas {
         width: 40rem;
         height: 40rem;
     }
 
-    .voronoi-canvas {
-        width: 34rem;
-        height: 34rem;
+    /* Stuff Page */
+    .stuff-canvas {
+        width: 28rem;
+        height: 28rem;
+    }
+    .svg-control-row {
+        /* border: var(--border-2px); */
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .svg-controls button {
+        font-size: 2rem;
     }
 }

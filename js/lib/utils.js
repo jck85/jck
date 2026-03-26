@@ -1,4 +1,8 @@
-const colors = ["red", "green", "blue", "orange", "purple"];
+// const colors = ["red", "green", "blue", "orange", "purple"];
+const colorsStock = ["red", "orange", "yellow", "green", "blue"];
+
+// const colors = colorsStock.reverse();
+const colors = colorsStock;
 
 function lerp(s, e, t) {
     return s * (1 - t) + e * t;
