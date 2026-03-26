@@ -4,7 +4,6 @@ window.addEventListener("load", () => {
     vortex = new VortexGraph("vortex-canvas");
     vortex.setup();
 
-    // add control events
     const modulusNumber = document.getElementById("modulus-number");
     if (modulusNumber) {
         modulusNumber.addEventListener("change", (event) => {

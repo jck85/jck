@@ -6,7 +6,6 @@ window.addEventListener("load", () => {
     voronoi.create();
     voronoi.draw();
 
-    // add button events
     const addNodeButton = document.getElementById("add-node");
     if (addNodeButton) {
         addNodeButton.addEventListener("click", () => {
@@ -78,10 +77,6 @@ class Voronoi {
         let yMax = this.height - 25;
         let nodeOffset = 25;
 
-        // let randomX = Math.floor(Math.random() * xMax + xMin);
-        // let widthBound = this.width - 50;
-        // let heightBound = this.height - 50;
-
         for (let i = 0; i < this.nodeCount; i++) {
             const randomX = Math.floor(
                 Math.random() * (xMax - xMin - nodeOffset) + xMin + nodeOffset
@@ -93,15 +88,7 @@ class Voronoi {
             this.nodes.push([randomX, randomY]);
         }
 
-        // this.bounds = [
-        //     this.offset * 2,
-        //     this.offset * 2,
-        //     this.width - this.offset * 2,
-        //     this.height - this.offset * 2,
-        // ];
-
         this.bounds = [xMin, yMin, xMax, yMax];
-        // console.log(this.bounds);
 
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
@@ -190,27 +177,6 @@ class Voronoi {
             this.points.push(p);
         }
     }
-
-    // reDraw(canvasWidth, canvasHeight) {
-    //     for (let i = 0; i < this.nodeCount; i++) {
-    //         let offsetX = canvasWidth - this.width;
-
-    //         console.log(offsetX);
-    //         console.log(i, this.nodes[i]);
-
-    //         if (canvasWidth > this.width) {
-    //             this.nodes[i][0] = this.nodes[i][0] + offsetX / 2;
-    //         } else if (canvasWidth < this.width) {
-    //             this.nodes[i][0] = this.nodes[i][0] - offsetX / 2;
-    //         }
-
-    //         console.log(i, this.nodes[i]);
-    //         break;
-    //     }
-    //     this.width = canvasWidth;
-
-    //     // this.draw();
-    // }
 
     createSvg() {
         const polygon = document.createElementNS(
