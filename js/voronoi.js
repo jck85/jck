@@ -1,6 +1,9 @@
+let voronoi = null;
+
 window.addEventListener("load", () => {
-    const voronoi = new Voronoi("voronoi");
-    voronoi.setup();
+    voronoi = new Voronoi("voronoi-canvas");
+
+    voronoi.create();
     voronoi.draw();
 
     // add button events
@@ -24,6 +27,19 @@ window.addEventListener("load", () => {
             downloadSVG("voronoi-canvas-container");
         });
     }
+});
+
+window.addEventListener("resize", () => {
+    let canvas = document.getElementById("voronoi-canvas");
+
+    canvasWidth = canvas.clientWidth;
+    canvasHeight = canvas.clientHeight;
+    voronoi.width = canvasWidth;
+    voronoi.height = canvasHeight;
+
+    voronoi.clearCanvas();
+    voronoi.create();
+    voronoi.draw();
 });
 
 class Voronoi {
@@ -54,29 +70,43 @@ class Voronoi {
         }
     }
 
-    setup() {
+    create() {
         // Create offset based on bounds
         // so points are created within bounds.
         // Not perfect, sometimes points escape.
         // Works ok for now.
-        const nodeOffset = this.offset * 5;
+        this.nodes = [];
+
+        let xMin = 25;
+        let xMax = this.width - 25;
+        let yMin = 25;
+        let yMax = this.height - 25;
+        let nodeOffset = 25;
+
+        // let randomX = Math.floor(Math.random() * xMax + xMin);
+        // let widthBound = this.width - 50;
+        // let heightBound = this.height - 50;
+
         for (let i = 0; i < this.nodeCount; i++) {
-            const x = Math.floor(
-                Math.random() * (this.width - nodeOffset) + nodeOffset
+            const randomX = Math.floor(
+                Math.random() * (xMax - xMin - nodeOffset) + xMin + nodeOffset
             );
-            const y = Math.floor(
-                Math.random() * (this.width - nodeOffset) + nodeOffset
+            const randomY = Math.floor(
+                Math.random() * (yMax - yMin - nodeOffset) + yMin + nodeOffset
             );
 
-            this.nodes.push([x, y]);
+            this.nodes.push([randomX, randomY]);
         }
 
-        this.bounds = [
-            this.offset * 2,
-            this.offset * 2,
-            this.width - this.offset * 2,
-            this.height - this.offset * 2,
-        ];
+        // this.bounds = [
+        //     this.offset * 2,
+        //     this.offset * 2,
+        //     this.width - this.offset * 2,
+        //     this.height - this.offset * 2,
+        // ];
+
+        this.bounds = [xMin, yMin, xMax, yMax];
+        // console.log(this.bounds);
 
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
@@ -165,6 +195,27 @@ class Voronoi {
             this.points.push(p);
         }
     }
+
+    // reDraw(canvasWidth, canvasHeight) {
+    //     for (let i = 0; i < this.nodeCount; i++) {
+    //         let offsetX = canvasWidth - this.width;
+
+    //         console.log(offsetX);
+    //         console.log(i, this.nodes[i]);
+
+    //         if (canvasWidth > this.width) {
+    //             this.nodes[i][0] = this.nodes[i][0] + offsetX / 2;
+    //         } else if (canvasWidth < this.width) {
+    //             this.nodes[i][0] = this.nodes[i][0] - offsetX / 2;
+    //         }
+
+    //         console.log(i, this.nodes[i]);
+    //         break;
+    //     }
+    //     this.width = canvasWidth;
+
+    //     // this.draw();
+    // }
 
     createSvg() {
         const polygon = document.createElementNS(

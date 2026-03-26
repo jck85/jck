@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <link rel="stylesheet" type="text/css" href="../css/voronoi.css" />
+        <!-- <link rel="stylesheet" type="text/css" href="../css/voronoi.css" /> -->
 
-        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
-        <script src="https://unpkg.com/p5.js-svg@1.6.0"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script> -->
+        <!-- <script src="https://unpkg.com/p5.js-svg@1.6.0"></script> -->
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
             crossorigin="anonymous"
@@ -27,26 +27,44 @@
         </nav>
 
         <main>
-            <div class="app">
+            <div class="page-header">
                 <h1>Voronoi Diagram</h1>
-                <div class="app-content">
-                    <div class="voronoi-content">
-                        <div id="voronoi-canvas-container">
-                            <svg id="voronoi" class="voronoi-canvas"></svg>
-                        </div>
+            </div>
 
-                        <div class="voronoi-controls">
-                            <button id="remove-node" onclick="">
-                                <i class="fa-solid fa-minus"></i>
-                            </button>
+            <div class="page-content">
+                <div class="voronoi-content">
+                    <svg id="voronoi-canvas" class="voronoi-canvas"></svg>
+
+                    <!-- <div id="voronoi-canvas-container"></div> -->
+
+                    <div class="voronoi-controls">
+                        <button id="remove-node" class="control-button">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <div class="control-value">
                             <p id="node-count">4</p>
-                            <button id="add-node" onclick="">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                            <button id="download-svg" onclick="">
-                                <i class="fa-solid fa-file-arrow-down"></i>
-                            </button>
                         </div>
+                        <button id="add-node" class="control-button">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <button id="download-svg" class="control-button">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                        </button>
+                    </div>
+
+                    <div class="voronoi-text">
+                        <a
+                            href="https://en.wikipedia.org/wiki/Voronoi_diagram"
+                            target="_blank"
+                        >
+                            <span>Voronoi Wikipedia</span>
+                        </a>
+                        <a
+                            href="https://d3js.org/d3-delaunay/voronoi"
+                            target="_blank"
+                        >
+                            <span>Make your own</span>
+                        </a>
                     </div>
                 </div>
             </div>

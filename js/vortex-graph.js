@@ -1,6 +1,5 @@
 window.addEventListener("load", () => {
-    console.log("vortex graph");
-    const vortex = new VortexGraph("vortex");
+    const vortex = new VortexGraph("vortex-canvas");
     vortex.setup();
 
     // add control events

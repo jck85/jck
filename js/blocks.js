@@ -1,11 +1,12 @@
-const WIDTH = 600;
-const HEIGHT = 600;
+// const WIDTH = 600;
+// const HEIGHT = 600;
 
 const Bodies = Matter.Bodies;
 const Engine = Matter.Engine.create();
 const World = Engine.world;
 const Runner = Matter.Runner;
 const Render = Matter.Render;
+let Renderer = null;
 const Composite = Matter.Composite;
 const Mouse = Matter.Mouse;
 const blocks = [];
@@ -13,28 +14,10 @@ const maxBlocks = 4;
 let blockCount = 0;
 
 window.addEventListener("load", () => {
-    console.log("blocks");
-
     const canvas = document.getElementById("blocks-canvas");
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
-
     renderWorld(canvas, width, height);
-
-    // const blockProps = {
-    //     render: {
-    //         fillStyle: "red",
-    //         strokeStyle: "black",
-    //         lineWidth: 4,
-    //     },
-    //     frictionAir: 0.01,
-    //     mass: 1,
-    //     chamfer: { radius: 2 },
-    // };
-
-    // const block = createBlock(width * 0.1, width / 2, 64, 64, blockProps);
-    // blocks.push(block);
-    // addToWorld(block);
 
     // Generate some default blocks to start
     const blockSide = width * 0.1;
@@ -64,14 +47,30 @@ window.addEventListener("load", () => {
         blocks.push(block);
         blockCount = blocks.length;
     }
-    console.log(`made ${blockCount} blocks`);
+
     addToWorld(blocks);
+});
+
+window.addEventListener("resize", () => {
+    let canvas = document.getElementById("blocks-canvas");
+
+    canvasWidth = canvas.clientWidth;
+    canvasHeight = canvas.clientHeight;
+    renderWorld(canvas, canvasWidth, canvasHeight);
+    addToWorld(blocks);
+
+    // voronoi.width = canvasWidth;
+    // voronoi.height = canvasHeight;
+
+    // voronoi.clearCanvas();
+    // voronoi.create();
+    // voronoi.draw();
 });
 
 function renderWorld(canvas, width, height) {
     // generate matter js world
 
-    const renderer = Matter.Render.create({
+    Renderer = Matter.Render.create({
         element: canvas,
         engine: Engine,
         options: {
@@ -85,11 +84,11 @@ function renderWorld(canvas, width, height) {
         },
     });
 
-    Render.run(renderer);
+    Render.run(Renderer);
     Runner.run(Runner.create(), Engine);
 
     // Mouse Controls
-    const mouse = Matter.Mouse.create(renderer.canvas);
+    const mouse = Matter.Mouse.create(Renderer.canvas);
     const mouseConstraint = Matter.MouseConstraint.create(Engine, {
         mouse: mouse,
         constraint: {
@@ -103,7 +102,7 @@ function renderWorld(canvas, width, height) {
     Composite.add(World, mouseConstraint);
 
     // Sync mouse with renderer
-    renderer.mouse = mouse;
+    Renderer.mouse = mouse;
 
     // add boundries to world
     const props = {
@@ -135,6 +134,21 @@ function createBlock(x, y, w, h, props) {
     const block = Bodies.rectangle(x, y, w, h, props);
     return block;
 }
+
+// const blockProps = {
+//     render: {
+//         fillStyle: "red",
+//         strokeStyle: "black",
+//         lineWidth: 4,
+//     },
+//     frictionAir: 0.01,
+//     mass: 1,
+//     chamfer: { radius: 2 },
+// };
+
+// const block = createBlock(width * 0.1, width / 2, 64, 64, blockProps);
+// blocks.push(block);
+// addToWorld(block);
 
 // const Body = Matter.Body;
 // const Bodies = Matter.Bodies;
