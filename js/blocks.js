@@ -2,6 +2,7 @@
 // const HEIGHT = 600;
 
 const Bodies = Matter.Bodies;
+const Body = Matter.Body;
 const Engine = Matter.Engine.create();
 const World = Engine.world;
 const Runner = Matter.Runner;
@@ -13,10 +14,17 @@ const blocks = [];
 const maxBlocks = 4;
 let blockCount = 0;
 
+let previousWidth = 0;
+let previousHeight = 0;
+
 window.addEventListener("load", () => {
     const canvas = document.getElementById("blocks-canvas");
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
+
+    previousWidth = width;
+    previousHeight = height;
+
     renderWorld(canvas, width, height);
 
     // Generate some default blocks to start
@@ -44,6 +52,8 @@ window.addEventListener("load", () => {
             blockProps
         );
 
+        block.id = `block-${i}`;
+
         blocks.push(block);
         blockCount = blocks.length;
     }
@@ -56,15 +66,50 @@ window.addEventListener("resize", () => {
 
     canvasWidth = canvas.clientWidth;
     canvasHeight = canvas.clientHeight;
-    renderWorld(canvas, canvasWidth, canvasHeight);
-    addToWorld(blocks);
+    let scaleWidth = canvasWidth / previousWidth;
+    let scaleHeight = canvasHeight / previousHeight;
 
-    // voronoi.width = canvasWidth;
-    // voronoi.height = canvasHeight;
+    Renderer.canvas.width = canvasWidth;
+    Renderer.canvas.height = canvasHeight;
 
-    // voronoi.clearCanvas();
-    // voronoi.create();
-    // voronoi.draw();
+    Renderer.options.width = canvasWidth;
+    Renderer.options.height = canvasHeight;
+
+    Renderer.bounds.max.x = Renderer.bounds.min.x + canvasWidth;
+    Renderer.bounds.max.y = Renderer.bounds.min.y + canvasHeight;
+
+    const topWall = Composite.get(World, "wall-top", "body");
+    Body.setPosition(topWall, { x: canvasWidth / 2, y: 0 });
+    Body.scale(topWall, scaleWidth, 1);
+
+    const bottomWall = Composite.get(World, "wall-bottom", "body");
+    Body.setPosition(bottomWall, { x: canvasWidth / 2, y: canvasHeight });
+    Body.scale(bottomWall, scaleWidth, 1);
+
+    const leftWall = Composite.get(World, "wall-left", "body");
+    Body.setPosition(leftWall, { x: 0, y: canvasHeight / 2 });
+    Body.scale(leftWall, 1, scaleHeight);
+
+    const rightWall = Composite.get(World, "wall-right", "body");
+    Body.setPosition(rightWall, { x: canvasWidth, y: canvasHeight / 2 });
+    Body.scale(rightWall, 1, scaleHeight);
+
+    // update blocks
+    const bodies = Composite.allBodies(World);
+    const bodyCount = bodies.length;
+    for (let i = 4; i < bodyCount; i++) {
+        let pos = bodies[i].position;
+
+        Body.setPosition(bodies[i], {
+            x: pos.x * scaleWidth,
+            y: pos.y * scaleHeight,
+        });
+
+        Body.scale(bodies[i], scaleWidth, scaleHeight);
+    }
+
+    previousWidth = canvasWidth;
+    previousHeight = canvasHeight;
 });
 
 function renderWorld(canvas, width, height) {
@@ -81,6 +126,7 @@ function renderWorld(canvas, width, height) {
             showConvexHulls: false,
             wireframes: false,
             background: "white",
+            pixelRatio: window.devicePixelRatio,
         },
     });
 
@@ -119,9 +165,16 @@ function renderWorld(canvas, width, height) {
     const centerY = height / 2;
 
     const top = Bodies.rectangle(centerX, 0, width, wallHeight, props);
+    top.id = "wall-top";
+
     const bottom = Bodies.rectangle(centerX, height, width, wallHeight, props);
+    bottom.id = "wall-bottom";
+
     const left = Bodies.rectangle(width, centerY, wallHeight, height, props);
+    left.id = "wall-left";
+
     const right = Bodies.rectangle(0, centerY, wallHeight, height, props);
+    right.id = "wall-right";
 
     Composite.add(World, [top, right, bottom, left]);
 }
