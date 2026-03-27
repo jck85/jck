@@ -29,6 +29,11 @@
     --border-b-4px: 4px solid var(--blue);
     --border-o-4px: 4px solid var(--orange);
     --border-m-4px: 4px solid var(--magenta);
+
+    --screen-width-s: 576px;
+    --screen-width-m: 768px;
+    --screen-width-l: 1024px;
+    --screen-width-xl: 1440px;
 }
 
 html {

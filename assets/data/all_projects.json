@@ -1,0 +1,585 @@
+[
+    {
+      "name": "Cyber Truck",
+      "url": "",
+      "date": {
+        "start_month": "AUG",
+        "start_year": "2020",
+        "end_month": "",
+        "end_year": ""
+      },
+      "short": "Attempt at adding a Raspberry Pi to my Ford Ranger",
+      "info": "I stumbled across an open source package called Crankshaft which can link an Android and Raspberry Pi together to allow you setup your own navigation system.  I 3D printer a housing and replaced the radio console (which was dead at this point) in hopes of making my own.  Wiring was a pain and I messed up a few details like screen orientation, but learned a lot!  While it was cool while I had it, I ended up taking out due to not being able to createa safe shutdown for the Pi and the fact a slight bump in the road would disconnet the power harness, resetting the whole thing.  Oh well.  Still learnt a lot!",
+      "tech": [
+        [
+          "Raspberry Pi",
+          "https://www.raspberrypi.org/"
+        ],
+        [
+          "Crankshaft",
+          "#"
+        ],
+        [
+          "Fusion 360",
+          "#"
+        ]
+      ],
+      "photos": [
+        "https://iili.io/DPMBJS.jpg",
+        "https://iili.io/DPMfg2.jpg",
+        "https://iili.io/DPMFf4.jpg",
+        "https://iili.io/DPM2sf.jpg",
+        "https://iili.io/DPGmJI.jpg",
+        "https://iili.io/DPGtlp.jpg",
+        "https://iili.io/DPGZfR.jpg",
+        "https://iili.io/DPGLiv.jpg",
+        "https://iili.io/DPGOVj.jpg",
+        "https://iili.io/DPGjDu.jpg",
+        "https://iili.io/DPGhNe.jpg",
+        "https://iili.io/DPGXR9.jpg",
+        "https://iili.io/DPGMSS.jpg"
+      ],
+      "resources": []
+    },
+    {
+      "name": "RPi Arcade Cab",
+      "url": "",
+      "date": {
+        "start_month": "SEP",
+        "start_year": "2021",
+        "end_month": "OCT",
+        "end_year": "2021"
+      },
+      "short": "Retro Pi Arcade Cabinet",
+      "info": "We this arcade cab collecting dust and taking up space at Splatspace, the local makerspace club I'm apart of.  The orginal emulator software was outdated and depreciated so I decided to give the cabinet some upgrades.  I replaced the original controls with 2 players to give more room to breath and setup Retro Pi to run on a Linux PC running Ubunutu.  Still have to install better speakers and fix some issues with booting into Retro Pie.",
+      "tech": [
+        [
+          "Linux",
+          "#"
+        ],
+        [
+          "Retro Pi",
+          "#"
+        ]
+      ],
+      "photos": [
+        "https://iili.io/DPEO3N.jpg",
+        "https://iili.io/DPEw4p.jpg",
+        "https://iili.io/DPEhCv.jpg",
+        "https://iili.io/DPEWZJ.jpg",
+        "https://iili.io/DPEMTg.jpg",
+        "https://iili.io/DPEEyF.jpg",
+        "https://iili.io/DPE1v1.jpg",
+        "https://iili.io/DPE0YP.jpg",
+        "https://iili.io/DPEl3B.jpg",
+        "https://iili.io/DPE7Cx.jpg",
+        "https://iili.io/DPERQj.jpg",
+        "https://iili.io/DPEAhb.jpg",
+        "https://iili.io/DPEuTu.jpg"
+      ],
+      "resources": []
+    },
+    {
+      "name": "Red Bear Head",
+      "url": "",
+      "date": {
+        "start_month": "JUL",
+        "start_year": "2018",
+        "end_month": "SEP",
+        "end_year": "2018"
+      },
+      "short": "Custom cabinet for a Red Bear tube amp",
+      "info": "Red Bear was a small amp company who sold heads, cabs and studio amps in the late 80s.  I have a hard time finding anyone who has heard of them but I had a 30 watt tube studio amp and loved it.  The tone was great with a nice healthy gain.  However, my cat completely tore up the fabric coating the amp and then the speaker cracked.  I made a new head cabinet for the tube amp and laser cut a panel with some artist liberties.  Finally, some wood staind and glue to put the whole thing together.  Now I can keep that sound I loved alive!",
+      "tech": [
+        [
+          "Red Bear",
+          "#"
+        ],
+        [
+          "Laser Cutting",
+          "#"
+        ]
+      ],
+      "photos": [
+        "https://iili.io/DP1IWv.jpg",
+        "https://iili.io/DP1BJ1.jpg",
+        "https://iili.io/DP1K0B.jpg",
+        "https://iili.io/DP1dWx.jpg",
+        "https://iili.io/DP1Jxj.jpg",
+        "https://iili.io/DP19Db.jpg"
+      ],
+      "resources": []
+    },
+    {
+      "name": "Celestion Cab",
+      "url": "",
+      "date": {
+        "start_month": "OCT",
+        "start_year": "2020",
+        "end_month": "NOV",
+        "end_year": "2020"
+      },
+      "short": "Custom cabinet based on Orange designs",
+      "info": "My brother gifted two Celestion guitar speakers to me from a broken guitar cab of his.  The speakers were great and similar to what is used in Orange cabinets, which happen to be a favorite of mine.  I wanted to do the amps justice and build a proper cab.  Using layers of 3/4 inch thick mdf, wood glue and inspiration from Orange cab dimensions, I built one heavy duty cabinet.  The speakers sound amazing, especially through my Red Bear head.  Who cares if it's too heavy to move?",
+      "tech": [
+        [
+          "Celestion",
+          "#"
+        ],
+        [
+          "Orange",
+          "#"
+        ]
+      ],
+      "photos": [
+        "https://iili.io/DPaSSe.jpg",
+        "https://iili.io/DPa8l9.jpg",
+        "https://iili.io/DPavK7.jpg",
+        "https://iili.io/DPaOV2.jpg",
+        "https://iili.io/DPaNol.jpg",
+        "https://iili.io/DPajt4.jpg",
+        "https://iili.io/DPahNf.jpg",
+        "https://iili.io/DPaXAG.jpg",
+        "https://iili.io/DPaW9s.jpg",
+        "https://iili.io/DPaMSn.jpg",
+        "https://iili.io/DPaEFt.jpg",
+        "https://iili.io/DPalMN.jpg",
+        "https://iili.io/DPacnp.jpg",
+        "https://iili.io/DPaYtR.jpg",
+        "https://iili.io/DPa7wv.jpg",
+        "https://iili.io/DPaR9a.jpg"
+      ],
+      "resources": []
+    },
+    {
+      "name": "RPi CRTV Monitor",
+      "url": "",
+      "date": {
+        "start_month": "JUL",
+        "start_year": "2019",
+        "end_month": "SEP",
+        "end_year": "2019"
+      },
+      "short": "Using a CRTV as a Raspberry Pi Monitor",
+      "info": "I picked up this portable TV from a garage sale and wanted to see if I could use it for a Raspberry Pi.  After finding the series of adapters and converters I needed, I was able to stream YouTube videos from the Pi to the TV.  I'll eventually package the whole together to make a cyber deck or just a fun Halloween prop to loop scary scenes controlled by different sensors.",
+      "tech": [],
+      "photos": [
+        "https://iili.io/DPRbjV.jpg",
+        "https://iili.io/DPRZyx.jpg",
+        "https://iili.io/DPRQvj.jpg",
+        "https://iili.io/DPRLYb.jpg",
+        "https://iili.io/DPRs3u.jpg",
+        "https://iili.io/DPRP4e.jpg",
+        "https://iili.io/DPR6G9.jpg",
+        "https://iili.io/DPR4C7.jpg"
+      ],
+      "resources": []
+    },
+    {
+      "name": "Guitars",
+      "url": "",
+      "date": {
+        "start_month": "AUG",
+        "start_year": "2018",
+        "end_month": "APR",
+        "end_year": "2020"
+      },
+      "short": "A guitar refurbish project",
+      "info": "A friend gifted me two low end guitars to experiement with after I mentioned I wanted to try and build one myself.  After taking them apart and stripping them down to just the wood (stripping finishes is a terrible, miserable process lol), I repleced nearly all of the hardware, upgraded the pickups and added some stains to make some great sounding guitars.  I laser cut the pickguards and wired everything myself.  The bodies are still a little rough and the necks aren't the best but I think they sound great!",
+      "tech": [
+        [
+          "Guitar",
+          "#"
+        ],
+        [
+          "Humbuckers",
+          "#"
+        ]
+      ],
+      "photos": [
+        "https://iili.io/DPYl2e.jpg",
+        "https://iili.io/DPYa49.jpg",
+        "https://iili.io/DPY7BS.jpg",
+        "https://iili.io/DPYuI4.jpg",
+        "https://iili.io/DPYIpf.jpg",
+        "https://iili.io/DPYzkG.jpg",
+        "https://iili.io/DPYx7s.jpg",
+        "https://iili.io/DPYCrX.jpg",
+        "https://iili.io/DPYB1t.jpg",
+        "https://iili.io/DPYqBI.jpg",
+        "https://iili.io/DPYKLN.jpg",
+        "https://iili.io/DPYFXp.jpg",
+        "https://iili.io/DPYJkJ.jpg",
+        "https://iili.io/DPYH7a.jpg",
+        "https://iili.io/DPY9dg.jpg",
+        "https://iili.io/DP7prF.jpg",
+        "https://iili.io/DP7m11.jpg",
+        "https://iili.io/DP7bqP.jpg",
+        "https://iili.io/DP7tLB.jpg",
+        "https://iili.io/DP7smx.jpg",
+        "https://iili.io/DP7iej.jpg",
+        "https://iili.io/DP7g19.jpg",
+        "https://iili.io/DP78sS.jpg",
+        "https://iili.io/DP7vX2.jpg",
+        "https://iili.io/DP7Ob4.jpg",
+        "https://iili.io/DP7Nef.jpg",
+        "https://iili.io/DP7Xgn.jpg",
+        "https://iili.io/DP71xp.jpg",
+        "https://iili.io/DP7lbR.jpg",
+        "https://iili.io/DP7cOv.jpg",
+        "https://iili.io/DP7a5J.jpg"
+      ],
+      "resources": []
+    },
+    {
+        "link": "genius-tunnel",
+        "name": "Genius Tunnel",
+        "client": {
+            "name": "ARCH NYC",
+            "url": "https://arch-nyc.com/"
+        },
+        "date": {
+            "start_month": "MAY",
+            "start_year": "2018",
+            "end_month": "JUN",
+            "end_year": "2018"
+        },
+        "short": "A massive LED infinite tunnel",
+        "info": "The Genius Tunnel was a massive storefront display built for Moncler's two Hawaii locations.  The each of the series of tunnels were controlled using a Raspberry Pi to control the hundreds of feet of RGB LEDs wired through each structure.  The LEDs were controlled using a daisy chain of LED DMX decoders connected to an eDMX Pro interface, which was then plugged into the Raspberry Pi's USB port.  A script written in the Processing IDE controlled the LED lighting sequences.",
+        "tech": [
+            [
+                "Raspberry Pi",
+                "https://www.raspberrypi.org/"
+            ],
+            [
+                "Processing IDE",
+                "https://processing.org/"
+            ],
+            [
+                "DMX",
+                "https://en.wikipedia.org/wiki/DMX512"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63mymb.jpg",
+            "https://iili.io/63pHIj.jpg",
+            "https://iili.io/63pdLQ.jpg",
+            "https://iili.io/63p3BV.jpg",
+            "https://iili.io/63pFEB.jpg",
+            "https://iili.io/63pKrP.jpg",
+            "https://iili.io/63pq21.jpg",
+            "https://iili.io/63pBYF.jpg",
+            "https://iili.io/63pCkg.jpg",
+            "https://iili.io/63pJhx.jpg"
+        ]
+    },
+    {
+        "link": "moose-goldberg",
+        "name": "Moose Goldberg",
+        "client": {
+            "name": "ARCH NYC",
+            "url": "https://arch-nyc.com/"
+        },
+        "date": {
+            "start_month": "JUN",
+            "start_year": "2018",
+            "end_month": "NOV",
+            "end_year": "2018"
+        },
+        "short": "A Rube Goldberg inspired dumb waiter",
+        "info": "Moose Goldberg was a Rube Goldberg inspired two story dumb waiter designed and fabricated by ARCH Productions for the launch of Moose Knuckle's new store located in New York City, NY.  The machine included a functional dumb waiter to move coats between floors as well as numerous mechanical elements such as a sequence of automated bobble heads, Newton's Cradle and a coat hanger which moved a coat around the structure on a custom designed track.  An Arduino Mega was used to control the many motors and sensors throughout the structure.  A script written in the Arduino IDE controlled each of the elements through a timed sequence of events.  Each of the elements movements were written in a non-blocking fashion to allow for multiple actions to take place at the same time such as sensor readings and motor position changes.  A large red button was used as the start button for the events.  Certain elements required parts which could not be bought.  These were modeled in Fusion 360 and 3D printed using a Flashforge Creator Pro.  The dumb waiter acted independently from the ascetic elements which were triggered when a large red button at the base of the structure was pressed.",
+        "tech": [
+            [
+                "Arduino",
+                "https://www.arduino.cc/"
+            ],
+            [
+                "Raspberry Pi",
+                "https://www.raspberrypi.org/"
+            ],
+            [
+                "Fusion 360",
+                "https://www.autodesk.com/products/fusion-360/overview"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63pzhv.jpg",
+            "https://iili.io/63pIQR.jpg",
+            "https://iili.io/63puBp.jpg",
+            "https://iili.io/63pR4I.jpg",
+            "https://iili.io/63p72t.jpg",
+            "https://iili.io/63pYYX.jpg",
+            "https://iili.io/63pcps.jpg",
+            "https://iili.io/63p0TG.jpg",
+            "https://iili.io/63p1jf.jpg",
+            "https://iili.io/63pEQ4.jpg",
+            "https://iili.io/63pMCl.jpg",
+            "https://iili.io/63pVG2.jpg",
+            "https://iili.io/63pW4S.jpg",
+            "https://iili.io/63ph37.jpg",
+            "https://iili.io/63pja9.jpg",
+            "https://iili.io/63pwve.jpg",
+            "https://iili.io/63pNyu.jpg",
+            "https://iili.io/63peTb.jpg",
+            "https://iili.io/63pkjj.jpg",
+            "https://iili.io/63pvZx.jpg",
+            "https://iili.io/63pSCQ.jpg"
+        ]
+    },
+    {
+        "link": "open-the-wound",
+        "name": "Open The Wound",
+        "client": {
+            "name": "Lane Shi Otayonii",
+            "url": "https://www.laneshiotayonii.com/"
+        },
+        "date": {
+            "start_month": "JUN",
+            "start_year": "2020",
+            "end_month": "JUL",
+            "end_year": "2020"
+        },
+        "short": "A prototype for an art project",
+        "info": "Working with Lane Shi Otayonii, I designed and built a prototype to work out the details of a new piece.  The wood frame would be mounted on the ceiling and open up to reveal a mounted TV playing video clips.  A Raspberry Pi was used to run a Python script to play the videos used in the piece.  An Arduino Nano was used to monitor the start/stop button and control the DC motors to open/close the frame.  Hall effect sensors were used for home and end-stop positions.  Custom gears, motor and sensor mounts were 3D printed and designed in Fusion 360 along with the CAD for the frame.",
+        "tech": [
+            [
+                "Arduino",
+                "https://www.arduino.cc/"
+            ],
+            [
+                "Raspberry Pi",
+                "https://www.raspberrypi.org/"
+            ],
+            [
+                "Python",
+                "https://www.python.org/"
+            ],
+            [
+                "Fusion 360",
+                "https://www.autodesk.com/products/fusion-360/overview"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63pLua.jpg",
+            "https://iili.io/63pQwJ.jpg",
+            "https://iili.io/63pZZv.jpg",
+            "https://iili.io/63pDnR.jpg",
+            "https://iili.io/63pbGp.jpg",
+            "https://iili.io/63pm6N.jpg",
+            "https://iili.io/63pyFI.jpg",
+            "https://iili.io/63y9at.jpg"
+        ]
+    },
+    {
+        "link": "cc-robot",
+        "name": "CC Robot",
+        "client": {
+            "name": "Lane Shi Otayonii",
+            "url": "https://www.laneshiotayonii.com/"
+        },
+        "date": {
+            "start_month": "JUN",
+            "start_year": "2012",
+            "end_month": "JAN",
+            "end_year": "2020"
+        },
+        "short": "A midi controlled automaton",
+        "info": "The talented Lane Shi Otayonii created CC Robot for her Automation Alive piece.  CC Robot uses a Teensy 4.0 to receive MIDI input from a score created in Ableton Live to control the various motors, sensors and LEDs mounted in CC.  Each arm uses a DC motor and a two servo motors to make gestures such as hugging, embracing the crowd and touching its head.  A servo motor is used to move the mouth to allow CC to lip sync with the audio track during part of the performance.  A WS2812 LED ring is mounted inside the head illuminates the silicon mold mounted on top.  Brackets for mounting the plastic shells, silicon molds, LEDs, motors and other various components were modeled using Fusion 360 and 3D printed on a Flashforge Creator Pro.",
+        "tech": [
+            [
+                "Arduino",
+                "https://www.arduino.cc/"
+            ],
+            [
+                "Teensy",
+                "https://www.pjrc.com/teensy/"
+            ],
+            [
+                "WS2812b",
+                "https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf"
+            ],
+            [
+                "MIDI",
+                "https://en.wikipedia.org/wiki/MIDI"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63Zlcu.jpg",
+            "https://iili.io/63Z08b.jpg",
+            "https://iili.io/63ZE9j.jpg",
+            "https://iili.io/63ZGAx.jpg",
+            "https://iili.io/63ZMwQ.jpg",
+            "https://iili.io/63ZVtV.jpg",
+            "https://iili.io/63ZXoB.jpg",
+            "https://iili.io/63ZjP1.jpg",
+            "https://iili.io/63ZNKF.jpg",
+            "https://iili.io/63ZOcg.jpg",
+            "https://iili.io/63ZeSa.jpg",
+            "https://iili.io/63ZvHJ.jpg",
+            "https://iili.io/63Z8Av.jpg",
+            "https://iili.io/63ZSNR.jpg",
+            "https://iili.io/63ZUtp.jpg",
+            "https://iili.io/63ZroN.jpg",
+            "https://iili.io/63Z4VI.jpg"
+        ]
+    },
+    {
+        "link": "vial-dispenser",
+        "name": "Vial Dispenser",
+        "client": {
+            "name": "Museum of Sex",
+            "url": "https://www.superfunland.com/"
+        },
+        "date": {
+            "start_month": "JUN",
+            "start_year": "2020",
+            "end_month": "JUL",
+            "end_year": "2020"
+        },
+        "short": "Siren V2.0 prototype",
+        "info": "The Vial Dispenser was designed and built as a prototype for a new version of the Siren, a game I helped build for the Museum of Sex NYC.  The game involves a metal crank wheel cleverly placed for players to spin.  If the players can keep the wheel spinning for 45 seconds, they win a vial of her essence which is dispensed by the game.  A Raspberry Pi runs a sketch written in Python to control audio playback, game state changes, and serial communication with an Arduino Nano connected via USB.  The Nano runs a script written to receive and send data to the Pi as well as control the motors, sensor input and various lighting elements.  CAD models of the dispenser and parts were designed using Fusion 360 which allowed for parts to be imported directly from McMaster-Carr.  When designs were finalized, parts were 3D printed, ordered from McMaster- Carr or built at my workshop.  Once assembled, testing took place over the course of many days to ensure all mechanism were flawless before both dispensers were shipped to a fabrication shop who would incorporate my design into the final build.",
+        "tech": [
+            [
+                "Arduino",
+                "https://www.arduino.cc/"
+            ],
+            [
+                "Raspberry Pi",
+                "https://www.raspberrypi.org/"
+            ],
+            [
+                "Python",
+                "https://www.python.org/"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63y2us.jpg",
+            "https://iili.io/63y3wG.jpg",
+            "https://iili.io/63yFtf.jpg",
+            "https://iili.io/63yfn4.jpg",
+            "https://iili.io/63yqMl.jpg",
+            "https://iili.io/63yBP2.jpg",
+            "https://iili.io/63ynFS.jpg",
+            "https://iili.io/63yoc7.jpg",
+            "https://iili.io/63yxS9.jpg",
+            "https://iili.io/63yI9e.jpg",
+            "https://iili.io/63yTAu.jpg",
+            "https://iili.io/63yuwb.jpg",
+            "https://iili.io/63yAtj.jpg",
+            "https://iili.io/63y5ox.jpg",
+            "https://iili.io/63y7MQ.jpg",
+            "https://iili.io/63yYPV.jpg",
+            "https://iili.io/63ycKB.jpg",
+            "https://iili.io/63ylcP.jpg",
+            "https://iili.io/63y0S1.jpg",
+            "https://iili.io/63yEHF.jpg",
+            "https://iili.io/63yGAg.jpg",
+            "https://iili.io/63yMNa.jpg",
+            "https://iili.io/63yVDJ.jpg"
+        ]
+    },
+    {
+        "link": "lucky-lips",
+        "name": "Lucky Lips",
+        "client": {
+            "name": "Museum of Sex",
+            "url": "https://www.superfunland.com/"
+        },
+        "date": {
+            "start_month": "DEC",
+            "start_year": "2019",
+            "end_month": "JAN",
+            "end_year": "2021"
+        },
+        "short": "A two player kissing game",
+        "info": "Lucky Lips uses a GSR sensor to measure the strength of two players' kiss.  The players grab ahold of a metal hand rail mounted on opposite sides of the game and when they kiss or make skin-to-skin contact in another way, the GSR sensor measures the conductance of the two players.  If the players can maintain contact throughout the game, they win a random prize from the wheel mounted in the center.  While most prizes are tongue in cheek suggestions, grand prizes such as free hotel rooms or drink tickets were offered.  An Arduino Uno was used to read sensor data and send it to a Raspberry Pi.  The Pi ran a Processing IDE sketch to control game state changes, color patterns for the multiple sections of LED strips, and handle sensor input from the Arduino Uno using the Firmata protocol.  A Python sketch controlled all audio playback, printing of prize tickets, and emailing staff to alert them when the grand prizes were won. The two sketches communicated locally via the Open Sound Protocol.",
+        "tech": [
+            [
+                "Arduino",
+                "https://www.arduino.cc/"
+            ],
+            [
+                "Raspberry Pi",
+                "https://www.raspberrypi.org/"
+            ],
+            [
+                "Python",
+                "https://www.python.org/"
+            ],
+            [
+                "Processing IDE",
+                "https://processing.org/"
+            ],
+            [
+                "Open Sound Control",
+                "https://opensoundcontrol.stanford.edu/"
+            ],
+            [
+                "ArtNet",
+                "https://art-net.org.uk/"
+            ],
+            [
+                "DMX",
+                "https://en.wikipedia.org/wiki/DMX512"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63mVdF.jpg",
+            "https://iili.io/63mW5g.jpg",
+            "https://iili.io/63mXea.jpg",
+            "https://iili.io/63mhmJ.jpg",
+            "https://iili.io/63mwzv.jpg",
+            "https://iili.io/63mNXR.jpg",
+            "https://iili.io/63mOsp.jpg",
+            "https://iili.io/63mkqN.jpg"
+        ]
+    },
+    {
+        "link": "glory-stall",
+        "name": "Glory Stall",
+        "client": {
+            "name": "Museum of Sex",
+            "url": "https://www.superfunland.com/"
+        },
+        "date": {
+            "start_month": "DEC",
+            "start_year": "2019",
+            "end_month": "JAN",
+            "end_year": "2021"
+        },
+        "short": "Kind of like Wack-A-Mole",
+        "info": "The Glory Stall is a hilarious take on the Wack-A-Mole game featured in many carnivals and arcades across the country.  Up to 4 players can compete to see who can pull the most as phallic shaped objects are pushed randomly through a set of 5 holes in each stall.  The player who can 'yank the most planks' wins their choice of a stuffed pepper, eggplant or banana.  Each stall uses a combination of an Arduino Nano and Raspberry Pi to control the various sensors, hardware, and audio playback in each stall.  Each of the 4 Raspberry Pis connect to a single Raspberry Pi using ethernet cables and a desktop switch.  This single Pi awaits user input from the staff to start and stop the game.  The Pis communicate using Open Sound Control.  On each Pi, a Processing IDE sketch is used to control each stall's Pi and the main Pi controlling the game state changes.  The Processing sketch handles audio playback, reading of incoming state changes, scoreboard updating and communication with the Arduino Nano via the Firmata protocol.  The Nano is used to read sensor data to record pulls and control of the relay module to activate pistons and the winner siren light.",
+        "tech": [
+            [
+                "Arduino",
+                "https://www.arduino.cc/"
+            ],
+            [
+                "Raspberry Pi",
+                "https://www.raspberrypi.org/"
+            ],
+            [
+                "Processing IDE",
+                "https://processing.org/"
+            ],
+            [
+                "Fusion 360",
+                "https://www.autodesk.com/products/fusion-360/overview"
+            ],
+            [
+                "Open Sound Control",
+                "https://opensoundcontrol.stanford.edu/"
+            ]
+        ],
+        "photos": [
+            "https://iili.io/63QSC7.jpg",
+            "https://iili.io/63QvQS.jpg",
+            "https://iili.io/63Qwvf.jpg",
+            "https://iili.io/63QUG9.jpg",
+            "https://iili.io/63Qg4e.jpg",
+            "https://iili.io/63QPvj.jpg",
+            "https://iili.io/63Q6Yb.jpg",
+            "https://iili.io/63Q43u.jpg"
+        ]
+    }
+  ]
