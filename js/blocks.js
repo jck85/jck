@@ -1,133 +1,187 @@
-let blocks = [];
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
+const Engine = Matter.Engine.create();
+const World = Engine.world;
+const Runner = Matter.Runner;
+const Render = Matter.Render;
+let Renderer = null;
+const Composite = Matter.Composite;
+const Mouse = Matter.Mouse;
+const blocks = [];
+const maxBlocks = 4;
+let blockCount = 0;
 
-let width = 0;
-let height = 0;
+let previousWidth = 0;
+let previousHeight = 0;
 
-let blockCount = 2;
+window.addEventListener("load", () => {
+    const canvas = document.getElementById("blocks-canvas");
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
 
-function setup() {
-    let c = document.getElementById("blocks");
-    width = c.clientWidth;
-    height = c.clientHeight;
+    previousWidth = width;
+    previousHeight = height;
 
-    const canvas = createCanvas(width, height, SVG);
-    canvas.parent("blocks");
-    frameRate(60);
+    renderWorld(canvas, width, height);
 
-    for (let i = 0; i < blockCount; i++) {
-        let block = new Block(75 * i + 25, 50, 50, 50);
+    // Generate some default blocks to start
+    const blockSide = width * 0.1;
+    const centerX = width / 2;
+    const defaultStart = centerX - (blockSide * maxBlocks) / 2;
+
+    for (let i = 0; i < maxBlocks; i++) {
+        const blockProps = {
+            render: {
+                fillStyle: colors[i],
+                strokeStyle: "black",
+                lineWidth: 4,
+            },
+            frictionAir: 0.01,
+            mass: 1,
+            chamfer: { radius: 2 },
+        };
+
+        const block = createBlock(
+            defaultStart + i * (blockSide + 10),
+            width / 2,
+            blockSide,
+            blockSide,
+            blockProps
+        );
+
+        block.id = `block-${i}`;
+
         blocks.push(block);
+        blockCount = blocks.length;
     }
+
+    addToWorld(blocks);
+});
+
+window.addEventListener("resize", () => {
+    let canvas = document.getElementById("blocks-canvas");
+
+    canvasWidth = canvas.clientWidth;
+    canvasHeight = canvas.clientHeight;
+
+    let scaleWidth = canvasWidth / previousWidth;
+    let scaleHeight = canvasHeight / previousHeight;
+
+    // Update Renderer
+    Renderer.canvas.width = canvasWidth;
+    Renderer.canvas.height = canvasHeight;
+
+    Renderer.options.width = canvasWidth;
+    Renderer.options.height = canvasHeight;
+
+    Renderer.bounds.max.x = Renderer.bounds.min.x + canvasWidth;
+    Renderer.bounds.max.y = Renderer.bounds.min.y + canvasHeight;
+
+    // Update walls
+    const topWall = Composite.get(World, "wall-top", "body");
+    Body.setPosition(topWall, { x: canvasWidth / 2, y: 0 });
+    Body.scale(topWall, scaleWidth, 1);
+
+    const bottomWall = Composite.get(World, "wall-bottom", "body");
+    Body.setPosition(bottomWall, { x: canvasWidth / 2, y: canvasHeight });
+    Body.scale(bottomWall, scaleWidth, 1);
+
+    const leftWall = Composite.get(World, "wall-left", "body");
+    Body.setPosition(leftWall, { x: 0, y: canvasHeight / 2 });
+    Body.scale(leftWall, 1, scaleHeight);
+
+    const rightWall = Composite.get(World, "wall-right", "body");
+    Body.setPosition(rightWall, { x: canvasWidth, y: canvasHeight / 2 });
+    Body.scale(rightWall, 1, scaleHeight);
+
+    // Update blocks
+    const bodies = Composite.allBodies(World);
+    const bodyCount = bodies.length;
+    for (let i = 4; i < bodyCount; i++) {
+        let pos = bodies[i].position;
+
+        Body.setPosition(bodies[i], {
+            x: pos.x * scaleWidth,
+            y: pos.y * scaleHeight,
+        });
+
+        Body.scale(bodies[i], scaleWidth, scaleHeight);
+    }
+
+    previousWidth = canvasWidth;
+    previousHeight = canvasHeight;
+});
+
+function renderWorld(canvas, width, height) {
+    Renderer = Matter.Render.create({
+        element: canvas,
+        engine: Engine,
+        options: {
+            width: width,
+            height: height,
+            showAxes: false,
+            showCollisions: false,
+            showConvexHulls: false,
+            wireframes: false,
+            background: "white",
+            pixelRatio: window.devicePixelRatio,
+        },
+    });
+
+    Render.run(Renderer);
+    Runner.run(Runner.create(), Engine);
+
+    // Mouse Controls
+    const mouse = Matter.Mouse.create(Renderer.canvas);
+    const mouseConstraint = Matter.MouseConstraint.create(Engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.5,
+            render: {
+                visible: false,
+            },
+        },
+    });
+
+    Composite.add(World, mouseConstraint);
+
+    // Sync mouse with renderer
+    Renderer.mouse = mouse;
+
+    // add boundries to world
+    const props = {
+        isStatic: true,
+        render: {
+            fillStyle: "none",
+            strokeStyle: "none",
+            lineWidth: 0,
+        },
+    };
+
+    const wallHeight = 10;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    const top = Bodies.rectangle(centerX, 0, width, wallHeight, props);
+    top.id = "wall-top";
+
+    const bottom = Bodies.rectangle(centerX, height, width, wallHeight, props);
+    bottom.id = "wall-bottom";
+
+    const left = Bodies.rectangle(width, centerY, wallHeight, height, props);
+    left.id = "wall-left";
+
+    const right = Bodies.rectangle(0, centerY, wallHeight, height, props);
+    right.id = "wall-right";
+
+    Composite.add(World, [top, right, bottom, left]);
 }
 
-function draw() {
-    background(255);
-
-    for (let i = 0; i < blockCount; i++) {
-        blocks[i].update();
-        blocks[i].show();
-    }
+function addToWorld(things) {
+    Composite.add(World, things);
 }
 
-function mousePressed() {
-    for (let i = 0; i < blockCount; i++) {
-        blocks[i].pressed();
-    }
-}
-
-function mouseReleased() {
-    for (let i = 0; i < blockCount; i++) {
-        blocks[i].released();
-    }
-}
-
-class Block {
-    constructor(x, y, w, h) {
-        // dims and pos
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.offsetX = 0;
-        this.offsetY = 0;
-
-        // physics
-        this.velocity = 0;
-        this.gravity = 0.1;
-        this.acceleration = this.gravity;
-
-        // interactions
-        this.dragging = false;
-        this.collided = false;
-        this.over = false;
-        this.active = false;
-
-        // style
-        this.fillColor = "blue";
-        this.strokeColor = "black";
-        this.strokeWeight = 2;
-    }
-
-    show() {
-        fill(this.fillColor);
-        stroke(this.strokeColor);
-        strokeWeight(this.strokeWeight);
-        rect(this.x, this.y, this.w, this.h);
-    }
-
-    update() {
-        if (this.dragging) {
-            this.x = mouseX + this.offsetX;
-            this.y = mouseY + this.offsetY;
-        }
-
-        if (this.y + this.h < height) {
-            this.velocity += this.acceleration;
-            this.y += this.velocity;
-        } else {
-            this.y = height - this.h;
-            this.velocity = 0;
-        }
-    }
-
-    checkCollision(block) {
-        let overlapX = this.x < block.x + block.w && this.x + this.w > block.x;
-        let overlapY = this.y + this.h > block.y && this.y < block.y + block.h;
-
-        if (overlapX && overlapY) {
-            console.log("collision!");
-            this.y = block.y - this.h;
-            this.acceleration = 0;
-        } else {
-            this.acceleration = this.gravity;
-        }
-    }
-
-    mouseOver() {
-        if (
-            mouseX > this.x &&
-            mouseX < this.x + this.w &&
-            mouseY > this.y &&
-            mouseY < this.y + this.h
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-    pressed() {
-        if (this.mouseOver()) {
-            this.strokeColor = color(0, 200, 0);
-            this.active = true;
-            this.dragging = true;
-            this.offsetX = this.x - mouseX;
-            this.offsetY = this.y - mouseY;
-        }
-    }
-
-    released() {
-        this.strokeColor = color(0, 0, 200);
-        this.active = false;
-        this.dragging = false;
-    }
+function createBlock(x, y, w, h, props) {
+    const block = Bodies.rectangle(x, y, w, h, props);
+    return block;
 }

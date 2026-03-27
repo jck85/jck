@@ -5,10 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <link rel="stylesheet" type="text/css" href="../css/set.css" />
 
-        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
-        <script src="https://unpkg.com/p5.js-svg@1.6.0"></script>
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
             crossorigin="anonymous"
@@ -27,327 +24,31 @@
             </div>
         </nav>
 
-        <div class="app">
-            <h1 class="app-header">Set</h1>
-            <div class="app-content">
-                <div class="set-content">
-                    <div class="set-controls">
-                        <button class="btn game-btn m-1" onclick="newGame()">
-                            NEW
-                        </button>
-                        <!-- <button class="btn game-btn m-1" onclick="easyMode();" id="easy-btn">EASY</button> -->
-                        <button class="btn game-btn m-1" onclick="checkMatch()">
-                            CHECK
-                        </button>
-                        <button class="btn game-btn m-1" onclick="getHint()">
-                            HINT
-                        </button>
-                        <button class="btn game-btn m-1" onclick="drawThree()">
-                            DRAW 3
-                        </button>
-                        <a class="nav-link" href="#" onclick="showRules()"
-                            >Rules</a
-                        >
+        <main>
+            <div class="page-header">
+                <h1>Set</h1>
+            </div>
+
+            <div class="page-content">
+                <div class="svg-content">
+                    <div id="svg-canvas-container" class="svg-canvas-container">
+                        <svg id="set-canvas" class="svg-canvas"></svg>
                     </div>
 
-                    <div id="set" class="set-canvas"></div>
-
-                    <!-- <div class="set-game">
-          <h1 id="scoreboard" class="fw-bold text-center mt-2">
-            CARDS LEFT:<span id="cards-left" class="text-danger">0</span>
-          </h1>
-          <div class="set-game-row">
-            <div id="cell-0" class="set-card">
-            </div>
-            <div id="cell-1" class="set-card">
-            </div>
-            <div id="cell-2" class="set-card">
-            </div>
-            <div id="cell-3" class="set-card">
-            </div>
-            <div id="cell-12" class="set-card">
-            </div>
-          </div>
-          <div class="set-game-row">
-            <div id="cell-4" class="set-card">
-            </div>
-            <div id="cell-5" class="set-card">
-            </div>
-            <div id="cell-6" class="set-card">
-            </div>
-            <div id="cell-7" class="set-card">
-            </div>
-            <div id="cell-13" class="set-card">
-            </div>
-          </div>
-          <div class="set-game-row">
-            <div id="cell-8" class="set-card">
-            </div>
-            <div id="cell-9" class="set-card">
-            </div>
-            <div id="cell-10" class="set-card">
-            </div>
-            <div id="cell-11" class="set-card">
-            </div>
-            <div id="cell-14" class="set-card">
-            </div>
-          </div>
-        </div> -->
-                </div>
-            </div>
-        </div>
-
-        <!-- RULES OVERLAY -->
-        <div id="set-rules" class="overlay">
-            <div class="container-fluid">
-                <i class="fas fa-times fa-2x" onclick="closeRules()"></i>
-                <h1 class="text-center mt-2 fw-bold">RULES</h1>
-                <h2 class="mt-5 fw-bold text-center">
-                    Each card has 4 attributes.
-                </h2>
-
-                <!-- Attributes -->
-                <div class="row mt-4 justify-content-center">
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <h3 class="mt-2 fw-bold">Color</h3>
-                        <h4>Red, Green, Blue</h4>
-                        <img
-                            src="../assets/set-cards/card-20.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-47.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-74.png"
-                            class="example-card"
-                        />
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <h3 class="mt-2 fw-bold">Texture</h3>
-                        <h4>Empty, Shaded, Filled</h4>
-                        <img
-                            src="../assets/set-cards/card-0.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-40.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-80.png"
-                            class="example-card"
-                        />
+                    <div class="svg-controls">
+                        <div class="svg-control-row">
+                            <button class="btn game-btn m-1">NEW</button>
+                            <button class="btn game-btn m-1">CHECK</button>
+                            <button class="btn game-btn m-1">HINT</button>
+                            <button class="btn game-btn m-1">DRAW 3</button>
+                            <button class="nav-link">RULES</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <h3 class="mt-2 fw-bold">Amount</h3>
-                        <h4>One, Two, Three</h4>
-                        <img
-                            src="../assets/set-cards/card-56.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-59.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-62.png"
-                            class="example-card"
-                        />
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <h3 class="mt-2 fw-bold">Shape</h3>
-                        <h4>Triangle, Square, Circle</h4>
-                        <img
-                            src="../assets/set-cards/card-24.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-70.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-35.png"
-                            class="example-card"
-                        />
-                    </div>
-                </div>
-
-                <h2 class="mt-5 fw-bold text-center w-75 mx-auto">
-                    The deck is made up of 81 cards, <br />1 card for every
-                    possible combination of attributes.
-                </h2>
-                <h2 class="mt-5 fw-bold text-center w-75 mx-auto">
-                    Find three cards whose attributes are either <br />all the
-                    same or all different.
-                </h2>
-                <h2 class="mt-5 fw-bold text-center w-75 mx-auto">
-                    Below are examples of matches.
-                </h2>
-
-                <!-- Examples of Matches -->
-                <div class="row mt-5 justify-content-center">
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="table-success fw-bold fs-5">
-                                        SAME
-                                    </td>
-                                    <td class="fs-5 fw-bold">
-                                        COLOR, TEXTURE, SHAPE
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="table-danger fw-bold fs-5">
-                                        DIFFERENT
-                                    </td>
-                                    <td class="fs-5 fw-bold">AMOUNT</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <img
-                            src="../assets/set-cards/card-56.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-59.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-62.png"
-                            class="example-card"
-                        />
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="table-success fw-bold fs-5">
-                                        SAME
-                                    </td>
-                                    <td class="fs-5 fw-bold">AMOUNT</td>
-                                </tr>
-                                <tr>
-                                    <td class="table-danger fw-bold fs-5">
-                                        DIFFERENT
-                                    </td>
-                                    <td class="fs-5 fw-bold">
-                                        COLOR, TEXTURE, SHAPE
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <img
-                            src="../assets/set-cards/card-24.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-70.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-35.png"
-                            class="example-card"
-                        />
-                    </div>
-                </div>
-
-                <div class="row mt-2 justify-content-center align-items-end">
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="table-success fw-bold fs-5">
-                                        SAME
-                                    </td>
-                                    <td class="fs-5 fw-bold">
-                                        TEXTURE, AMOUNT, SHAPE
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="table-danger fw-bold fs-5">
-                                        DIFFERENT
-                                    </td>
-                                    <td class="fs-5 fw-bold">COLOR</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <img
-                            src="../assets/set-cards/card-20.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-47.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-74.png"
-                            class="example-card"
-                        />
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-2 text-center example">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="table-success fw-bold fs-5">
-                                        SAME
-                                    </td>
-                                    <td class="fs-5 fw-bold">NOTHING!</td>
-                                </tr>
-                                <tr>
-                                    <td class="table-danger fw-bold fs-5">
-                                        DIFFERENT
-                                    </td>
-                                    <td class="fs-5 fw-bold">
-                                        COLOR, TEXTURE, AMOUNT, SHAPE
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <img
-                            src="../assets/set-cards/card-0.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-40.png"
-                            class="example-card"
-                        />
-                        <img
-                            src="../assets/set-cards/card-80.png"
-                            class="example-card"
-                        />
-                    </div>
-                </div>
-
-                <h3 class="mt-5 fw-bold text-center mx-auto w-75">
-                    NOTE! <br />You'll never have a match with all of the same
-                    attributes. <br />Can you guess why?
-                </h3>
-
-                <!-- Extra Content-->
-                <h3 class="mt-5 fw-bold text-center mx-auto w-75">
-                    This game was inspired by the card game SET <br />and uses
-                    the same mechanics.
-                </h3>
-                <h3 class="mt-5 fw-bold text-center">
-                    To read more, click the links below. <br />Good luck!
-                </h3>
-                <a
-                    href="https://en.wikipedia.org/wiki/Set_(card_game)"
-                    target="_blank"
-                >
-                    <h4 class="set-wiki-link fs-3">SET Wikipedia Page</h4>
-                </a>
-                <a href="https://www.setgame.com/set/puzzle" target="_blank">
-                    <h4 class="set-game-link fs-3 mb-5">SET Game</h4>
-                </a>
             </div>
-        </div>
-
+        </main>
+        <script src="../js/lib/utils.js"></script>
+        <script src="../js/lib/SVG.js"></script>
         <script src="../js/set.js"></script>
     </body>
 </html>

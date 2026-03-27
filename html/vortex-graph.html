@@ -1,62 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>jck</title>
+        <link rel="stylesheet" type="text/css" href="../css/main.css" />
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jck</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" type="text/css" href="../css/vortex-graph.css">
+        <script
+            src="https://kit.fontawesome.com/cdcc65decb.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
 
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
-    <script src="https://unpkg.com/p5.js-svg@1.6.0"></script>
-    <script src="https://kit.fontawesome.com/cdcc65decb.js" crossorigin="anonymous"></script>
-</head>
+    <body>
+        <nav>
+            <div class="nav-home">
+                <a href="../index.html">home</a>
+            </div>
+            <div class="nav-menu">
+                <a href="stuff.html">stuff</a>
+                <a href="https://github.com/intern-jck/jck.git">src</a>
+            </div>
+        </nav>
 
-<body>
-    <nav>
-        <div class="nav-home">
-            <a href="../index.html">home</a>
-        </div>
-        <div class="nav-menu">
-            <a href="stuff.html">stuff</a>
-            <a href="https://github.com/intern-jck/jck.git">src</a>
-        </div>
-    </nav>
+        <main>
+            <div class="page-header">
+                <h1>Vortex Graph</h1>
+            </div>
 
-    <main>
-        <div class="app">
-            <h1>Vortex Graph</h1>
-            <div class="app-content">
-                <div class="vortex-content">
-                    <div id="vortex" class="vortex-canvas"></div>
-                    <div class="vortex-controls">
-                        <div class="control">
+            <div class="page-content">
+                <div class="svg-content">
+                    <div id="svg-canvas-container" class="svg-canvas-container">
+                        <svg id="vortex-canvas" class="svg-canvas"></svg>
+                    </div>
+
+                    <div class="svg-controls">
+                        <div class="svg-control-row">
+                            <button id="refresh-svg" class="control-button">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button
+                                id="download-vortex-svg"
+                                class="control-button"
+                            >
+                                <i class="fa-solid fa-file-arrow-down"></i>
+                            </button>
+                        </div>
+
+                        <div class="svg-control-row">
                             <label for="modulus-number">Modulus</label>
-                            <input type="number" id="modulus-number" value="9" min="2" max="99"
-                                onchange="updateModulus(this.value)" />
-                            <input type="range" id="modulus-range" value="9" min="2" max="100" step="1.0"
-                                oninput="updateModulus(this.value)" />
+                            <input
+                                type="number"
+                                id="modulus-number"
+                                value="99"
+                                min="2"
+                                max="99"
+                            />
+                            <input
+                                type="range"
+                                id="modulus-range"
+                                value="96"
+                                min="2"
+                                max="100"
+                                step="1.0"
+                            />
                         </div>
 
-                        <div class="control">
+                        <div class="svg-control-row">
                             <label for="multiplier-number"> Multiplier </label>
-                            <input type="number" id="multiplier-number" value="2" min="1" max="99"
-                                onchange="updateMultiplier(this.value)" />
-                            <input type="range" id="multiplier-range" value="2" min="0" max="100" step="1.0"
-                                oninput="updateMultiplier(this.value)" />
+                            <input
+                                type="number"
+                                id="multiplier-number"
+                                value="80"
+                                min="1"
+                                max="99"
+                            />
+                            <input
+                                type="range"
+                                id="multiplier-range"
+                                value="2"
+                                min="0"
+                                max="100"
+                                step="1.0"
+                            />
                         </div>
-
-                        <button onclick="downloadSvg()">
-                            <i class="fa-solid fa-file-arrow-down"></i>
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <script src="../js/vortex-graph.js"></script>
-</body>
-
+        <script src="../js/lib/utils.js"></script>
+        <script src="../js/lib/SVG.js"></script>
+        <script src="../js/vortex-graph.js"></script>
+    </body>
 </html>

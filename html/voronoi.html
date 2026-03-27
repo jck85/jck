@@ -1,51 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>jck</title>
+        <link rel="stylesheet" type="text/css" href="../css/main.css" />
+        <link rel="stylesheet" type="text/css" href="../css/voronoi.css" />
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jck</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" type="text/css" href="../css/voronoi.css">
+        <script
+            src="https://kit.fontawesome.com/cdcc65decb.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
 
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
-    <script src="https://unpkg.com/p5.js-svg@1.6.0"></script>
-    <script src="https://kit.fontawesome.com/cdcc65decb.js" crossorigin="anonymous"></script>
-</head>
+    <body>
+        <nav>
+            <div class="nav-home">
+                <a href="../index.html">home</a>
+            </div>
+            <div class="nav-menu">
+                <a href="stuff.html">stuff</a>
+                <a href="https://github.com/intern-jck/jck.git">src</a>
+            </div>
+        </nav>
 
-<body>
-    <nav>
-        <div class="nav-home">
-            <a href="../index.html">home</a>
-        </div>
-        <div class="nav-menu">
-            <a href="stuff.html">stuff</a>
-            <a href="https://github.com/intern-jck/jck.git">src</a>
-        </div>
-    </nav>
+        <main>
+            <div class="page-header">
+                <h1>Voronoi Diagram</h1>
+            </div>
 
-    <main>
-        <div class="app">
-            <h1>Voronoi Diagram</h1>
-            <div class="app-content">
-                <div class="voronoi-content">
-                    <div id="voronoi" class="voronoi-canvas"></div>
-                    <div class="voronoi-controls">
-                        <button onclick="decreaseNodes()"><i class="fa-solid fa-minus"></i></button>
-                        <p id="node-count">4</p>
-                        <button onclick="increaseNodes()"><i class="fa-solid fa-plus"></i></button>
-                        <button onclick="downloadSvg()">
-                            <i class="fa-solid fa-file-arrow-down"></i>
-                        </button>
+            <div class="page-content">
+                <div class="svg-content">
+                    <div id="svg-canvas-container" class="svg-canvas-container">
+                        <svg id="voronoi-canvas" class="svg-canvas"></svg>
+                    </div>
+
+                    <div class="svg-controls">
+                        <div class="svg-control-row">
+                            <div class="voronoi-control-buttons">
+                                <button id="remove-node" class="control-button">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <div class="control-value">
+                                    <p id="node-count">4</p>
+                                </div>
+                                <button id="add-node" class="control-button">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <button id="download-svg" class="control-button">
+                                <i class="fa-solid fa-file-arrow-down"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="voronoi-text">
+                        <a
+                            href="https://en.wikipedia.org/wiki/Voronoi_diagram"
+                            target="_blank"
+                        >
+                            <span>Voronoi Wikipedia</span>
+                        </a>
+                        <a
+                            href="https://d3js.org/d3-delaunay/voronoi"
+                            target="_blank"
+                        >
+                            <span>Make your own</span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="../js/lib/Shapes.js"></script>
-    <script src="../js/voronoi.js"></script>
-</body>
-
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <script src="../js/lib/utils.js"></script>
+        <script src="../js/lib/SVG.js"></script>
+        <script src="../js/voronoi.js"></script>
+    </body>
 </html>

@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
+
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" href="../css/stuff.css" />
 
@@ -18,6 +19,7 @@
             <div class="nav-home">
                 <a href="../index.html">home</a>
             </div>
+
             <div class="nav-menu">
                 <a href="stuff.html">stuff</a>
                 <a href="https://github.com/intern-jck/jck.git">src</a>
@@ -25,24 +27,74 @@
         </nav>
 
         <main>
-            <div class="app">
-                <div class="app-content">
-                    <div class="stuff-content">
-                        <div id="voronoi" class="stuff-canvas">
-                            <a href="voronoi.html">VORONOI</a>
+            <div class="page-header">
+                <h1>Stuff</h1>
+            </div>
+
+            <div class="page-content">
+                <div class="stuff-content">
+                    <div id="voronoi-container" class="stuff-item">
+                        <div class="stuff-container">
+                            <svg id="voronoi-canvas" class="stuff-canvas"></svg>
                         </div>
-                        <div id="vortex" class="stuff-canvas">
-                            <a href="vortex-graph.html">VORTEX GRAPH</a>
+
+                        <div class="stuff-info">
+                            <p>Voronoi Diagram</p>
+                            <a href="voronoi.html">
+                                <i class="fa-solid fa-maximize"></i>
+                            </a>
                         </div>
-                        <div id="blocks" class="stuff-canvas">
-                            <a href="blocks.html">BLOCKS</a>
+                    </div>
+
+                    <div id="vortex-container" class="stuff-item">
+                        <div class="stuff-container">
+                            <svg id="vortex-canvas" class="stuff-canvas"></svg>
                         </div>
-                        <div id="set" class="stuff-canvas">
-                            <a href="set.html">Set</a>
+
+                        <div class="stuff-info">
+                            <p>Vortex Graph</p>
+                            <a href="vortex-graph.html">
+                                <i class="fa-solid fa-maximize"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="blocks-container" class="stuff-item">
+                        <div class="stuff-container">
+                            <div id="blocks-canvas" class="stuff-canvas"></div>
+                        </div>
+
+                        <div class="stuff-info">
+                            <p>Blocks</p>
+                            <a href="blocks.html">
+                                <i class="fa-solid fa-maximize"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="set-container" class="stuff-item">
+                        <div class="stuff-container">
+                            <svg id="set-canvas" class="stuff-canvas"></svg>
+                        </div>
+
+                        <div class="stuff-info">
+                            <p>Set</p>
+                            <a href="set.html">
+                                <i class="fa-solid fa-maximize"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <script src="../js/lib/matter.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <script src="../js/lib/utils.js"></script>
+        <script src="../js/lib/SVG.js"></script>
+        <script src="../js/voronoi.js"></script>
+        <script src="../js/vortex-graph.js"></script>
+        <script src="../js/blocks.js"></script>
+        <script src="../js/set.js"></script>
     </body>
 </html>
