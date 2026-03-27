@@ -29,6 +29,11 @@
     --border-b-4px: 4px solid var(--blue);
     --border-o-4px: 4px solid var(--orange);
     --border-m-4px: 4px solid var(--magenta);
+
+    --screen-width-s: 576px;
+    --screen-width-m: 768px;
+    --screen-width-l: 1024px;
+    --screen-width-xl: 1440px;
 }
 
 html {
@@ -74,12 +79,12 @@ p {
     margin: 0;
 }
 
-nav {
+/* nav {
     height: 3rem;
     font-size: 1.8rem;
     display: flex;
     align-items: center;
-}
+} */
 
 label {
     font-size: 1.4rem;
@@ -103,21 +108,11 @@ input[type="range"] {
 
 /* Default Classes */
 
-/* Navbar */
-.nav-home {
-    margin-left: 1rem;
-    margin-right: auto;
-}
-
-.nav-menu {
-    margin-right: 1rem;
-}
-
 /* Pages */
 .page-header {
     font-size: 1rem;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .page-content {
@@ -249,10 +244,10 @@ input[type="range"] {
 
 /* Media Queries */
 /* Mobile */
-@media (max-width: 575px) {
+@media screen and (max-width: 575px) {
     /* Page Wide */
     .page-header {
-        margin-top: 1rem;
+        margin-top: 3rem;
     }
 
     .page-content {
@@ -308,7 +303,7 @@ input[type="range"] {
 }
 
 /* Tablets */
-@media (min-width: 576px) and (max-width: 767px) {
+@media screen and (min-width: 576px) and (max-width: 767px) {
     .canvas-container {
         height: 30rem;
         width: 30rem;
@@ -335,7 +330,7 @@ input[type="range"] {
 }
 
 /* Monitors */
-@media (min-width: 768px) and (max-width: 1199px) {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
     .canvas-container {
         height: 40rem;
         width: 40rem;
