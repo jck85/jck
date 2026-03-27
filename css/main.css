@@ -254,7 +254,7 @@ input[type="range"] {
 
 /* Media Queries */
 /* Mobile */
-@media (max-width: 575px) {
+@media screen and (max-width: 575px) {
     /* Page Wide */
     .page-header {
         margin-top: 1rem;
@@ -313,7 +313,7 @@ input[type="range"] {
 }
 
 /* Tablets */
-@media (min-width: 576px) and (max-width: 767px) {
+@media screen and (min-width: 576px) and (max-width: 767px) {
     .canvas-container {
         height: 30rem;
         width: 30rem;
@@ -340,7 +340,7 @@ input[type="range"] {
 }
 
 /* Monitors */
-@media (min-width: 768px) and (max-width: 1199px) {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
     .canvas-container {
         height: 40rem;
         width: 40rem;

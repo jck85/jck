@@ -83,15 +83,6 @@ const modelTypes = {
 };
 
 function getModelType(type) {
-    // try {
-    //   const response = fetch(MODELS_URL);
-    //   const data = response.json();
-    //   return data[type];
-    // } catch (error) {
-    //   console.error(error);
-    //   return error;
-    // }
-
     fetch(MODELS_URL)
         .then((response) => {
             return response.json();
@@ -99,18 +90,11 @@ function getModelType(type) {
         .then((data) => {
             return data;
         })
-        .catch();
+        .catch((error) => console.log("fetching models url", error));
 }
 
 function addInfo(info, parentDiv, modelType) {
-    // console.log('adding info:', info, modelType)
-    // Get the model for the info data
-    // const model = getModelType(modelType);
-
-    // const name, url = "";
-
     const model = modelTypes[modelType];
-    // console.log(model)
 
     // Use it's keys to access the info items
     const keys = Object.keys(model);

@@ -13,9 +13,11 @@ function addCarousel(images, parentDiv) {
 
     for (let i in images) {
         const carouselImageContainer = document.createElement("div");
-        carouselImageContainer.classList = "carousel-img";
         const carouselImage = document.createElement("img");
+
+        carouselImageContainer.classList = "carousel-img";
         carouselImage.src = images[i];
+
         carouselImageContainer.appendChild(carouselImage);
         carouselSlides.appendChild(carouselImageContainer);
         slides.push(carouselImageContainer);
@@ -67,7 +69,3 @@ const showSlide = (slides, index) => {
         slide.style.transform = `translateX(${100 * (i - index)}%)`;
     });
 };
-
-// window.onload = (event) => {
-//   currentSlide = 0;
-// };
