@@ -12,6 +12,7 @@
         ></script>
 
         <link rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="../css/nav.css" />
         <link rel="stylesheet" href="../css/projects.css" />
         <link rel="stylesheet" href="../css/components/cards.css" />
         <link rel="stylesheet" href="../css/components/carousel.css" />
@@ -19,12 +20,17 @@
     </head>
 
     <body>
-        <nav>
-            <div class="nav-home">
-                <a href="../index.html">home</a>
+        <nav id="navbar">
+            <div id="nav-ham">
+                <button onclick="showMenu()">
+                    <i class="fa-solid fa-bars fa-3x"></i>
+                </button>
             </div>
 
-            <div class="nav-menu">
+            <div id="nav-menu" class="nav-menu">
+                <div class="nav-home">
+                    <a href="../index.html">home</a>
+                </div>
                 <a href="stuff.html">stuff</a>
                 <a href="projects.html">projects</a>
                 <a href="photos.html">photos</a>
@@ -44,6 +50,7 @@
             </div>
         </main>
 
+        <script type="text/javascript" src="../js/nav.js"></script>
         <script type="text/javascript" src="../js/components/cards.js"></script>
         <script
             type="text/javascript"

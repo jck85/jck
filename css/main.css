@@ -79,12 +79,12 @@ p {
     margin: 0;
 }
 
-nav {
+/* nav {
     height: 3rem;
     font-size: 1.8rem;
     display: flex;
     align-items: center;
-}
+} */
 
 label {
     font-size: 1.4rem;
@@ -108,21 +108,11 @@ input[type="range"] {
 
 /* Default Classes */
 
-/* Navbar */
-.nav-home {
-    margin-left: 1rem;
-    margin-right: auto;
-}
-
-.nav-menu {
-    margin-right: 1rem;
-}
-
 /* Pages */
 .page-header {
     font-size: 1rem;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .page-content {
@@ -257,7 +247,7 @@ input[type="range"] {
 @media screen and (max-width: 575px) {
     /* Page Wide */
     .page-header {
-        margin-top: 1rem;
+        margin-top: 3rem;
     }
 
     .page-content {

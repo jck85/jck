@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
+        <link rel="stylesheet" type="text/css" href="../css/nav.css" />
 
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
@@ -13,12 +14,20 @@
     </head>
 
     <body>
-        <nav>
-            <div class="nav-home">
-                <a href="../index.html">home</a>
+        <nav id="navbar">
+            <div id="nav-ham">
+                <button onclick="showMenu()">
+                    <i class="fa-solid fa-bars fa-3x"></i>
+                </button>
             </div>
-            <div class="nav-menu">
+
+            <div id="nav-menu" class="nav-menu">
+                <div class="nav-home">
+                    <a href="../index.html">home</a>
+                </div>
                 <a href="stuff.html">stuff</a>
+                <a href="projects.html">projects</a>
+                <a href="photos.html">photos</a>
                 <a href="https://github.com/intern-jck/jck.git">src</a>
             </div>
         </nav>
@@ -89,6 +98,7 @@
             </div>
         </main>
 
+        <script src="../js/nav.js"></script>
         <script src="../js/lib/utils.js"></script>
         <script src="../js/lib/SVG.js"></script>
         <script src="../js/vortex-graph.js"></script>

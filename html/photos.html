@@ -7,11 +7,8 @@
         <title>jck</title>
 
         <link rel="stylesheet" href="../css/main.css" />
-        <!-- <link rel="stylesheet" href="../css/nav.css" /> -->
+        <link rel="stylesheet" href="../css/nav.css" />
         <link rel="stylesheet" href="../css/photos.css" />
-
-        <script type="text/javascript" src="../js/nav.js" defer></script>
-        <script type="text/javascript" src="../js/photos.js" defer></script>
 
         <!-- Font Awesome -->
         <script
@@ -21,12 +18,17 @@
     </head>
 
     <body>
-        <nav>
-            <div class="nav-home">
-                <a href="../index.html">home</a>
+        <nav id="navbar">
+            <div id="nav-ham">
+                <button onclick="showMenu()">
+                    <i class="fa-solid fa-bars fa-3x"></i>
+                </button>
             </div>
 
-            <div class="nav-menu">
+            <div id="nav-menu" class="nav-menu">
+                <div class="nav-home">
+                    <a href="../index.html">home</a>
+                </div>
                 <a href="stuff.html">stuff</a>
                 <a href="projects.html">projects</a>
                 <a href="photos.html">photos</a>
@@ -43,5 +45,8 @@
 
             <div id="photo-modal" class="photo-modal"></div>
         </main>
+
+        <script type="text/javascript" src="../js/nav.js"></script>
+        <script type="text/javascript" src="../js/photos.js"></script>
     </body>
 </html>

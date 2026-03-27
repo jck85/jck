@@ -6,17 +6,28 @@
         <link rel="shortcut icon" href="#" />
         <title>jck</title>
 
-        <link rel="stylesheet" type="text/css" href="../css/main.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <link rel="stylesheet" type="text/css" href="css/nav.css" />
 
+        <script
+            src="https://kit.fontawesome.com/cdcc65decb.js"
+            crossorigin="anonymous"
+        ></script>
         <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
     </head>
 
     <body>
-        <nav>
-            <div class="nav-home">
-                <a href="/">home</a>
+        <nav id="navbar">
+            <div id="nav-ham">
+                <button onclick="showMenu()">
+                    <i class="fa-solid fa-bars fa-3x"></i>
+                </button>
             </div>
-            <div class="nav-menu">
+
+            <div id="nav-menu" class="nav-menu">
+                <div class="nav-home">
+                    <a href="index.html">home</a>
+                </div>
                 <a href="html/stuff.html">stuff</a>
                 <a href="html/projects.html">projects</a>
                 <a href="html/photos.html">photos</a>
@@ -32,5 +43,6 @@
         </main>
 
         <script src="js/main.js"></script>
+        <script src="js/nav.js"></script>
     </body>
 </html>
