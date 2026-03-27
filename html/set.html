@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>jck</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <link rel="stylesheet" type="text/css" href="../css/set.css" />
 
         <script
             src="https://kit.fontawesome.com/cdcc65decb.js"
@@ -25,35 +24,29 @@
             </div>
         </nav>
 
-        <div class="app">
-            <h1 class="app-header">Set</h1>
-            <div class="app-content">
-                <div class="set-content">
-                    <div id="set-canvas-container" class="set-canvas-container">
-                        <svg id="set" class="set-canvas"></svg>
+        <main>
+            <div class="page-header">
+                <h1>Set</h1>
+            </div>
+
+            <div class="page-content">
+                <div class="svg-content">
+                    <div id="svg-canvas-container" class="svg-canvas-container">
+                        <svg id="set-canvas" class="svg-canvas"></svg>
                     </div>
 
-                    <div class="set-controls">
-                        <button class="btn game-btn m-1" onclick="newGame()">
-                            NEW
-                        </button>
-                        <button class="btn game-btn m-1" onclick="checkMatch()">
-                            CHECK
-                        </button>
-                        <button class="btn game-btn m-1" onclick="getHint()">
-                            HINT
-                        </button>
-                        <button class="btn game-btn m-1" onclick="drawThree()">
-                            DRAW 3
-                        </button>
-                        <a class="nav-link" href="#" onclick="showRules()"
-                            >Rules</a
-                        >
+                    <div class="svg-controls">
+                        <div class="svg-control-row">
+                            <button class="btn game-btn m-1">NEW</button>
+                            <button class="btn game-btn m-1">CHECK</button>
+                            <button class="btn game-btn m-1">HINT</button>
+                            <button class="btn game-btn m-1">DRAW 3</button>
+                            <button class="nav-link">RULES</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </main>
         <script src="../js/lib/utils.js"></script>
         <script src="../js/lib/SVG.js"></script>
         <script src="../js/set.js"></script>

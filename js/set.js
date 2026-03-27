@@ -1,41 +1,28 @@
 const CARD_WIDTH = 100;
 const CARD_HEIGHT = 150;
+let setGame = null;
+
+/*
+    props   |   0      |   1    |   2    |
+    count   |   1      |   2    |   3    |
+    shape   | triangle | square | circle |
+    shading | none     | shaded | fill   |
+    color   | red      | green  | blue   |
+*/
+
+// props = [count, shape, shading, color]
 
 window.addEventListener("load", () => {
-    console.log("Set Game");
-
-    const setGame = new SetGame("set");
+    setGame = new SetGame("set-canvas");
     setGame.createGame();
 
-    /*
-        props   |   0      |   1    |   2    |
-        count   |   1      |   2    |   3    |
-        shape   | triangle | square | circle |
-        shading | none     | shaded | fill   |
-        color   | red      | green  | blue   |
-    */
-
-    // props = [count, shape, shading, color]
-
-    // const propsA = [0, 0, 0, 0];
-    // const setCardA = new SetCard(50, 50, CARD_WIDTH, CARD_HEIGHT, propsA);
-    // setCardA.create();
-    // setGame.canvas.appendChild(setCardA.card);
-
-    // const propsB = [1, 1, 1, 1];
-    // const setCardB = new SetCard(225, 50, CARD_WIDTH, CARD_HEIGHT, propsB);
-    // setCardB.create();
-    // setGame.canvas.appendChild(setCardB.card);
-
-    // const propsC = [2, 2, 2, 2];
-    // const setCardC = new SetCard(400, 50, CARD_WIDTH, CARD_HEIGHT, propsC);
-    // setCardC.create();
-    // setGame.canvas.appendChild(setCardC.card);
+    // Add button events
 });
 
 class SetGame {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
+
         this.width = this.canvas.clientWidth;
         this.height = this.canvas.clientHeight;
 
