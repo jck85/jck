@@ -166,7 +166,6 @@ function addInfo(info, parentDiv, modelType) {
                 const resourceDiv = document.createElement("div");
                 resourceDiv.classList = "resource-div";
                 info[key].map((value) => {
-                    // console.log(value)
                     const resource = document.createElement("a");
                     resource.classList = "resource";
                     resource.textContent = value.name;
