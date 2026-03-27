@@ -1,5 +1,5 @@
 /* Stuff Page */
-.stuff-content {
+/* .stuff-content {
     margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
@@ -11,6 +11,7 @@
 .stuff-item {
     display: flex;
     flex-direction: column;
+    width: 
 }
 
 .stuff-canvas {
@@ -35,4 +36,4 @@
 .stuff-header a {
     margin-right: 1rem;
     font-size: 1.4rem;
-}
+} */

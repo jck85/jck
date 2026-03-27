@@ -64,12 +64,17 @@ class VortexGraph {
         this.centerY = 0;
         this.radius = 0;
         this.offset = 25;
-        this.modulus = 16;
-        this.multiplier = 2;
+        this.modulus = Math.floor(Math.random() * 99 + 2);
+        this.multiplier = Math.floor(Math.random() * 99 + 2);
     }
 
     setup() {
         this.draw();
+
+        if (document.getElementById("modulus-number")) {
+            this.updateModulus(this.modulus);
+            this.updateMultiplier(this.multiplier);
+        }
     }
 
     draw() {
