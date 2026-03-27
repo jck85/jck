@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
     const downloadSvgButton = document.getElementById("download-svg");
     if (downloadSvgButton) {
         downloadSvgButton.addEventListener("click", () => {
-            downloadSVG("voronoi-canvas-container");
+            downloadSVG("svg-canvas-container");
         });
     }
 });
