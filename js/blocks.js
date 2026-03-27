@@ -67,6 +67,8 @@ window.addEventListener("resize", () => {
     let scaleWidth = canvasWidth / previousWidth;
     let scaleHeight = canvasHeight / previousHeight;
 
+    // console.log("blocks resize", canvasWidth, previousWidth, scaleWidth);
+
     // Update Renderer
     Renderer.canvas.width = canvasWidth;
     Renderer.canvas.height = canvasHeight;
@@ -99,6 +101,7 @@ window.addEventListener("resize", () => {
     const bodyCount = bodies.length;
     for (let i = 4; i < bodyCount; i++) {
         let pos = bodies[i].position;
+        // console.log(pos);
 
         Body.setPosition(bodies[i], {
             x: pos.x * scaleWidth,
@@ -152,7 +155,7 @@ function renderWorld(canvas, width, height) {
     const props = {
         isStatic: true,
         render: {
-            fillStyle: "none",
+            fillStyle: "grey",
             strokeStyle: "none",
             lineWidth: 0,
         },
