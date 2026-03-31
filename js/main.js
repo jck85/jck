@@ -25,7 +25,6 @@ function setup() {
     canvasCenterX = canvasWidth / 2;
     canvasCenterY = canvasHeight / 2;
 
-    console.log(canvasCenterX, canvasCenterY, canvasWidth, canvasHeight);
     const canvas = createCanvas(canvasWidth, canvasHeight);
     canvas.parent(canvasId);
 
