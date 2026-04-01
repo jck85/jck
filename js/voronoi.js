@@ -90,6 +90,7 @@ class Voronoi {
 
         this.bounds = [xMin, yMin, xMax, yMax];
 
+        // Mouse Events
         this.canvas.addEventListener("mousedown", (event) => {
             event.preventDefault();
             const mousePos = getMouse(this.canvas, event);
@@ -135,9 +136,62 @@ class Voronoi {
             event.preventDefault();
             this.activePoint = null;
         });
+
+        // Touch Events
+        this.canvas.addEventListener("touchstart", (event) => {
+            event.preventDefault();
+            const touchPos = getTouch(this.canvas, event);
+
+            for (let i = 0; i < this.points.length; i++) {
+                const d = distance(
+                    touchPos.x,
+                    touchPos.y,
+                    this.points[i].x,
+                    this.points[i].y
+                );
+                if (d < 25) {
+                    this.points[i].dragging = true;
+                    this.activePoint = this.points[i];
+                }
+            }
+        });
+
+        this.canvas.addEventListener("touchmove", (event) => {
+            event.preventDefault();
+            const touchPos = getTouch(this.canvas, event);
+
+            // const touch = event.touches[0];
+            // const rect = svgElement.getBoundingClientRect();
+
+            const x = touchPos.x;
+            const y = touchPos.y;
+
+            console.log("touch move", x, y, this.activePoint);
+
+            if (this.activePoint) {
+                this.activePoint.move(x, y);
+                const id = this.activePoint.svg.id;
+                this.nodes[id] = [x, y];
+            }
+            this.draw();
+        });
+
+        this.canvas.addEventListener("touchend", (event) => {
+            event.preventDefault();
+            for (let i = 0; i < this.points.length; i++) {
+                this.points[i].dragging = false;
+            }
+            this.activePoint = null;
+        });
+
+        this.canvas.addEventListener("touchcancel", (event) => {
+            event.preventDefault();
+            this.activePoint = null;
+        });
     }
 
     draw() {
+        // console.log("draw");
         this.clearCanvas();
 
         this.delaunay = d3.Delaunay.from(this.nodes);

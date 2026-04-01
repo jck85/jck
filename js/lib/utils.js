@@ -21,11 +21,21 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function getMouse(svgElement, evt) {
+function getMouse(svgElement, event) {
     const rect = svgElement.getBoundingClientRect();
     return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top,
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+    };
+}
+
+function getTouch(svgElement, event) {
+    const touch = event.touches[0];
+    const rect = svgElement.getBoundingClientRect();
+
+    return {
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
     };
 }
 
