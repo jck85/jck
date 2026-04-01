@@ -14,8 +14,19 @@ let blockCount = 0;
 let previousWidth = 0;
 let previousHeight = 0;
 
+let canvas = null;
+
 window.addEventListener("load", () => {
-    const canvas = document.getElementById("blocks-canvas");
+    canvas = document.getElementById("blocks-canvas");
+
+    canvas.addEventListener(
+        "touchmove",
+        function (e) {
+            e.preventDefault();
+        },
+        { passive: false }
+    );
+
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
 
@@ -25,7 +36,7 @@ window.addEventListener("load", () => {
     renderWorld(canvas, width, height);
 
     // Generate some default blocks to start
-    const blockSide = width * 0.1;
+    const blockSide = width * 0.2;
     const centerX = width / 2;
     const defaultStart = centerX - (blockSide * maxBlocks) / 2;
 
@@ -36,8 +47,8 @@ window.addEventListener("load", () => {
                 strokeStyle: "black",
                 lineWidth: 4,
             },
-            frictionAir: 0.01,
-            mass: 1,
+            frictionAir: 0.1,
+            mass: 2.5,
             chamfer: { radius: 2 },
         };
 
@@ -59,20 +70,25 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("resize", () => {
-    let canvas = document.getElementById("blocks-canvas");
+    // let canvas = document.getElementById("blocks-canvas");
 
-    canvasWidth = canvas.clientWidth;
-    canvasHeight = canvas.clientHeight;
+    // canvasWidth = canvas.clientWidth;
+    // canvasHeight = canvas.clientHeight;
+
+    canvasWidth = canvas.offsetWidth;
+    canvasHeight = canvas.offsetHeight;
+    console.log("Canvas New Size: ", canvasWidth, canvasHeight);
+    console.log("Canvas Old Size: ", previousWidth, previousHeight);
 
     let scaleWidth = canvasWidth / previousWidth;
     let scaleHeight = canvasHeight / previousHeight;
-
-    // console.log("blocks resize", canvasWidth, previousWidth, scaleWidth);
+    console.log("Canvas Scale Size: ", scaleWidth, scaleHeight);
 
     // Update Renderer
-    Renderer.canvas.width = canvasWidth;
-    Renderer.canvas.height = canvasHeight;
+    // Renderer.canvas.width = canvasWidth;
+    // Renderer.canvas.height = canvasHeight;
 
+    Matter.Render.setSize(Renderer, canvasWidth, canvasHeight);
     Renderer.options.width = canvasWidth;
     Renderer.options.height = canvasHeight;
 
@@ -139,12 +155,22 @@ function renderWorld(canvas, width, height) {
     const mouseConstraint = Matter.MouseConstraint.create(Engine, {
         mouse: mouse,
         constraint: {
-            stiffness: 0.5,
+            stiffness: 0.4,
             render: {
                 visible: false,
             },
         },
     });
+
+    mouseConstraint.mouse.element.removeEventListener(
+        "wheel",
+        mouseConstraint.mouse.mousewheel
+    );
+
+    mouseConstraint.mouse.element.removeEventListener(
+        "DOMMouseScroll",
+        mouseConstraint.mouse.mousewheel
+    );
 
     Composite.add(World, mouseConstraint);
 
