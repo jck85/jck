@@ -70,11 +70,6 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("resize", () => {
-    // let canvas = document.getElementById("blocks-canvas");
-
-    // canvasWidth = canvas.clientWidth;
-    // canvasHeight = canvas.clientHeight;
-
     canvasWidth = canvas.offsetWidth;
     canvasHeight = canvas.offsetHeight;
     console.log("Canvas New Size: ", canvasWidth, canvasHeight);
@@ -85,13 +80,9 @@ window.addEventListener("resize", () => {
     console.log("Canvas Scale Size: ", scaleWidth, scaleHeight);
 
     // Update Renderer
-    // Renderer.canvas.width = canvasWidth;
-    // Renderer.canvas.height = canvasHeight;
-
     Matter.Render.setSize(Renderer, canvasWidth, canvasHeight);
     Renderer.options.width = canvasWidth;
     Renderer.options.height = canvasHeight;
-
     Renderer.bounds.max.x = Renderer.bounds.min.x + canvasWidth;
     Renderer.bounds.max.y = Renderer.bounds.min.y + canvasHeight;
 
@@ -117,7 +108,6 @@ window.addEventListener("resize", () => {
     const bodyCount = bodies.length;
     for (let i = 4; i < bodyCount; i++) {
         let pos = bodies[i].position;
-        // console.log(pos);
 
         Body.setPosition(bodies[i], {
             x: pos.x * scaleWidth,
@@ -177,11 +167,11 @@ function renderWorld(canvas, width, height) {
     // Sync mouse with renderer
     Renderer.mouse = mouse;
 
-    // add boundries to world
+    // Add boundries to world
     const props = {
         isStatic: true,
         render: {
-            fillStyle: "grey",
+            fillStyle: "black",
             strokeStyle: "none",
             lineWidth: 0,
         },
