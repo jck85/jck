@@ -198,6 +198,13 @@ input[type="range"] {
     margin: auto;
 }
 
+.solar-canvas {
+    border: 4px solid black;
+    width: 30rem;
+    height: 30rem;
+    margin: auto;
+}
+
 /* Stuff Page */
 .stuff-content {
     display: flex;
@@ -324,6 +331,7 @@ input[type="range"] {
 
     /* Home Page */
     .home-canvas {
+        border: 4px solid red
         width: 30rem;
         height: 30rem;
     }

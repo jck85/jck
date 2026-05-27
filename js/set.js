@@ -157,8 +157,8 @@ class SetCard {
     // Add shading.
     // Add svgs to group.
     // Return group.
-
     // Creates isosceles triangles.
+
     createTriangle(x, y, b, h, color, shading) {
         const group = new Group();
 

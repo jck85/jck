@@ -1,6 +1,5 @@
 let canvasWidth = 0;
 let canvasHeight = 0;
-
 let canvasCenterX = 0;
 let canvasCenterY = 0;
 
@@ -16,6 +15,8 @@ window.addEventListener("resize", () => {
     resizeCanvas(canvasWidth, canvasHeight);
 });
 
+let frame_count = 0;
+
 function setup() {
     let canvasId = "home-canvas";
     let c = document.getElementById(canvasId);
@@ -25,11 +26,11 @@ function setup() {
     canvasCenterX = canvasWidth / 2;
     canvasCenterY = canvasHeight / 2;
 
-    console.log(canvasCenterX, canvasCenterY, canvasWidth, canvasHeight);
+    // console.log(canvasCenterX, canvasCenterY, canvasWidth, canvasHeight);
     const canvas = createCanvas(canvasWidth, canvasHeight);
     canvas.parent(canvasId);
 
-    frameRate(60);
+    frameRate(10);
     angleMode(DEGREES);
 }
 
@@ -42,8 +43,27 @@ function draw() {
 
     // Mercury
     let mercuryOrbitA = 40;
-    let mercuryX = cos(frameCount * 1.0) * mercuryOrbitA + canvasCenterX;
-    let mercuryY = sin(frameCount * 1.0) * mercuryOrbitA + canvasCenterY;
+
+    // let mercuryX0 = cos(frameCount * 1.0) * mercuryOrbitA + canvasCenterX;
+    // let mercuryY0 = sin(frameCount * 1.0) * mercuryOrbitA + canvasCenterY;
+    
+    let mXRads = Math.cos(frameCount)
+    let mYRads = Math.sin(frameCount)
+
+    // let mX = (mXRads * 180) / Math.PI
+    // let mY = (mYRads * 180) / Math.PI
+
+    let mercuryX = mXRads * mercuryOrbitA + canvasCenterX;
+    let mercuryY = mYRads * mercuryOrbitA + canvasCenterY;
+
+    console.log(mercuryX, mercuryY)
+    
+    // mercuryX = (180 * mercuryX) / Math.PI
+    // mercuryY = (180 * mercuryY) / Math.PI
+    
+    // console.log(mercuryX0, mercuryY0, mercuryX, mercuryY);
+    // console.log(frameCount, cos(frameCount), Math.cos(frameCount))
+    
     fill(200, 10, 200);
     noStroke();
     ellipse(mercuryX, mercuryY, 15, 15);
