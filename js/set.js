@@ -11,11 +11,9 @@ let setGame = null;
 */
 
 // props = [count, shape, shading, color]
-
 window.addEventListener("load", () => {
     setGame = new SetGame("set-canvas");
     setGame.createGame();
-
     // Add button events
 });
 
